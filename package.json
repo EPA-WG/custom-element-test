@@ -1,0 +1,34 @@
+{
+  "name": "custom-element-test",
+  "description": "Webcomponent custom-element-test following open-wc recommendations",
+  "license": "MIT",
+  "author": "custom-element-test",
+  "version": "0.0.0",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "start": "web-dev-server",
+    "test": "web-test-runner --coverage",
+    "test:watch": "web-test-runner --watch",
+    "storybook": "start-storybook -p 6006",
+    "storybook:build": "build-storybook",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "lit": "^2.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@open-wc/testing": "next",
+    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.5.14",
+    "@storybook/addon-links": "^6.5.14",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/web-components": "^6.5.14",
+    "@web/dev-server": "^0.1.35",
+    "@web/test-runner": "^0.15.0",
+    "babel-loader": "^9.1.0",
+    "lit-html": "^2.5.0"
+  }
+}
