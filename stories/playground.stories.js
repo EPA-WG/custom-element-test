@@ -16,8 +16,7 @@ function Template( { title, tag , attributes, slot, payload } )
         <fieldset>
             <legend>${ title }</legend>
             <custom-element
-                tag=${ tag }
-                
+                tag="${ tag }"
                 hidden
                 >
                 ${ slot }
@@ -31,7 +30,7 @@ export const Regular = Template.bind( {} );
 
 export const NamedSlot = Template.bind( {} );
 NamedSlot.args =
-{     title: 'same slot can be used multiple times in template'
+{     title: 'named slot'
 ,       tag: 'dce-1-slot'
 ,      slot: `<slot name="slot1"> 😃</slot>`
 ,   payload: `<i slot="slot1">🥕</i>`
@@ -56,7 +55,7 @@ NamedDefaultSlot.args =
 
 
 export const NamedUnnamedDefaultSlot = Template.bind( {} );
-NamedDefaultSlot.args =
+NamedUnnamedDefaultSlot.args =
 {   title: 'named and un-named default slot'
 ,     tag: 'dce-4-slot'
 ,    slot: `#1 <slot name=""> 😃</slot> <br/>
