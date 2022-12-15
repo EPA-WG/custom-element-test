@@ -1,5 +1,5 @@
 # custom-element-test
-test and storybook for @epa-wg/custom-element 
+test and storybook for [@epa-wg/custom-element](https://github.com/EPA-WG/custom-element) 
 
 ## Installation
 
