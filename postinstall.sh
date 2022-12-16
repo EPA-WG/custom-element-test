@@ -1,6 +1,6 @@
 # as tested sources reside in foreign module, they would be copied into src
 # to be treated as internal by test coverage
-
+mkdir src
 cd src
 
 rm custom-element.d.ts >/dev/null

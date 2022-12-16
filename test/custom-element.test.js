@@ -54,5 +54,14 @@ describe('custom-element', () => {
     expect(el.querySelectorAll('greet-element').length).to.equal(1);
     expect(el.querySelector('greet-element').innerHTML).to.include(`👋 World!`);
   });
+  it('TemplateWithAttributesAndCondition', async () => {
+    const el = await renderStory(TemplateWithAttributesAndCondition);
+    expect(el.querySelectorAll('pokemon-tile').length).to.equal(1);
+    const p = el.querySelector('pokemon-tile');
+    expect(p.querySelector('img').src).to.equal('https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/1.svg');
+    expect(p.querySelector('h3').innerHTML).to.equal('bulbasaur');
+    expect(p.innerHTML).to.include('Smile as: 👼');
+    expect(p.querySelector('p').innerHTML).to.include('Bulbasaur is a cute Pokémon');
+  });
 
 });
