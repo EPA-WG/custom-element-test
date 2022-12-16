@@ -1,22 +1,54 @@
 {
     "name": "custom-element-test",
-    "description": "Webcomponent custom-element-test following open-wc recommendations",
-    "license": "MIT",
-    "author": "custom-element-test",
-    "version": "0.0.0",
-    "main": "index.js",
-    "module": "index.js",
+    "version": "0.0.3",
+    "description": "binary distribution, test, and storybook project for custom-element",
+    "browser": "dist/custom-element.js",
+    "module": "dist/custom-element.js",
+    "exports": {
+        ".": "./dist/custom-element.js",
+        "./package.json": "./package.json",
+        "./CustomElement": "./dist/custom-element.js"
+    },
+    "files": [
+        "*"
+    ],
+    "type": "module",
     "scripts": {
-        "postinstall": "bash postinstall.sh",
+        "postinstall": "bash bin/postinstall.sh",
         "start": "npm i --no-save @web/dev-server && web-dev-server --node-resolve",
         "test": "web-test-runner --coverage",
         "test:watch": "web-test-runner --watch",
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook",
-        "build-storybook": "build-storybook"
+        "build": "bash bin/test.sh && build-storybook"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/EPA-WG/custom-element-test.git"
+    },
+    "keywords": [
+        "WebComponent",
+        "Declarative Custom Element",
+        "XSLT",
+        "JS",
+        "javascript"
+    ],
+    "author": {
+        "name": "Sasha Firsov",
+        "email": "suns@simulationworks.com",
+        "url": "https://blog.firsov.net/"
+    },
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/EPA-WG/custom-element/issues"
+    },
+    "homepage": "https://github.com/EPA-WG/custom-element#readme",
+    "funding": {
+        "type": "patreon",
+        "url": "https://www.patreon.com/sashafirsov"
     },
     "dependencies": {
-        "@epa-wg/custom-element": "0.0.2"
+        "@epa-wg/custom-element": "0.0.3"
     },
     "devDependencies": {
         "@babel/core": "^7.20.5",

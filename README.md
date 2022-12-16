@@ -11,7 +11,7 @@ npm i custom-element-test
 
 ```html
 <script type="module">
-  import 'custom-element-test/custom-element-test.js';
+  import 'custom-element-test/src/custom-element.js';
 </script>
 
 <custom-element-test></custom-element-test>
