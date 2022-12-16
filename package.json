@@ -1,65 +1,69 @@
 {
-    "name": "custom-element-test",
-    "version": "0.0.3",
-    "description": "binary distribution, test, and storybook project for custom-element",
-    "browser": "dist/custom-element.js",
-    "module": "dist/custom-element.js",
-    "exports": {
-        ".": "./dist/custom-element.js",
-        "./package.json": "./package.json",
-        "./CustomElement": "./dist/custom-element.js"
-    },
-    "files": [
-        "*"
-    ],
-    "scripts": {
-        "clean": "bash bin/clean.sh",
-        "postinstall": "bash bin/postinstall.sh",
-        "start": "npm i --no-save @web/dev-server && web-dev-server --node-resolve",
-        "test": "web-test-runner --coverage",
-        "test:watch": "web-test-runner --watch",
-        "storybook": "start-storybook -p 6006",
-        "storybook:build": "build-storybook",
-        "build": "npm run clean && npm run test && build-storybook"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/EPA-WG/custom-element-test.git"
-    },
-    "keywords": [
-        "WebComponent",
-        "Declarative Custom Element",
-        "XSLT",
-        "JS",
-        "javascript"
-    ],
-    "author": {
-        "name": "Sasha Firsov",
-        "email": "suns@simulationworks.com",
-        "url": "https://blog.firsov.net/"
-    },
-    "license": "Apache-2.0",
-    "bugs": {
-        "url": "https://github.com/EPA-WG/custom-element/issues"
-    },
-    "homepage": "https://github.com/EPA-WG/custom-element#readme",
-    "funding": {
-        "type": "patreon",
-        "url": "https://www.patreon.com/sashafirsov"
-    },
-    "dependencies": {
-        "@epa-wg/custom-element": "0.0.3"
-    },
-    "devDependencies": {
-        "@open-wc/testing": "next",
-        "@storybook/addon-actions": "^6.5.14",
-        "@storybook/addon-essentials": "^6.4.22",
-        "@storybook/addon-links": "^6.5.14",
-        "@storybook/builder-webpack5": "^6.5.14",
-        "@storybook/manager-webpack5": "^6.5.14",
-        "@storybook/web-components": "^6.1.21",
-        "@web/test-runner": "^0.15.0",
-        "babel-loader": "^9.1.0",
-        "esbuild": "^0.16.7"
-    }
+  "name": "custom-element-test",
+  "version": "0.0.3",
+  "description": "binary distribution, test, and storybook project for custom-element",
+  "browser": "dist/custom-element.js",
+  "module": "dist/custom-element.js",
+  "exports": {
+    ".": "./dist/custom-element.js",
+    "./package.json": "./package.json",
+    "./CustomElement": "./dist/custom-element.js"
+  },
+  "files": [
+    "*"
+  ],
+  "scripts": {
+    "clean": "bash bin/clean.sh",
+    "postinstall": "bash bin/postinstall.sh",
+    "start": "npm i --no-save @web/dev-server && web-dev-server --node-resolve",
+    "test": "web-test-runner --coverage",
+    "test:watch": "web-test-runner --watch",
+    "storybook": "start-storybook -p 6006",
+    "storybook:build": "build-storybook",
+    "build": "npm run clean && npm run test && build-storybook",
+    "chromatic": "npx chromatic --project-token=91dee44317cd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EPA-WG/custom-element-test.git"
+  },
+  "keywords": [
+    "WebComponent",
+    "Declarative Custom Element",
+    "XSLT",
+    "JS",
+    "javascript"
+  ],
+  "author": {
+    "name": "Sasha Firsov",
+    "email": "suns@simulationworks.com",
+    "url": "https://blog.firsov.net/"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/EPA-WG/custom-element/issues"
+  },
+  "homepage": "https://github.com/EPA-WG/custom-element#readme",
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/sashafirsov"
+  },
+  "dependencies": {
+    "@epa-wg/custom-element": "0.0.3"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "next",
+    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-links": "^6.5.14",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/web-components": "^6.1.21",
+    "@web/test-runner": "^0.15.0",
+    "babel-loader": "^9.1.0",
+    "chromatic": "^6.13.1",
+    "esbuild": "^0.16.7"
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "custom-element-test@0.0.3"
 }
