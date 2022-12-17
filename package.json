@@ -15,12 +15,13 @@
   "scripts": {
     "clean": "bash bin/clean.sh",
     "postinstall": "bash bin/postinstall.sh",
-    "start": "npm i --no-save @web/dev-server && web-dev-server --node-resolve",
+    "start": "bash bin/start.sh",
     "test": "web-test-runner --coverage",
     "test:watch": "web-test-runner --watch",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "build": "npm run clean && npm run test && build-storybook",
+    "build": "npm run clean && build-storybook",
+    "prepublishOnly": "npm run build && npm run test",
     "chromatic": "npx chromatic --project-token=91dee44317cd"
   },
   "repository": {
@@ -60,9 +61,13 @@
     "@storybook/manager-webpack5": "^6.5.14",
     "@storybook/web-components": "^6.1.21",
     "@web/test-runner": "^0.15.0",
+    "@whitespace/storybook-addon-html": "^5.1.1",
     "babel-loader": "^9.1.0",
     "chromatic": "^6.13.1",
-    "esbuild": "^0.16.7"
+    "esbuild": "^0.16.7",
+    "html-loader": "^4.2.0",
+    "prettier": "^2.8.1",
+    "react-syntax-highlighter": "^15.5.0"
   },
   "readme": "ERROR: No README data found!",
   "_id": "custom-element-test@0.0.3"

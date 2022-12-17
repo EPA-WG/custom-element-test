@@ -127,4 +127,3 @@ coverage
 /out-tsc/
 
 storybook-static
-/package-lock.json
