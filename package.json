@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-test",
-  "version": "0.0.4",
+  "version": "0.0.5a",
   "description": "binary distribution, test, and storybook project for custom-element",
   "browser": "dist/custom-element.js",
   "module": "dist/custom-element.js",
@@ -20,7 +20,7 @@
     "test:watch": "web-test-runner --watch",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "build": "npm run clean && build-storybook",
+    "build": "npm run clean && bash bin/build.sh && build-storybook",
     "prepublishOnly": "npm run build && npm run test",
     "chromatic": "npx chromatic --project-token=91dee44317cd"
   },
