@@ -9,4 +9,4 @@ function Template( { title, tag , attributes, slot, payload } )
     return allHtml;
 }
 
-export const Regular = Template.bind( {} );
+export const Introduction = Template.bind( {} );

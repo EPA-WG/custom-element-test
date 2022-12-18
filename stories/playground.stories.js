@@ -92,7 +92,25 @@ TemplateWithAttributesAndCondition.args =
                                                          used within output attribute via curly brackets -->
 
                                                     <!-- \`slot name=xxx\` replaced with elements with \`slot=xxx\` attribute -->
-            <p><slot name="description"><i>description is not available</i></slot></p>`
+            <p><slot name="description"><i>description is not available</i></slot></p>
+            <xsl:for-each select="//*[@pokemon-id]">
+                                                    <!-- loop over payload elements with \`pokemon-id\` attribute -->
+                <button>
+                    <img height="32"
+                        src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/{@pokemon-id}.svg"
+                        alt="{text()}"/>
+                    <br/>
+                    <xsl:value-of select='text()'/>
+                </button>
+
+            </xsl:for-each>
+
+`
 , payload: `<p slot="description">Bulbasaur is a cute Pokémon born with a large seed firmly affixed to its back;
-                the seed grows in size as the Pokémon  does.</p>`
+                the seed grows in size as the Pokémon  does.</p>
+            <ul>
+                <li pokemon-id="2">ivysaur</li>
+                <li pokemon-id="3">venusaur</li>
+            </ul>
+`
 };
