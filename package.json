@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-test",
-  "version": "0.0.5-b",
+  "version": "0.0.6",
   "description": "binary distribution, test, and storybook project for custom-element",
   "browser": "dist/custom-element.js",
   "module": "dist/custom-element.js",
@@ -50,7 +50,7 @@
     "url": "https://www.patreon.com/sashafirsov"
   },
   "dependencies": {
-    "@epa-wg/custom-element": "0.0.4"
+    "@epa-wg/custom-element": "0.0.6"
   },
   "devDependencies": {
     "@open-wc/testing": "next",
@@ -69,5 +69,5 @@
     "react-syntax-highlighter": "^15.5.0"
   },
   "readme": "README.md",
-  "_id": "@epa-wg/custom-element-test@0.0.5-b"
+  "_id": "@epa-wg/custom-element-test@0.0.6"
 }
