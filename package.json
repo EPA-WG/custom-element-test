@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-test",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "binary distribution, test, and storybook project for custom-element",
   "browser": "dist/custom-element.js",
   "module": "dist/custom-element.js",
@@ -50,24 +50,24 @@
     "url": "https://www.patreon.com/sashafirsov"
   },
   "dependencies": {
-    "@epa-wg/custom-element": "0.0.6"
+    "@epa-wg/custom-element": "0.0.7"
   },
   "devDependencies": {
     "@open-wc/testing": "next",
-    "@storybook/addon-actions": "^6.5.14",
-    "@storybook/addon-essentials": "^6.5.14",
-    "@storybook/addon-links": "^6.5.14",
-    "@storybook/builder-webpack5": "^6.5.14",
-    "@storybook/manager-webpack5": "^6.5.14",
-    "@storybook/web-components": "^6.5.14",
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-webpack5": "^6.5.15",
+    "@storybook/manager-webpack5": "^6.5.15",
+    "@storybook/web-components": "^6.5.15",
     "@web/test-runner": "^0.15.0",
     "babel-loader": "^9.1.0",
-    "chromatic": "^6.13.1",
-    "esbuild": "^0.16.8",
+    "chromatic": "^6.14.0",
+    "esbuild": "^0.16.12",
     "html-loader": "^4.2.0",
     "prettier": "^2.8.1",
     "react-syntax-highlighter": "^15.5.0"
   },
   "readme": "README.md",
-  "_id": "@epa-wg/custom-element-test@0.0.6"
+  "_id": "@epa-wg/custom-element-test@0.0.7"
 }
