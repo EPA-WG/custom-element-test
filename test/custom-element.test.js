@@ -61,6 +61,10 @@ describe('custom-element', () => {
     expect(p.querySelector('h3').innerHTML).to.equal('bulbasaur');
     expect(p.innerHTML).to.include('Smile as: 👼');
     expect(p.querySelector('p').innerHTML).to.include('Bulbasaur is a cute Pokémon');
+
+    const dce = el.querySelector('custom-element');
+    expect(p.dce).to.equal(dce);
+    expect(dce.dce).to.equal(dce);
   });
 
 });
