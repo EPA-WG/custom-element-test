@@ -1,7 +1,7 @@
 module.exports = {
   "stories": [
     "../stories/welcome.stories.js",
-    "../stories/playground.stories.js",
+    "../stories/*.stories.js",
     // "../src/**/*.stories.mdx",
     // "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],

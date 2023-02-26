@@ -9,19 +9,20 @@ test and storybook for [@epa-wg/custom-element](https://github.com/EPA-WG/custom
 ## Installation
 
 ```bash
-npm i custom-element-test
+npm i
 ```
-
-## Usage
-
-```html
-<script type="module">
-  import 'custom-element-test/src/custom-element.js';
-</script>
-
-<custom-element-test></custom-element-test>
+### local development
+1. in working folder, a root for `custom-element-test` and `custom-element`
+```bash
+git clone git@github.com:EPA-WG/custom-element.git
+cd custom-element
+npm i
+npm link
+cd ../custom-element-test
+npm i
+npm link @epa-wg/custom-element
+bash  bash bin/postinstall.sh
 ```
-
 ## Testing with Web Test Runner
 
 To execute a single test run:

@@ -4,11 +4,11 @@
 mkdir src
 cd src
 
-rm custom-element.d.ts >/dev/null
-rm custom-element.js >/dev/null
+rm *.d.ts >/dev/null
+rm *.js >/dev/null
 pwd
-cp ../node_modules/@epa-wg/custom-element/custom-element.d.ts custom-element.d.ts
-cp ../node_modules/@epa-wg/custom-element/custom-element.js custom-element.js
+cp ../node_modules/@epa-wg/custom-element/*.d.ts .
+cp ../node_modules/@epa-wg/custom-element/*.js .
 cp ../node_modules/@epa-wg/custom-element/index.html index.html
-ls ../node_modules/@epa-wg/custom-element/custom-element.js
-ls custom-element.js
+ls ../node_modules/@epa-wg/custom-element/*.js
+ls *.js
