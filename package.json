@@ -1,73 +1,81 @@
 {
-  "name": "@epa-wg/custom-element-test",
-  "version": "0.0.7",
-  "description": "binary distribution, test, and storybook project for custom-element",
-  "browser": "dist/custom-element.js",
-  "module": "dist/custom-element.js",
-  "exports": {
-    ".": "./dist/custom-element.js",
-    "./package.json": "./package.json",
-    "./CustomElement": "./dist/custom-element.js"
-  },
-  "files": [
-    "*"
-  ],
-  "scripts": {
-    "clean": "bash bin/clean.sh",
-    "postinstall": "bash bin/postinstall.sh",
-    "start": "bash bin/start.sh",
-    "test": "web-test-runner --coverage",
-    "test:watch": "web-test-runner --watch",
-    "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook",
-    "build": "npm run clean && bash bin/build.sh && build-storybook",
-    "prepublishOnly": "npm run build && npm run test",
-    "chromatic": "npx chromatic --project-token=91dee44317cd"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EPA-WG/custom-element-test.git"
-  },
-  "keywords": [
-    "WebComponent",
-    "Declarative Custom Element",
-    "XSLT",
-    "JS",
-    "javascript"
-  ],
-  "author": {
-    "name": "Sasha Firsov",
-    "email": "suns@simulationworks.com",
-    "url": "https://blog.firsov.net/"
-  },
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/EPA-WG/custom-element/issues"
-  },
-  "homepage": "https://github.com/EPA-WG/custom-element#readme",
-  "funding": {
-    "type": "patreon",
-    "url": "https://www.patreon.com/sashafirsov"
-  },
-  "dependencies": {
-    "@epa-wg/custom-element": "0.0.7"
-  },
-  "devDependencies": {
-    "@open-wc/testing": "next",
-    "@storybook/addon-actions": "^6.5.15",
-    "@storybook/addon-essentials": "^6.5.15",
-    "@storybook/addon-links": "^6.5.15",
-    "@storybook/builder-webpack5": "^6.5.15",
-    "@storybook/manager-webpack5": "^6.5.15",
-    "@storybook/web-components": "^6.5.15",
-    "@web/test-runner": "^0.15.0",
-    "babel-loader": "^9.1.0",
-    "chromatic": "^6.14.0",
-    "esbuild": "^0.16.12",
-    "html-loader": "^4.2.0",
-    "prettier": "^2.8.1",
-    "react-syntax-highlighter": "^15.5.0"
-  },
-  "readme": "README.md",
-  "_id": "@epa-wg/custom-element-test@0.0.7"
+    "name": "@epa-wg/custom-element-test",
+    "version": "0.0.7",
+    "description": "binary distribution, test, and storybook project for custom-element",
+    "type": "module",
+    "browser": "dist/custom-element.js",
+    "module": "dist/custom-element.js",
+    "exports": {
+        ".": "./dist/custom-element.js",
+        "./package.json": "./package.json",
+        "./CustomElement": "./dist/custom-element.js",
+        "./LocalStorageElement": "./dist/local-storage.js",
+        "./HttpRequestElement": "./dist/http-request.js"
+    },
+    "files": [
+        "*"
+    ],
+    "scripts": {
+        "clean": "bash bin/clean.sh",
+        "postinstall": "bash bin/postinstall.sh",
+        "start": "bash bin/start.sh",
+        "test": "web-test-runner --coverage --node-resolve",
+        "test:watch": "web-test-runner --watch --node-resolve",
+        "storybook": "start-storybook -p 6006 -s public",
+        "storybook:build": "build-storybook",
+        "build": "npm run clean && bash bin/build.sh && build-storybook",
+        "prepublishOnly": "npm run build && npm run test",
+        "chromatic": "npx chromatic --project-token=91dee44317cd"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/EPA-WG/custom-element-test.git"
+    },
+    "keywords": [
+        "WebComponent",
+        "Declarative Custom Element",
+        "XSLT",
+        "JS",
+        "javascript"
+    ],
+    "author": {
+        "name": "Sasha Firsov",
+        "email": "suns@simulationworks.com",
+        "url": "https://blog.firsov.net/"
+    },
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/EPA-WG/custom-element/issues"
+    },
+    "homepage": "https://github.com/EPA-WG/custom-element#readme",
+    "funding": {
+        "type": "patreon",
+        "url": "https://www.patreon.com/sashafirsov"
+    },
+    "dependencies": {
+        "@epa-wg/custom-element": "0.0.7"
+    },
+    "devDependencies": {
+        "@open-wc/testing": "next",
+        "@storybook/addon-actions": "^6.5.15",
+        "@storybook/addon-essentials": "^6.5.15",
+        "@storybook/addon-links": "^6.5.15",
+        "@storybook/builder-webpack5": "^6.5.15",
+        "@storybook/manager-webpack5": "^6.5.15",
+        "@storybook/web-components": "^6.5.15",
+        "@web/test-runner": "^0.15.0",
+        "babel-loader": "^9.1.0",
+        "chromatic": "^6.14.0",
+        "esbuild": "^0.16.12",
+        "html-loader": "^4.2.0",
+        "msw": "^1.1.0",
+        "msw-storybook-addon": "^1.7.0",
+        "prettier": "^2.8.1",
+        "react-syntax-highlighter": "^15.5.0"
+    },
+    "readme": "README.md",
+    "_id": "@epa-wg/custom-element-test@0.0.7",
+    "msw": {
+        "workerDirectory": "public"
+    }
 }
