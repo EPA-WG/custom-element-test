@@ -19,17 +19,17 @@ export default
     ,         type: { control: 'text', type: { name: 'string', required: true }, defaultValue: `string`, description: 'string|json|input type' }
     ,         live: { control: 'boolean', type: { name: 'boolean', required: true }, defaultValue: false, description: 'string|json|input type' }
     }
-,   parameters:
-    {   controls: { sort: 'requiredFirst' },
-        msw:
-        {  handlers:
-            [   rest.get('*/api/v2/pokemon', (req, res, ctx) =>
-                {
-                    return res( ctx.json(pokemonsMock));
-                })
-            ]
-        }
-    }
+// ,   parameters:
+//     {   controls: { sort: 'requiredFirst' },
+//         msw:
+//         {  handlers:
+//             [   rest.get('*/api/v2/pokemon', (req, res, ctx) =>
+//                 {
+//                     return res( ctx.json(pokemonsMock));
+//                 })
+//             ]
+//         }
+//     }
 };
 
 function Template( { title, tag , slice, type, live } )
@@ -43,7 +43,7 @@ function Template( { title, tag , slice, type, live } )
                 >
   <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <http-request
-        url="https://pokeapi.co/api/v2/pokemon?limit=6&offset=0"
+        url="../stories/pokemons.mock.js"
         slice="page"
         ></http-request>
     <xsl:for-each select="//slice/page/data/results/*">

@@ -10,5 +10,6 @@ export const parameters = {
   },
 };
 
-initialize();
-export const decorators = [mswDecorator];
+// initialize();
+// export const decorators = [mswDecorator];
+export const decorators = [];
