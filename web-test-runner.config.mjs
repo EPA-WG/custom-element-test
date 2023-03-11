@@ -39,4 +39,13 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   // ],
 
   // See documentation for all available options
+  //   plugins:[
+  //       {
+  //     name: 'msw-plugin',
+  //     serve(context) {
+  //       if (context.path === '/node_modules/msw/lib/index.js') {
+  //         return `export default { version: "${packageJson.version}" }`;
+  //       }
+  //     },
+  //   ]
 });

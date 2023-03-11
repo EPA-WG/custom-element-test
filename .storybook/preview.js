@@ -1,6 +1,8 @@
 import { initialize, mswDecorator } from "msw-storybook-addon";
 import { rest } from "msw";
+
 import pokemonsMock from "../stories/pokemons.mock";
+import './common.css';
 
 export const parameters = {
     actions: { argTypesRegex: "^on[A-Z].*" },
