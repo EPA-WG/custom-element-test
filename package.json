@@ -25,7 +25,8 @@
         "storybook:build": "build-storybook",
         "build": "npm run clean && bash bin/build.sh && build-storybook",
         "prepublishOnly": "npm run build && npm run test",
-        "chromatic": "npx chromatic --project-token=91dee44317cd"
+        "chromatic": "npx chromatic --project-token=91dee44317cd",
+        "sb": "npm run storybook"
     },
     "repository": {
         "type": "git",

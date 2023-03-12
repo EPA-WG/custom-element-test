@@ -49,8 +49,9 @@ LifecycleInitialized = ()=>`
         <fieldset>
             <legend>http-request no response</legend>
             <p> Before the data become available the <b>request</b>
-                is populated into dedicated <b>slice</b>
+                is populated into dedicated <b>slice</b> in <b>10</b> seconds in this demo
             </p>
+
             <custom-element
                 tag="no-responce"
                 hidden
@@ -58,7 +59,7 @@ LifecycleInitialized = ()=>`
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <http-request
         url="https://pokeapi.co/api/v2/noreturn"
-        slice="request-slice"
+        slice="request_slice"
         type="text"
         ></http-request>
     Content of <code>//slice/request_slice</code> before <b>response</b> available
@@ -79,15 +80,3 @@ LifecycleInitialized = ()=>`
             <no-responce></no-responce>
       </fieldset>
 `;
-// LifecycleInitialized.parameters =
-// {   msw:
-//     {   handlers:
-//         [   rest.get("*/api/v2/noreturn", (req, res, ctx) =>
-//             {
-//                 return new Promise(()=>{}); // res(ctx.json(pokemonsMock));
-//             }),
-//         ],
-//     }
-//
-//
-// }

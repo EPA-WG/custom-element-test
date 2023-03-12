@@ -1,7 +1,4 @@
-import { rest } from './msw.js'
-// import { rest } from '@bundled-es-modules/msw'
-// const rest = window.MockServiceWorker.rest;
-// import '@bundled-es-modules/msw/lib/iife/index.js';
+import { rest } from 'msw'
 
 import pokemonsMock from "../../stories/pokemons.mock";
 
@@ -10,9 +7,12 @@ export const handlers =
     {
         return res(ctx.json(pokemonsMock));
     }),
-    rest.get("*/api/v2/noreturn", (req, res, ctx) =>
-            {
-                return new Promise(()=>{}); // res(ctx.json(pokemonsMock));
+    rest.get("*/noreturn", (req, res, ctx) =>
+            {   console.log(req.url, 'trapped')
+                return new Promise((resolve)=>{ setTimeout(()=>
+                {   console.log(req.url, 'resolving')
+                    resolve(res(ctx.json(pokemonsMock)))
+                }, 10000)}); // 1 second to be able to catch the initial state before the full data returned;
             }),
     rest.get('/user/:userId', (req, res, ctx) =>
     {   return res(
