@@ -13,7 +13,7 @@ module.exports = {
         "builder": "@storybook/builder-webpack5"
     },
     staticDirs: [
-        '..' // for root level MSW
+        {from: '../mockServiceWorker.js', to: '/mockServiceWorker.js'} // MSW support
         // , '../static', {from: '../foo/assets', to: '/assets'}
     ],
 

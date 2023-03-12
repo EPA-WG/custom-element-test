@@ -97,7 +97,7 @@ injectSlice( x, s, data )
     el.innerHTML = isString? data : Json2Xml( data, s );
     const  slice = isString? el : el.firstChild;
     [...x.children].filter( e=>e.localName === s ).map( el=>el.remove() );
-    x.append(slice);
+        x.append(slice);
 }
 
     export class
