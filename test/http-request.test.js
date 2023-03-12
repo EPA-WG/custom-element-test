@@ -15,7 +15,7 @@ describe('http-request', () =>
     {
         const el = await renderStory(Demo);
         expect(el.querySelectorAll('hr-test-component').length).to.equal(1);
-        await aTimeout(200);
+        await aTimeout(50);
         expect(el.querySelectorAll('hr-test-component button').length).to.equal(6);
         expect(el.querySelector('hr-test-component button').innerText).to.equal('bulbasaur');
     });
@@ -24,7 +24,7 @@ describe('http-request', () =>
     {
         const el = await renderStory(LifecycleInitialized);
         expect(el.querySelectorAll('no-responce').length).to.equal(1);
-        await aTimeout(20);
+        await aTimeout(50);
         expect(el.querySelectorAll('[data-testid="request-section"]').length).to.equal(1);
         expect(el.querySelectorAll('[data-testid="section-attribute"]').length).to.equal(1);
         expect(el.querySelector('[data-testid="section-attribute"]').innerText).to.equal('@url');
