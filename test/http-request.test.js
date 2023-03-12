@@ -11,9 +11,8 @@ const renderStory = async (story) => fixture( story({ ...defs, ...story.args }) 
 
 describe('http-request', () =>
 {
-    it.skip('http-request happy path', async () =>
+    it('http-request happy path', async () =>
     {
-        await aTimeout(200);
         const el = await renderStory(Demo);
         expect(el.querySelectorAll('hr-test-component').length).to.equal(1);
         await aTimeout(200);
@@ -27,7 +26,10 @@ describe('http-request', () =>
         expect(el.querySelectorAll('no-responce').length).to.equal(1);
         await aTimeout(20);
         expect(el.querySelectorAll('[data-testid="request-section"]').length).to.equal(1);
-        expect(el.querySelectorAll('[data-testid="section-attribute"]').length).to.equal('1');
+        expect(el.querySelectorAll('[data-testid="section-attribute"]').length).to.equal(1);
+        expect(el.querySelector('[data-testid="section-attribute"]').innerText).to.equal('@url');
+        expect(el.innerText).to.include('\nrequest');
+        expect(el.innerText).not.to.include('\nresponse');
     });
 
 });
