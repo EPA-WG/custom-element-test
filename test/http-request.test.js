@@ -31,5 +31,5 @@ describe('http-request', () =>
         expect(el.innerText).to.include('\nrequest');
         expect(el.innerText).not.to.include('\nresponse');
     });
-
+    // todo test for destroy http connection on DCE removal
 });

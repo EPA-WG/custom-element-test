@@ -12,7 +12,8 @@ module.exports = {
     "core": {
         "builder": "@storybook/builder-webpack5"
     },
-    staticDirs: ['../public'
+    staticDirs: [
+        '..' // for root level MSW
         // , '../static', {from: '../foo/assets', to: '/assets'}
     ],
 
