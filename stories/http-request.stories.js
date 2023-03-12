@@ -1,5 +1,6 @@
 import '../src/custom-element.js';
 import '../src/http-request.js';
+// import {rest} from "msw";
 
 export default
 {   title: 'http-request', component: 'http-request'
@@ -7,10 +8,11 @@ export default
     {          tag: { control: 'text', defaultValue: 'hr-test-component' }
     // http-request props
     ,        slice: { control: 'text', type: { name: 'string', required: true }, defaultValue: `page` }
+    ,        url: { control: 'text', type: { name: 'string', required: true }, defaultValue: `https://pokeapi.co/api/v2/pokemon?limit=6` }
     }
 };
 
-function Template( { title, tag , slice } )
+function Template( { title, tag , slice, url } )
 {
     return `
         <fieldset>
@@ -21,7 +23,7 @@ function Template( { title, tag , slice } )
                 >
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <http-request
-        url="https://pokeapi.co/api/v2/pokemon?limit=6"
+        url="${url}"
         slice="${slice}"
         ></http-request>
     <xsl:for-each select="//slice/${slice}/data/results/*">
@@ -40,33 +42,41 @@ function Template( { title, tag , slice } )
 }
 
     export const
-HttpRequestSimple = Template.bind( {} );
+Demo = Template.bind( {} );
 
     export const
-HttpRequestJson = ()=>`
+LifecycleInitialized = ()=>`
         <fieldset>
-            <legend>http-request type=text</legend>
+            <legend>http-request no response</legend>
+            <p> Before the data become available the <b>request</b>
+                is populated into dedicated <b>slice</b> in <b>10</b> seconds in this demo
+            </p>
+
             <custom-element
-                tag="json-from-api"
+                tag="no-responce"
                 hidden
                 >
 <template><!-- wrapping into template to prevent images loading within DCE declaration -->
     <http-request
-        url="https://pokeapi.co/api/v2/pokemon?limit=6"
-        slice="jsonslice"
+        url="https://pokeapi.co/api/v2/noreturn"
+        slice="request_slice"
         type="text"
         ></http-request>
-    <xsl:for-each select="//slice/jsonslice/data/results/*">
-        <xsl:variable name="pokeid"
-            select="substring-before( substring-after( @url, 'https://pokeapi.co/api/v2/pokemon/'),'/')"
-            ></xsl:variable>
-        <button>
-            <xsl:value-of select='@name'/>
-        </button>
+    Content of <code>//slice/request_slice</code> before <b>response</b> available
+    <xsl:for-each select="//slice/request_slice/*">
+        <ul>
+            <var data-testid="request-section"><xsl:value-of select='name(.)'/></var>
+            <xsl:for-each select="@*">
+                <div>
+                    <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                    =
+                    <code><xsl:value-of select='.'/></code>
+                </div>
+            </xsl:for-each>
+        </ul>
     </xsl:for-each>
 </template>
             </custom-element>
-            <json-from-api></json-from-api>
+            <no-responce></no-responce>
       </fieldset>
-
 `;

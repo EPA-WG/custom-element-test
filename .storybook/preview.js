@@ -1,6 +1,7 @@
 import { initialize, mswDecorator } from "msw-storybook-addon";
-import { rest } from "msw";
-import pokemonsMock from "../stories/pokemons.mock";
+
+import './common.css';
+import {handlers} from "../src/mocks/handlers";
 
 export const parameters = {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -11,13 +12,7 @@ export const parameters = {
             date: /Date$/,
         },
     },
-    msw: {
-        handlers: [
-            rest.get("*/api/v2/pokemon", (req, res, ctx) => {
-                return res(ctx.json(pokemonsMock));
-            }),
-        ],
-    },
+    msw: {handlers},
 };
 
 // Initialize MSW

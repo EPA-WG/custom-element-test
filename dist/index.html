@@ -5,12 +5,7 @@
     <title>custom-element Declarative Custom Element implementation demo</title>
     <script type="module" src="custom-element.js"></script>
     <style>
-        body,nav{ display: flex; flex-wrap: wrap; align-content: stretch; gap: 1rem; }
-        nav{ flex-direction: column;}
-        dce-link,dce-1-slot,dce-2-slot,dce-3-slot,dce-4-slot,dce-2-slots,greet-element,pokemon-tile
-            { box-shadow: 0 0 0.5rem lime; padding: 1rem; display: inline-block;}
-        dd{ padding: 1rem;}
-        p{ margin: 0;}
+        @import "demo/demo.css";
     </style>
 </head>
 <body>
@@ -19,6 +14,8 @@
     <div><a href="https://github.com/EPA-WG/custom-element"
         ><img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/mark-github.svg" alt="icon">GIT</a>
         | <a href="https://stackblitz.com/github/EPA-WG/custom-element?file=index.html">Sandbox</a>
+        | <a href="https://chrome.google.com/webstore/detail/epa-wgcustom-element/hiofgpmmkdembdogjpagmbbbmefefhbl"
+            >Chrome devtools plugin</a>
     </div>
     <p>
         This <em>Declarative Custom Element</em> allows to define<br/>
@@ -26,6 +23,11 @@
     <p>The template is fully loaded with variables, conditions, loops, etc. <br/>
         The data query is powered by XPath. </p>
     <p>Try in <a href="https://stackblitz.com/github/EPA-WG/custom-element?file=index.html" >Sandbox</a> </p>
+    <section>
+    <b>Data layer demo</b>
+        <a href="./demo/local-storage.html">local-storage</a> |
+        <a href="./demo/http-request.html">http-request</a>
+    </section>
 </nav>
 <html-demo-element legend="1. simple payload"
                    description="payload is ignored as in DCE definition there is no default slot">

@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>116/116</span>
+                <span class='fraction'>117/117</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>116/116</span>
+                <span class='fraction'>117/117</span>
             </div>
         
             
@@ -179,7 +179,9 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -374,34 +376,35 @@ TemplateWithAttributesAndCondition.args =
 ,        tag: 'pokemon-tile'
 , attributes: ` title="bulbasaur" data-smile="👼" pokemon-id="1" `
 ,       slot: `
-            &lt;h3&gt;&lt;xsl:value-of select="title"&gt;&lt;/xsl:value-of&gt;&lt;/h3&gt; &lt;!-- title is an attribute in instance
-                                                         mapped into /*/attributes/title --&gt;
-            &lt;xsl:if test="//smile"&gt;                 &lt;!-- data-smile DCE instance attribute,
-                                                         mapped into /*/dataset/smile
-                                                         used in condition --&gt;
-                                                    &lt;!-- data-smile DCE instance attribute, used as HTML --&gt;
-                &lt;div&gt;Smile as: &lt;xsl:value-of select="//smile"&gt;&lt;/xsl:value-of&gt;&lt;/div&gt;
-            &lt;/xsl:if&gt;
-            &lt;!-- image would not be visible in sandbox, see live demo --&gt;
-            &lt;img src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/{pokemon-id}.svg" alt="{title} image"&gt;
-                                                    &lt;!-- image-src and title are DCE instance attributes,
-                                                         mapped into /*/attributes/
-                                                         used within output attribute via curly brackets --&gt;
+&lt;template&gt;
+    &lt;h3&gt;&lt;xsl:value-of select="title"&gt;&lt;/xsl:value-of&gt;&lt;/h3&gt; &lt;!-- title is an attribute in instance
+                                                 mapped into /*/attributes/title --&gt;
+    &lt;xsl:if test="//smile"&gt;                 &lt;!-- data-smile DCE instance attribute,
+                                                 mapped into /*/dataset/smile
+                                                 used in condition --&gt;
+                                            &lt;!-- data-smile DCE instance attribute, used as HTML --&gt;
+        &lt;div&gt;Smile as: &lt;xsl:value-of select="//smile"&gt;&lt;/xsl:value-of&gt;&lt;/div&gt;
+    &lt;/xsl:if&gt;
+    &lt;!-- image would not be visible in sandbox, see live demo --&gt;
+    &lt;img src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/{pokemon-id}.svg" alt="{title} image"&gt;
+                                            &lt;!-- image-src and title are DCE instance attributes,
+                                                 mapped into /*/attributes/
+                                                 used within output attribute via curly brackets --&gt;
 &nbsp;
-                                                    &lt;!-- \`slot name=xxx\` replaced with elements with \`slot=xxx\` attribute --&gt;
-            &lt;p&gt;&lt;slot name="description"&gt;&lt;i&gt;description is not available&lt;/i&gt;&lt;/slot&gt;&lt;/p&gt;
-            &lt;xsl:for-each select="//*[@pokemon-id]"&gt;
-                                                    &lt;!-- loop over payload elements with \`pokemon-id\` attribute --&gt;
-                &lt;button&gt;
-                    &lt;img height="32"
-                        src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/{@pokemon-id}.svg"
-                        alt="{text()}"/&gt;
-                    &lt;br/&gt;
-                    &lt;xsl:value-of select='text()'/&gt;
-                &lt;/button&gt;
+                                            &lt;!-- \`slot name=xxx\` replaced with elements with \`slot=xxx\` attribute --&gt;
+    &lt;p&gt;&lt;slot name="description"&gt;&lt;i&gt;description is not available&lt;/i&gt;&lt;/slot&gt;&lt;/p&gt;
+    &lt;xsl:for-each select="//*[@pokemon-id]"&gt;
+                                            &lt;!-- loop over payload elements with \`pokemon-id\` attribute --&gt;
+        &lt;button&gt;
+            &lt;img height="32"
+                src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/{@pokemon-id}.svg"
+                alt="{text()}"/&gt;
+            &lt;br/&gt;
+            &lt;xsl:value-of select='text()'/&gt;
+        &lt;/button&gt;
 &nbsp;
-            &lt;/xsl:for-each&gt;
-&nbsp;
+    &lt;/xsl:for-each&gt;
+&lt;/template&gt;
 `
 , payload: `&lt;p slot="description"&gt;Bulbasaur is a cute Pokémon born with a large seed firmly affixed to its back;
                 the seed grows in size as the Pokémon  does.&lt;/p&gt;
@@ -418,7 +421,7 @@ TemplateWithAttributesAndCondition.args =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-01T01:00:06.204Z
+                at 2023-03-12T19:45:22.597Z
             </div>
         <script src="../prettify.js"></script>
         <script>

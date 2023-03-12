@@ -1,3 +1,4 @@
+import { importMapsPlugin } from '@web/dev-server-import-maps';
 // import { playwrightLauncher } from '@web/test-runner-playwright';
 
 const filteredLogs = ['Running in dev mode', 'lit-html is in dev mode'];
@@ -39,4 +40,18 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   // ],
 
   // See documentation for all available options
+    plugins:[
+        importMapsPlugin({
+      inject: {
+        importMap: {
+          imports: {
+            // mock a dependency
+            'msw': '/src/mocks/msw.js',
+            // mock a module in your own code
+            // '/src/my-module.js': '/mocks/my-module.js',
+          },
+        },
+      },
+    }),
+    ]
 });
