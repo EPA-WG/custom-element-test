@@ -66,15 +66,12 @@
     "@storybook/web-components": "^6.5.16",
     "@web/dev-server-import-maps": "^0.0.7",
     "@web/test-runner": "^0.15.1",
-    "@whitespace/storybook-addon-html": "^5.1.3",
     "babel-loader": "^8.3.0",
     "chromatic": "^6.17.1",
     "esbuild": "^0.17.11",
     "html-loader": "^4.2.0",
     "msw": "^1.1.0",
-    "msw-storybook-addon": "^1.8.0",
-    "prettier": "^2.8.4",
-    "react-syntax-highlighter": "^15.5.0"
+    "msw-storybook-addon": "^1.8.0"
   },
   "readme": "README.md",
   "_id": "@epa-wg/custom-element-test@0.0.8",
