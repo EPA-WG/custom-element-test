@@ -8,11 +8,15 @@ export const handlers =
         return res(ctx.json(pokemonsMock));
     }),
     rest.get("*/noreturn", (req, res, ctx) =>
-            {   console.log(req.url, 'trapped')
-                return new Promise((resolve)=>{ setTimeout(()=>
-                {   console.log(req.url, 'resolving')
-                    resolve(res(ctx.json(pokemonsMock)))
+            {   return new Promise((resolve)=>{ setTimeout(()=>
+                {   resolve(res(ctx.json(pokemonsMock)))
                 }, 10000)}); // 1 second to be able to catch the initial state before the full data returned;
+            }),
+    rest.get("*/reflect", (req, res, ctx) =>
+            {
+                req.headers.entries().map( ([key,val])=>res.headers.set(key,val));
+                return res(ctx.json(pokemonsMock));
+
             }),
     rest.get('/user/:userId', (req, res, ctx) =>
     {   return res(

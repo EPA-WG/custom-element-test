@@ -16,7 +16,7 @@ function Template( { title, tag , slice, url } )
 {
     return `
         <fieldset>
-            <legend>http-request simple</legend>
+            <legend>${title}</legend>
             <custom-element
                 tag="${ tag }"
                 hidden
@@ -26,6 +26,9 @@ function Template( { title, tag , slice, url } )
         url="${url}"
         slice="${slice}"
         ></http-request>
+    <xsl:if test="not(//slice/${slice}/data/results/*)">
+        <h3>loading...</h3>
+    </xsl:if>
     <xsl:for-each select="//slice/${slice}/data/results/*">
         <xsl:variable name="pokeid"
             select="substring-before( substring-after( @url, 'https://pokeapi.co/api/v2/pokemon/'),'/')"
@@ -78,5 +81,39 @@ LifecycleInitialized = ()=>`
 </template>
             </custom-element>
             <no-responce></no-responce>
+      </fieldset>
+`;
+    export const
+RequestHeaders = ()=>`
+        <fieldset>
+            <legend>http-request headers</legend>
+            <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b>
+            </p>
+
+            <custom-element
+                tag="headers-demo"
+                hidden
+                >
+<http-request
+    url="https://pokeapi.co/api/v2/reflect"
+    slice="request_slice"
+    type="text"
+    header-x-test="testing"
+    ></http-request>
+Content of <code>//slice/request_slice</code> before <b>response</b> available
+<xsl:for-each select="//slice/request_slice/*">
+    <ul>
+        <var data-testid="request-section"><xsl:value-of select='name(.)'/></var>
+        <xsl:for-each select="@*">
+            <div>
+                <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                =
+                <code><xsl:value-of select='.'/></code>
+            </div>
+        </xsl:for-each>
+    </ul>
+</xsl:for-each>
+            </custom-element>
+            <headers-demo></headers-demo>
       </fieldset>
 `;
