@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">93.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/44</span>
+                <span class='fraction'>55/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">93.22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/44</span>
+                <span class='fraction'>55/59</span>
             </div>
         
             
@@ -106,7 +106,33 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -149,13 +175,29 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const     attr = (el, attr)=&gt; el.getAttribute(attr);
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const     attr = (el, attr)=&gt; el.getAttribute(attr);
 &nbsp;
 export class HttpRequestElement extends HTMLElement
 {
     // @attribute url
     constructor() {
         super();
+    }
+    get requestHeaders()
+    {   const ret = {};
+        [...this.attributes].filter(a=&gt;a.name.startsWith('header-')).map( a =&gt; ret[a.name.substring(7)] = a.value );
+        return ret;
+    }
+    get requestProps()
+    {   const ret = {};
+        [...this.attributes].filter(a=&gt;!a.name.startsWith('header-')).map( a =&gt; ret[a.name] = a.value );
+        return ret;
     }
     sliceInit( s )
     {   if( !s )
@@ -169,7 +211,7 @@ export class HttpRequestElement extends HTMLElement
 <span class="cstat-no" title="statement not covered" >            controller.abort();</span>
         };
         const     url = attr(this, 'url') <span class="branch-0 cbranch-no" title="branch not covered" >|| ''</span>
-        ,     request = { url }
+        ,     request = { ...this.requestProps, headers: this.requestHeaders }
         ,       slice = { detail: { request }, target: this }
         , updateSlice = slice =&gt;
         {   for( let parent = s.element.parentElement; parent; parent = parent.parentElement )
@@ -181,9 +223,14 @@ export class HttpRequestElement extends HTMLElement
 &nbsp;
         setTimeout( async ()=&gt;
         {   updateSlice( slice );
-            slice.detail.response = await fetch(url,{ signal: controller.signal });
+            const response = await fetch(url,{ ...this.requestProps, signal: controller.signal, headers: this.requestHeaders })
+            ,      r= {headers: {}};
+            [...response.headers].map( ([k,v]) =&gt; r.headers[k]=v );
+            'ok,status,statusText,type,url,redirected'.split(',').map(k=&gt;r[k]=response[k])
+&nbsp;
+            slice.detail.response = r;
             updateSlice( slice );
-            slice.detail.data = await slice.detail.response.json();
+            slice.detail.data = await response.json();
             updateSlice( slice );
         },0 );
 &nbsp;
@@ -192,14 +239,15 @@ export class HttpRequestElement extends HTMLElement
 }
 &nbsp;
 window.customElements.define( 'http-request', HttpRequestElement );
-export default HttpRequestElement;</pre></td></tr></table></pre>
+export default HttpRequestElement;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-12T22:07:25.519Z
+                at 2023-04-03T05:38:28.000Z
             </div>
         <script src="../prettify.js"></script>
         <script>
