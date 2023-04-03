@@ -45,11 +45,12 @@ function Template( { title, tag , slice, url } )
 
     export const
 Demo = Template.bind( {} );
+Demo.args={title:"url and slice"};
 
     export const
 LifecycleInitialized = ()=>`
         <fieldset>
-            <legend>http-request no response</legend>
+            <legend>http-request with delayed response</legend>
             <p> Before the data become available the <b>request</b>
                 is populated into dedicated <b>slice</b> in <b>10</b> seconds in this demo
             </p>
@@ -85,7 +86,7 @@ LifecycleInitialized = ()=>`
     export const
 RequestResponceHeaders = ({url})=>`
         <fieldset>
-            <legend>http-request headers</legend>
+            <legend>http-request headers and responce status and headers</legend>
             <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b>
             </p>
 
