@@ -1,2 +1,3 @@
 var{ color: green; }
 code{ color: violet; }
+th{ text-align: left; font-family: monospace; }

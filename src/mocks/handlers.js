@@ -13,17 +13,9 @@ export const handlers =
                 }, 10000)}); // 1 second to be able to catch the initial state before the full data returned;
             }),
     rest.get("*/reflect", (req, res, ctx) =>
-            {
-                req.headers.entries().map( ([key,val])=>res.headers.set(key,val));
+            {   const headersMap = {};
+                [...req.headers.entries()].map( ([key,val]) => headersMap[key] = val );
+                ctx.set(headersMap);
                 return res(ctx.json(pokemonsMock));
-
-            }),
-    rest.get('/user/:userId', (req, res, ctx) =>
-    {   return res(
-          ctx.json({
-            firstName: 'John',
-            lastName: 'Maverick',
-          }),
-        )
-    })
+            })
 ];

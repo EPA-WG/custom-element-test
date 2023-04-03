@@ -1,6 +1,5 @@
 import '../src/custom-element.js';
 import '../src/http-request.js';
-// import {rest} from "msw";
 
 export default
 {   title: 'http-request', component: 'http-request'
@@ -84,7 +83,7 @@ LifecycleInitialized = ()=>`
       </fieldset>
 `;
     export const
-RequestHeaders = ()=>`
+RequestResponceHeaders = ({url})=>`
         <fieldset>
             <legend>http-request headers</legend>
             <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b>
@@ -95,20 +94,47 @@ RequestHeaders = ()=>`
                 hidden
                 >
 <http-request
-    url="https://pokeapi.co/api/v2/reflect"
+    url="${url}"
     slice="request_slice"
     type="text"
+    mode="cors"
     header-x-test="testing"
     ></http-request>
-Content of <code>//slice/request_slice</code> before <b>response</b> available
+Content of <code>//slice/request_slice</code> is filled by <b>request</b> and <b>response</b>
+from <code>${url}</code>
+
+<h3>Samples</h3>
+<table>
+<tr><th>//slice/request_slice/request/headers/@mode</th>
+    <td><xsl:value-of select="//slice/request_slice/request/@mode"/></td></tr>
+<tr><th>//slice/request_slice/response/headers/@content-type</th>
+    <td><xsl:value-of select="//slice/request_slice/response/headers/@content-type"/></td></tr>
+<tr><th>//slice/request_slice/response/@status</th>
+    <td><xsl:value-of select="//slice/request_slice/response/@status"/></td></tr>
+</table>
 <xsl:for-each select="//slice/request_slice/*">
-    <ul>
-        <var data-testid="request-section"><xsl:value-of select='name(.)'/></var>
+    <ul data-request-section="{name(.)}">
+        <b data-testid="request-section"><xsl:value-of select='name(.)'/></b>
         <xsl:for-each select="@*">
             <div>
                 <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
                 =
                 <code><xsl:value-of select='.'/></code>
+            </div>
+        </xsl:for-each>
+        <xsl:for-each select="*">
+            <div>
+                <b data-testid="section-deep"><xsl:value-of select='local-name(.)'/></b>
+                <ul>
+                    <xsl:for-each select="@*">
+                        <li>
+                            <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                            =
+                            <code><xsl:value-of select='.'/></code>
+                        </li>
+                    </xsl:for-each>
+                    <code><xsl:value-of select='.'/></code>
+                </ul>
             </div>
         </xsl:for-each>
     </ul>
@@ -117,3 +143,7 @@ Content of <code>//slice/request_slice</code> before <b>response</b> available
             <headers-demo></headers-demo>
       </fieldset>
 `;
+RequestResponceHeaders.args =
+{   url: "https://pokeapi.co/api/v2/reflect"
+
+};
