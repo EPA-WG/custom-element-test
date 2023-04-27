@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/local-storage.js</title>
+    <title>Code coverage report for src/location-element.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> local-storage.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> location-element.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.96% </span>
+                <span class="strong">96.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/66</span>
+                <span class='fraction'>61/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>8/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.96% </span>
+                <span class="strong">96.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/66</span>
+                <span class='fraction'>61/63</span>
             </div>
         
             
@@ -125,18 +125,7 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -193,55 +182,53 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const     attr = (el, attr)=&gt; el.getAttribute(attr)
-, string2value = (type, v) =&gt;
-{   if( type === 'text')
-<span class="branch-0 cbranch-no" title="branch not covered" >        return v;</span>
-    if( type === 'json')
-        return JSON.parse( v );
-    const el = document.createElement('input');
-    el.setAttribute('type',type);
-    el.setAttribute('value', v );
-    return type==='number'<span class="branch-0 cbranch-no" title="branch not covered" >? el.valueAsNumber </span>: 'date|time|dateTimeLocal'.includes(type)<span class="branch-0 cbranch-no" title="branch not covered" >? el.valueAsDate:</span> el.value;
-};
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const     attr = (el, attr)=&gt; el.getAttribute(attr);
 &nbsp;
-let originalSetItem;
-&nbsp;
-function ensureTrackLocalStorage()
-{   if( originalSetItem )
-        return;
-    originalSetItem = localStorage.setItem;
-    localStorage.setItem = function( key, value, ...rest )
-        {   originalSetItem.apply(this, [ key, value, ...rest ]);
-            window.dispatchEvent( new CustomEvent('local-storage',{detail:{key,value}}) );
-        };
-}
-&nbsp;
-export class LocalStorageElement extends HTMLElement
+export class LocationElement extends HTMLElement
 {
     // @attribute live - monitors localStorage change
-    // @attribute type - `text|json`, defaults to text, other types are compatible with INPUT field
+    // @attribute src - URL to be parsed, defaults to `window.location`
+&nbsp;
     constructor()
     {
         super();
         const      state = {}
-        ,           type = attr(this, 'type') <span class="branch-0 cbranch-no" title="branch not covered" >|| 'text'</span>
-        ,       listener = e=&gt; e.detail.key === attr( this,'key' ) &amp;&amp; propagateSlice()
-        , propagateSlice = ()=&gt;
-        {   for( let parent = this.parentElement; parent; parent = parent.parentElement)
-                if( parent.onSlice )
+        ,       listener = e=&gt; propagateSlice(e)
+        , propagateSlice = (e)=&gt;
+        {   const urlStr = attr(this,'src')
+            const url = urlStr? new URL(urlStr) : window.location
+&nbsp;
+            const params= {}
+            const search = new URLSearchParams(url.search);
+            for (const key of search.keys())
+                params[key] = search.getAll(key)
+&nbsp;
+            const detail = {params}
+            for( const k in url )
+            {   if ('string' === typeof url[k])
+                    detail[k] = url[k]
+            }
+            for( let parent = this.parentElement; parent; parent = parent.parentElement)
+            {   if (parent.onSlice)
                     return parent.onSlice(
-                        {     detail: string2value( type, localStorage.getItem( attr( this, 'key' ) ) )
-                        ,     target: this
-                        } );
-<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >                console.error(`${this.localName} used outside of custom-element`)</span></span>
-<span class="cstat-no" title="statement not covered" >                debugger;</span>
+                        {   detail
+                            , target: this
+                        });
+            }
+<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >            console.error(`${this.localName} used outside of custom-element`)</span></span>
+<span class="cstat-no" title="statement not covered" >            debugger;</span>
         };
         this.sliceInit = s =&gt;
-        {   if( !state.listener &amp;&amp; this.hasAttribute('live') )
+        {
+            if( !state.listener &amp;&amp; this.hasAttribute('live') )
             {   state.listener = 1;
-                window.addEventListener( 'local-storage', listener );
-                ensureTrackLocalStorage();
+                window.addEventListener( 'popstate', listener );
+                window.addEventListener( 'hashchange', listener );
             }
             propagateSlice();
             return s || {}
@@ -250,15 +237,19 @@ export class LocalStorageElement extends HTMLElement
         {
             if( !state.listener )
                 return;
-            state.listener &amp;&amp; window.removeEventListener('local-storage', listener );
+            if(state.listener)
+            {   window.removeEventListener('popstate', listener);
+                window.removeEventListener('hashchange', listener);
+            }
             delete state.listener;
         };
+        this.sliceInit()
     }
     disconnectedCallback(){ this._destroy(); }
 }
 &nbsp;
-window.customElements.define( 'local-storage', LocalStorageElement );
-export default LocalStorageElement;</pre></td></tr></table></pre>
+window.customElements.define( 'location-element', LocationElement );
+export default LocationElement;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
