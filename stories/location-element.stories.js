@@ -16,7 +16,7 @@ export default
 function Template( { title, tag, src, slice, live } )
 {
     return `
-        <fieldset>
+        <fieldset xmlns:html="http://www.w3.org/1999/xhtml">
             <legend>${ title }</legend>
             <h4>Change the URL by one of the methods bellow</h4>
             <div>

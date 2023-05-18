@@ -49,7 +49,7 @@ LocalStorageLive.args =
     slice: 'basket',
     value: '{"cherries": 12, "lemons":1 }',
       tag: 'ls-live-component',
-     body: `<html:table>
+     body: `<html:table xmlns:html="http://www.w3.org/1999/xhtml">
                 <xsl:for-each select="//slice/basket/@*">
                     <html:tr>
                         <html:th><xsl:value-of select="name()"/></html:th>

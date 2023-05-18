@@ -24,17 +24,17 @@ describe('local-storage', () => {
     const p = el.querySelector('ls-live-component');
     expect(p.innerHTML).to.include('cherries');
     expect(p.innerHTML).to.include('lemons');
-    expect(p.innerHTML).to.include('<td>12</td>');
-    expect(p.innerHTML).to.include('<td>1</td>');
-    expect(p.innerHTML).to.include('<th>13</th>');
+    expect(p.innerHTML).to.include('td>12</');
+    expect(p.innerHTML).to.include('td>1</');
+    expect(p.innerHTML).to.include('th>13</');
     localStorage.setItem('basket',`{"apples": 3, "oranges": 2 }`);
     await aTimeout(10);
     expect(p.innerHTML).to.not.include('lemons');
     expect(p.innerHTML).to.include('apples');
     expect(p.innerHTML).to.include('oranges');
-    expect(p.innerHTML).to.include('<td>3</td>');
-    expect(p.innerHTML).to.include('<td>2</td>');
-    expect(p.innerHTML).to.include('<th>5</th>');
+    expect(p.innerHTML).to.include('td>3</');
+    expect(p.innerHTML).to.include('td>2</');
+    expect(p.innerHTML).to.include('th>5</');
 
   });
 
