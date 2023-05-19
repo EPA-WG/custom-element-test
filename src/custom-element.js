@@ -11,29 +11,8 @@ xml2dom( xmlString )
 {
     return new DOMParser().parseFromString( XML_DECLARATION + xmlString, "application/xml" )
 }
-
     function
-bodyXml( dce )
-{
-    const t = dce.firstElementChild
-    , sanitize = s => s.replaceAll("<html:","<")
-                       .replaceAll("</html:","</")
-                       .replaceAll( />\s*<\/xsl:value-of>/g ,"/>")
-                       .replaceAll( />\s*<\/(br|hr|img|area|base|col|embed|input|link|meta|param|source|track|wbr)>/g ,"/>");
-    if( t?.tagName === 'TEMPLATE')
-        return sanitize( new XMLSerializer().serializeToString( t.content ) );
-
-    const s = new XMLSerializer().serializeToString( dce );
-    return sanitize( s.substring( s.indexOf( '>' ) + 1, s.lastIndexOf( '<' ) ) );
-}
-
-    function
-slot2xsl( s )
-{
-    const v = document.createElementNS( XSL_NS_URL, 'value-of' );
-    v.setAttribute( 'select', `//*[@slot="${ s.name }"]` );
-    s.parentNode.replaceChild( v, s );
-}
+xmlString(doc){ return new XMLSerializer().serializeToString( doc ) }
 
     function
 injectData( root, sectionName, arr, cb )
@@ -91,7 +70,57 @@ Json2Xml( o, tag )
     return ret.join('\n');
 }
 
-    function
+    export function
+createXsltFromDom(templateNode)
+{
+    const dom = xml2dom(
+`<xsl:stylesheet version="1.0"
+    xmlns:xsl="${ XSL_NS_URL }">
+  <xsl:output method="html" />
+
+  <xsl:template match="/">
+    <xsl:apply-templates select="//attributes"/>
+  </xsl:template><xsl:template match="attributes"></xsl:template></xsl:stylesheet>`
+    );
+
+
+    const slot2xsl = s =>
+    {   const v = dom.createElementNS( XSL_NS_URL, 'value-of' );
+        v.setAttribute( 'select', `//*[@slot="${ s.name }"]` );
+        s.parentNode?.replaceChild( v, s );
+        return v
+    }
+
+    for( let c of ( templateNode.content?.childNodes || templateNode.childNodes ) )
+    {
+        let adopted = dom.importNode(c,true)
+
+        if('slot' === adopted.tagName )
+            adopted = slot2xsl(adopted)
+        else
+            forEach$( adopted,'slot', slot2xsl )
+        dom.documentElement.lastChild.appendChild(adopted)
+    }
+    // apply bodyXml changes
+    return dom
+}
+    export function
+deepEqual(a, b, O=false)
+{
+    if( a === b )
+        return true;
+
+    if( (typeof a !== "object" || a === null) || (typeof b !== "object" || b === null)
+        || Object.keys(a).length != Object.keys(b).length )
+        return O;
+
+    for( let k in a )
+        if( (!k in b) || !deepEqual( a[k], b[k] ) )
+            return O
+    return true;
+}
+
+    export function
 injectSlice( x, s, data )
 {
     const isString = typeof data === 'string' ;
@@ -100,8 +129,17 @@ injectSlice( x, s, data )
         ? create(s, data)
         : document.adoptNode( xml2dom( Json2Xml( data, s ) ).documentElement);
     [...x.children].filter( e=>e.localName === s ).map( el=>el.remove() );
-        x.append(el);
+    el.data = data
+    x.append(el);
 }
+
+function forEach$( el, css, cb){
+    if( el.querySelectorAll )
+        for( let n of el.querySelectorAll(css) )
+            cb(n)
+}
+const getByHashId = ( n, id )=> ( p => n===p? null: (p && ( p.querySelector(id) || getByHashId(p,id) ) ))( n.getRootNode() )
+
 
     export class
 CustomElement extends HTMLElement
@@ -110,9 +148,20 @@ CustomElement extends HTMLElement
     {
         super();
 
-        [ ...this.templateNode.querySelectorAll('slot') ].forEach( slot2xsl );
+        let templateDoc;
+        const src = attr( this, 'src' );
+
+        if( src?.startsWith('#') )
+        {
+            const template = getByHashId( this, src)
+            templateDoc = createXsltFromDom(template)
+        }else
+            templateDoc = createXsltFromDom(this.children.length===1 && this.firstElementChild.tagName ==='TEMPLATE'? this.firstElementChild: this)
+
+        Object.defineProperty( this, "xsltString", { get: ()=>xmlString(templateDoc) });
+
         const p = new XSLTProcessor();
-        p.importStylesheet( this.xslt );
+        p.importStylesheet( templateDoc );
         const tag = attr( this, 'tag' );
         const dce = this;
         const sliceNames = [...this.templateNode.querySelectorAll('[slice]')].map(e=>attr(e,'slice'));
@@ -122,8 +171,8 @@ CustomElement extends HTMLElement
             {
                 super();
                 const x = create( 'div' );
-                injectData( x, 'payload', this.childNodes, assureSlot );
-                injectData( x, 'attributes', this.attributes, e => create( e.nodeName, e.value ) );
+                injectData( x, 'payload'    , this.childNodes, assureSlot );
+                injectData( x, 'attributes' , this.attributes, e => create( e.nodeName, e.value ) );
                 injectData( x, 'dataset', Object.keys( this.dataset ), k => create( k, this.dataset[ k ] ) );
                 const sliceRoot = injectData( x, 'slice', sliceNames, k => create( k, '' ) );
                 this.xml = x;
@@ -147,6 +196,10 @@ CustomElement extends HTMLElement
 
                 this.onSlice = ev=>
                 {   ev.stopPropagation?.();
+                    const s = attr( ev.target, 'slice')
+                    if( deepEqual( ev.detail, [...sliceRoot.children].find( e=>e.localName === s )?.data ) )
+                        return
+
                     sliceEvents.push(ev);
                     if( !timeoutID )
                         timeoutID = setTimeout(()=>
@@ -160,11 +213,12 @@ CustomElement extends HTMLElement
                     this.innerHTML = '';
                     [ ...f.childNodes ].forEach( e => this.appendChild( e ) );
 
-                    for( let el of this.querySelectorAll('[slice]') )
+                    forEach$(this,'[slice]', el=> {
                         if( 'function' === typeof el.sliceInit )
                         {   const s = attr(el,'slice');
                             slices[s] = el.sliceInit( slices[s] );
                         }
+                    })
                 };
                 transform();
                 applySlices();
@@ -174,22 +228,7 @@ CustomElement extends HTMLElement
     }
     get templateNode(){ return this.firstElementChild?.tagName === 'TEMPLATE'? this.firstElementChild.content : this }
     get dce(){ return this;}
-    get xsltString()
-    {
-        return (
-`<xsl:stylesheet version="1.0"
-    xmlns:xsl="${ XSL_NS_URL }">
-  <xsl:output method="html" />
 
-  <xsl:template match="/">
-    <xsl:apply-templates select="//attributes"/>
-  </xsl:template>
-  <xsl:template match="attributes">
-    ${ bodyXml( this ) }
-  </xsl:template>
-
-</xsl:stylesheet>` );
-    }
     get xslt(){ return xml2dom( this.xsltString ); }
 }
 

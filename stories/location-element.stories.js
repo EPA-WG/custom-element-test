@@ -16,7 +16,7 @@ export default
 function Template( { title, tag, src, slice, live } )
 {
     return `
-        <fieldset xmlns:html="http://www.w3.org/1999/xhtml">
+        <fieldset>
             <legend>${ title }</legend>
             <h4>Change the URL by one of the methods bellow</h4>
             <div>
@@ -35,7 +35,7 @@ function Template( { title, tag, src, slice, live } )
                 >
                 <template>
                     <location-element slice="${ slice }" ${live?'live':''} ${src?'src="https://my.example/?a=1&b=2#3"':''}></location-element>
-                    <html:table>
+                    <html:table xmlns:html="http://www.w3.org/1999/xhtml">
                         <xsl:for-each select="//slice/${slice}/@*">
                             <html:tr>
                                 <html:th><xsl:value-of select="name()"/></html:th>

@@ -48,6 +48,7 @@ export class LocalStorageElement extends HTMLElement
                 window.addEventListener( 'local-storage', listener );
                 ensureTrackLocalStorage();
             }
+            debugger
             propagateSlice();
             return s || {}
         }
