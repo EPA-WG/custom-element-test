@@ -130,7 +130,7 @@ injectSlice( x, s, data )
         : document.adoptNode( xml2dom( Json2Xml( data, s ) ).documentElement);
     [...x.children].filter( e=>e.localName === s ).map( el=>el.remove() );
     el.data = data
-    x.append(el);
+        x.append(el);
 }
 
 function forEach$( el, css, cb){
@@ -165,12 +165,10 @@ CustomElement extends HTMLElement
         const tag = attr( this, 'tag' );
         const dce = this;
         const sliceNames = [...this.templateNode.querySelectorAll('[slice]')].map(e=>attr(e,'slice'));
-        tag && window.customElements.define( tag, class extends HTMLElement
+        class DceElement extends HTMLElement
         {
-            constructor()
-            {
-                super();
-                const x = create( 'div' );
+            connectedCallback()
+            {   const x = create( 'div' );
                 injectData( x, 'payload'    , this.childNodes, assureSlot );
                 injectData( x, 'attributes' , this.attributes, e => create( e.nodeName, e.value ) );
                 injectData( x, 'dataset', Object.keys( this.dataset ), k => create( k, this.dataset[ k ] ) );
@@ -223,13 +221,23 @@ CustomElement extends HTMLElement
                 transform();
                 applySlices();
             }
-            get dce(){ return dce;}
-        } );
+            get dce(){ return dce }
+        };
+        if(tag)
+            window.customElements.define( tag, DceElement);
+        else
+        {   const t = 'dce-'+crypto.randomUUID()
+            window.customElements.define( t, DceElement);
+            const el = document.createElement(t);
+
+            [ ...this.childNodes ].forEach( e => el.appendChild( e ) );
+            this.appendChild(el);
+        }
     }
     get templateNode(){ return this.firstElementChild?.tagName === 'TEMPLATE'? this.firstElementChild.content : this }
-    get dce(){ return this;}
+    get dce(){ return this }
 
-    get xslt(){ return xml2dom( this.xsltString ); }
+    get xslt(){ return xml2dom( this.xsltString ) }
 }
 
 window.customElements.define( 'custom-element', CustomElement );

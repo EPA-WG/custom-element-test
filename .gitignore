@@ -113,3 +113,4 @@ typings/
 /_site/
 
 /out-tsc/
+/src/demo/
