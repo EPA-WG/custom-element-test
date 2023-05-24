@@ -6,7 +6,7 @@ export default
     ,          src: { control: 'text', defaultValue: '#template1' }
     ,          tag: { control: 'text', defaultValue: 'my-component' }
     ,         slot: { control: 'text', defaultValue: `` }
-    ,      payload: { control: 'text', defaultValue: `🏗️ construction` }
+    ,      payload: { control: 'text', defaultValue: `payload ignored by template` }
     }
 };
 
@@ -22,7 +22,6 @@ function Template( { title, tag , src, slot, payload } )
             <custom-element
                 src="${src}"
                 tag="${ tag }"
-                hidden
                 >${ slot }</custom-element>
             ${ tag ? `<${ tag } >${ payload }</${ tag }>` :'' }
       </fieldset>
@@ -33,8 +32,9 @@ export const TemplateInPage = Template.bind( {} );
 
 export const NoTag = Template.bind( {} );
 NoTag.args =
-{     title: 'No tag, the template in page DOM'
+{     title: 'No tag would instantiate DCE inline, the template in page DOM'
 ,       src: '#template1'
+,       tag: ''
 };
 
 export const DoubleSlot = Template.bind( {} );
