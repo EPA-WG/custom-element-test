@@ -45,7 +45,7 @@
                    description="slots are filled as in template+shadow root">
     <template>
         <custom-element tag="dce-1-slot" hidden>
-           <slot name="slot1"> 😃</slot>
+           🐇❤️<slot name="slot1"> 🥦</slot>
         </custom-element>
         <dce-1-slot><i slot="slot1">🥕</i></dce-1-slot>
     </template>
@@ -60,6 +60,7 @@
             <input placeholder="🐇❤️{//*[@slot='slot2']}"/>
         </custom-element>
         <dce-2-slots><i slot="slot2">🥕</i></dce-2-slots>
+        <dce-2-slots></dce-2-slots>
     </template>
 </html-demo-element>
 
@@ -95,6 +96,7 @@
         <custom-element tag="greet-element" hidden>
           <slot> Hello </slot> World!
         </custom-element>
+        <greet-element></greet-element>
         <greet-element>👋</greet-element>
     </template>
 </html-demo-element>
@@ -104,24 +106,25 @@
     <template>
 
         <custom-element tag="pokemon-tile" hidden id="shared-template">
-            <h3><xsl:value-of select="title"/></h3> <!-- title is an attribute in instance
-                                                         mapped into /*/attributes/title -->
-            <xsl:if test="//smile">                 <!-- data-smile DCE instance attribute,
-                                                         mapped into /*/dataset/smile
-                                                         used in condition -->
-                                                    <!-- data-smile DCE instance attribute, used as HTML -->
-                <div>Smile as: <xsl:value-of select='//smile'/></div>
-            </xsl:if>
-            <!-- image would not be visible in sandbox, see live demo -->
-            <img src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/{pokemon-id}.svg"
-                 alt="{title} image"/>
-                                                    <!-- image-src and title are DCE instance attributes,
-                                                         mapped into /*/attributes/
-                                                         used within output attribute via curly brackets -->
+            <template>
+                <h3><xsl:value-of select="title"/></h3> <!-- title is an attribute in instance
+                                                             mapped into /*/attributes/title -->
+                <xsl:if test="//smile">                 <!-- data-smile DCE instance attribute,
+                                                             mapped into /*/dataset/smile
+                                                             used in condition -->
+                                                        <!-- data-smile DCE instance attribute, used as HTML -->
+                    <div>Smile as: <xsl:value-of select='//smile'/></div>
+                </xsl:if>
+                <!-- image would not be visible in sandbox, see live demo -->
+                <img src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/{pokemon-id}.svg"
+                     alt="{title} image"/>
+                                                        <!-- image-src and title are DCE instance attributes,
+                                                             mapped into /*/attributes/
+                                                             used within output attribute via curly brackets -->
 
-                                                    <!-- `slot name=xxx` replaced with elements with `slot=xxx` attribute -->
-            <p><slot name="description"><i>description is not available</i></slot></p>
-            <xsl:for-each select="//*[@pokemon-id]">
+                                                        <!-- `slot name=xxx` replaced with elements with `slot=xxx` attribute -->
+                <p><slot name="description"><i>description is not available</i></slot></p>
+                <xsl:for-each select="//*[@pokemon-id]">
                                                     <!-- loop over payload elements with `pokemon-id` attribute -->
                 <button>
                     <img height="32"
@@ -132,6 +135,7 @@
                 </button>
 
             </xsl:for-each>
+            </template>
         </custom-element>
 
         <pokemon-tile title="bulbasaur" data-smile="👼" pokemon-id="1" >

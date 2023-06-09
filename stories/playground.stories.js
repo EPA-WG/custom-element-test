@@ -32,7 +32,7 @@ export const NamedSlot = Template.bind( {} );
 NamedSlot.args =
 {     title: 'named slot'
 ,       tag: 'dce-1-slot'
-,      slot: `<slot name="slot1"> 😃</slot>`
+,      slot: `<slot name="slot1"> 🥦</slot>`
 ,   payload: `<i slot="slot1">🥕</i>`
 };
 

@@ -1,4 +1,5 @@
 import '../src/custom-element.js';
+import svgFile from '../src/demo/confused.svg';
 
 export default
 {   title: 'SRC attribute', component: 'custom-element', argTypes:
@@ -10,7 +11,7 @@ export default
     }
 };
 
-function Template( { title, tag , src, slot, payload } )
+function Template( { title, tag , src, slot, payload, ceAttr, tagAttr } )
 {
     return `
         <fieldset>
@@ -22,8 +23,9 @@ function Template( { title, tag , src, slot, payload } )
             <custom-element
                 src="${src}"
                 tag="${ tag }"
+                ${ceAttr || ''}
                 >${ slot }</custom-element>
-            ${ tag ? `<${ tag } >${ payload }</${ tag }>` :'' }
+            ${ tag ? `<${ tag } ${tagAttr ||''}>${ payload }</${ tag }>` :'' }
       </fieldset>
   `;
 }
@@ -37,12 +39,32 @@ NoTag.args =
 ,       tag: ''
 };
 
-export const DoubleSlot = Template.bind( {} );
-DoubleSlot.args =
-{   title: 'same slot can be used multiple times in template'
-,     tag: 'dce-2-slots'
-,    slot: `<slot name="slot2"> 😃</slot> and again: <slot name="slot2"> 😃</slot>`
-, payload: `<i slot="slot2">🥕</i>`
+export const Svg = Template.bind( {} );
+Svg.args =
+{   title: 'external SVG file'
+,     src: svgFile
+,     tag: ''
+,    slot: `loading from SVG`
+, payload: ``
+};
+
+export const NoSvg = Template.bind( {} );
+NoSvg.args =
+{   title: 'external SVG file'
+,     src: '404-url'
+,     tag: ''
+,    slot: `<i>fallback for missing image</i>`
+, payload: ``
+};
+
+export const Xsl = Template.bind( {} );
+Xsl.args =
+{   title: 'external XSLT file'
+,     src: 'tree.xsl'
+,     tag: ''
+    , ceAttr : ` data-smile="👼" attr-1="a1" attr-2="a2" `
+,    slot: `loading from XSL`
+, payload: ``
 };
 
 export const NamedDefaultSlot = Template.bind( {} );
