@@ -2,10 +2,12 @@ import { fixture, expect } from '@open-wc/testing';
 
 import '../src/custom-element.js';
 import defaults, {
+    EmbeddedDce,
+    HtmlById,
     HtmlTemplate,
     NoSvg,
     NoTag, Svg,
-    TemplateInPage, Xsl,
+    TemplateInPage, Xsl, XsltById,
 
 } from '../stories/src-attribute.stories.js';
 
@@ -69,6 +71,27 @@ describe('src attribute', () => {
     expect(el.innerHTML).to.include('<svg');
     expect(el.innerText).to.include('👋');
     expect(el.innerText).to.include('👌');
+  });
+
+  it('src=html#id', async () => {
+    const el = await renderStory(HtmlById);
+    await sleep(100)
+    expect(el.innerText).to.include('👋');
+  });
+
+  it('src=xhtml#xslt-id', async () => {
+    const el = await renderStory(XsltById);
+    await sleep(100)
+    expect(el.innerText).to.include('data-smile');
+    expect(el.innerText).to.include('👼');
+    expect(el.innerText).to.include('attr-1\na1');
+    expect(el.innerText).to.include('attr-2\na2');
+  });
+
+  it('src= with embedded src ', async () => {
+    const el = await renderStory(EmbeddedDce);
+    await sleep(100)
+    expect(el.innerText).to.include('🖖');
   });
 
 });

@@ -77,3 +77,42 @@ HtmlTemplate.args =
 , payload: ``
 };
 
+export const HtmlById = Template.bind( {} );
+HtmlById.args =
+{   title: 'HTML by ID within external file'
+,     src: '/src/demo/html-template.html#wave'
+,     tag: ''
+    , ceAttr : `  `
+,    slot: `<i>loading from HTML file ...</i>`
+, payload: ``
+};
+
+export const SvgById = Template.bind( {} );
+SvgById.args =
+{   title: 'SVG by ID within external file'
+,     src: '/src/demo/html-template.html#dwc-logo'
+,     tag: ''
+    , ceAttr : `  `
+,    slot: `<i>loading from HTML file ...</i>`
+, payload: ``
+};
+
+export const XsltById = Template.bind( {} );
+XsltById.args =
+{   title: 'XSLT by ID within external file'
+,     src: '/src/demo/html-template.xhtml#embedded-xsl'
+,     tag: ''
+    , ceAttr : ` data-smile="👼" attr-1="a1" attr-2="a2"  `
+,    slot: `<i>loading from HTML file ...</i>`
+, payload: ``
+};
+
+export const EmbeddedDce = Template.bind( {} );
+EmbeddedDce.args =
+{   title: 'XSLT by ID within external file'
+,     src: '/src/demo/embed-1.html'
+,     tag: ''
+    , ceAttr : `  `
+,    slot: `<i>loading from HTML file ...</i>`
+, payload: ``
+};
