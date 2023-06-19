@@ -73,9 +73,9 @@ Json2Xml( o, tag )
 }
 
     export function
-createXsltFromDom(templateNode)
+createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
 {
-    if( templateNode.documentElement?.tagName === 'xsl:stylesheet' )
+    if( templateNode.tagName === S || templateNode.documentElement?.tagName === S )
         return templateNode
     const dom = xml2dom(
 `<xsl:stylesheet version="1.0"
@@ -110,18 +110,23 @@ createXsltFromDom(templateNode)
 </xsl:stylesheet>`
     );
 
-    const attrsTemplate = dom.documentElement.lastElementChild.previousElementSibling;
-    for( let c of ( templateNode.content?.childNodes || templateNode.childNodes || []) )
+    const attrsTemplate = dom.documentElement.lastElementChild.previousElementSibling
+    , getTemplateRoot = n => n.documentElement || n.firstElementChild?.content || n.content || n.body || n
+    , tc = getTemplateRoot(templateNode)
+    , cc = tc?.childNodes || [];
+    if( (tc instanceof CustomElement) || tc.nodeType===11) {
+        for( let c of cc )
+            attrsTemplate.append(dom.importNode(c,true))
+    }else
     {
-        let adopted = dom.importNode(c,true)
-
-        attrsTemplate.appendChild(adopted)
+        attrsTemplate.append(dom.importNode(tc,true))
     }
+
     const slot2xsl = s =>
     {   const v = dom.firstElementChild.lastElementChild.lastElementChild.cloneNode(true);
         v.firstElementChild.setAttribute('select',`'${s.name}'`)
         for( let c of s.childNodes)
-            v.lastElementChild.appendChild(c)
+            v.lastElementChild.append(c)
         return v
     }
 
@@ -138,15 +143,11 @@ xhrTemplate(src)
     {   const xhr = new XMLHttpRequest();
         xhr.open("GET", src);
         xhr.responseType = "document";
-        xhr.overrideMimeType("text/xml");
+        // xhr.overrideMimeType("text/xml");
         xhr.onload = () =>
         {   if( xhr.readyState === xhr.DONE && xhr.status === 200 )
-            {   if( xhr.responseXML )
-                    return resolve( xhr.responseXML )
-                debugger;
-                console.log(xhr.response, xhr.responseXML);
-            }else
-              reject(xhr.statusText)
+                resolve( xhr.responseXML ||  create('div', xhr.responseText ) )
+            reject(xhr.statusText)
         };
         xhr.addEventListener("error", ev=>reject(ev) );
 
@@ -189,27 +190,43 @@ function forEach$( el, css, cb){
             cb(n)
 }
 const getByHashId = ( n, id )=> ( p => n===p? null: (p && ( p.querySelector(id) || getByHashId(p,id) ) ))( n.getRootNode() )
-
-
+const loadTemplateRoots = async ( src, dce )=>
+{
+    if( !src || !src.trim() )
+        return [dce]
+    if( src.startsWith('#') )
+        return ( n =>
+        {   if(!n) return []
+            const a = n.querySelectorAll(src)
+            if( a.length )
+                return [...a]
+            const r = n.getRootNode();
+            return r===n ? []: getByHashId(r)
+        })(dce.parentElement)
+    try
+    {   // todo cache
+        const dom = await xhrTemplate(src)
+        const hash = new URL(src, location).hash
+        if( hash )
+        {   const ret = dom.querySelectorAll(hash);
+            if( ret.length )
+                return [...ret]
+            return [dce]
+        }
+        return [dom]
+    }catch (error){ return [dce]}
+}
     export class
 CustomElement extends HTMLElement
 {
     async connectedCallback()
     {
-        const src = attr( this, 'src' )
-        ,  xslDom = src
-                ? ( src.startsWith('#')
-                    ? getByHashId( this, src)
-                    : await xhrTemplate(src) )
-                : ( this.children.length===1 && this.firstElementChild.tagName ==='TEMPLATE'
-                    ? this.firstElementChild
-                    : this)
-        , templateDoc = createXsltFromDom( xslDom );
+        const templateRoots = await loadTemplateRoots( attr( this, 'src' ), this )
+        , templateDocs = templateRoots.map( n => createXsltFromDom( n ) )
+        , xp = templateDocs.map( (td, p) =>{ p = new XSLTProcessor(); p.importStylesheet( td ); return p })
 
-        Object.defineProperty( this, "xsltString", { get: ()=>xmlString(templateDoc) });
+        Object.defineProperty( this, "xsltString", { get: ()=>xp.map( td => xmlString(td) ).join('\n') });
 
-        const p = new XSLTProcessor();
-        p.importStylesheet( templateDoc );
         const tag = attr( this, 'tag' );
         const dce = this;
         const sliceNames = [...this.templateNode.querySelectorAll('[slice]')].map(e=>attr(e,'slice'));
@@ -223,7 +240,6 @@ CustomElement extends HTMLElement
                 const sliceRoot = injectData( x, 'slice', sliceNames, k => create( k, '' ) );
                 this.xml = x;
                 const slices = {};
-
 
                 const sliceEvents=[];
                 const applySlices = ()=>
@@ -255,15 +271,17 @@ CustomElement extends HTMLElement
                 };
                 const transform = ()=>
                 {
-                    const f = p.transformToFragment( x, document );
+                    const ff = xp.map( p => p.transformToFragment(x, document) );
                     this.innerHTML = '';
-                    [ ...f.childNodes ].forEach( e => this.appendChild( e ) );
+                    ff.map( f =>
+                    {   [ ...f.childNodes ].forEach( e => this.append( e ) );
 
-                    forEach$(this,'[slice]', el=>
-                    {   if( 'function' === typeof el.sliceInit )
-                        {   const s = attr(el,'slice');
-                            slices[s] = el.sliceInit( slices[s] );
-                        }
+                        forEach$( this,'[slice]', el =>
+                        {   if( 'function' === typeof el.sliceInit )
+                            {   const s = attr( el,'slice' );
+                                slices[s] = el.sliceInit( slices[s] );
+                            }
+                        })
                     })
                 };
                 transform();
@@ -278,9 +296,8 @@ CustomElement extends HTMLElement
             window.customElements.define( t, DceElement);
             const el = document.createElement(t);
             this.getAttributeNames().forEach(a=>el.setAttribute(a,this.getAttribute(a)));
-
-            [ ...this.childNodes ].forEach( e => el.appendChild( e ) );
-            this.appendChild(el);
+            el.append(...this.childNodes)
+            this.append(el);
         }
     }
     get templateNode(){ return this.firstElementChild?.tagName === 'TEMPLATE'? this.firstElementChild.content : this }

@@ -2,12 +2,18 @@ import { fixture, expect } from '@open-wc/testing';
 
 import '../src/custom-element.js';
 import defaults, {
-    NamedDefaultSlot,
+    HtmlTemplate,
     NoSvg,
     NoTag, Svg,
     TemplateInPage, Xsl,
 
 } from '../stories/src-attribute.stories.js';
+
+function sleep(timeMs) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeMs)
+  })
+}
 
 const defs = {}; Object.keys(defaults.argTypes).map( k=> defs[k]= defaults.argTypes[k].defaultValue);
 const renderStory = async (story) => fixture( story({ ...defs, ...story.args }) );
@@ -50,22 +56,19 @@ describe('src attribute', () => {
   it('src=xsl', async () => {
     Xsl.args.src='/src/demo/tree.xsl';
     const el = await renderStory(Xsl);
-
+    sleep(100)
     expect(el.innerText).to.include('data-smile');
     expect(el.innerText).to.include('👼');
     expect(el.innerText).to.include('attr-1\na1');
     expect(el.innerText).to.include('attr-2\na2');
   });
 
-  it('NamedDefaultSlot', async () => {
-    Xsl.args.src='/src/demo/tree.xsl';
-    const el = await renderStory(NamedDefaultSlot);
-
-    expect(el.innerText).to.include('data-smile');
-    expect(el.innerText).to.include('👼');
-    expect(el.innerText).to.include('attr-1\na1');
-    expect(el.innerText).to.include('attr-2\na2');
+  it('src=html', async () => {
+    const el = await renderStory(HtmlTemplate);
+    await sleep(100)
+    expect(el.innerHTML).to.include('<svg');
+    expect(el.innerText).to.include('👋');
+    expect(el.innerText).to.include('👌');
   });
-
 
 });
