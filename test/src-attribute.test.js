@@ -38,6 +38,7 @@ describe('src attribute', () => {
   it('src=svg', async () => {
     Svg.args.src='/src/demo/confused.svg';
     const el = await renderStory(Svg);
+    sleep(100)
 
     expect(el.querySelectorAll('my-component').length).to.equal(0);
     expect(el.querySelector('custom-element').firstElementChild.tagName.startsWith('DCE-')).to.equal(true);
@@ -48,6 +49,7 @@ describe('src attribute', () => {
   it('src=404', async () => {
     NoSvg.args.src='/src/demo/404.svg';
     const el = await renderStory(NoSvg);
+    sleep(100)
 
     expect(el.querySelectorAll('my-component').length).to.equal(0);
     expect(el.querySelector('custom-element').getAttribute('tag')).to.equal('');
