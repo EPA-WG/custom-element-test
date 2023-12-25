@@ -41,7 +41,7 @@ describe('src attribute', () => {
     sleep(100)
 
     expect(el.querySelectorAll('my-component').length).to.equal(0);
-    expect(el.querySelector('custom-element').firstElementChild.tagName.startsWith('DCE-')).to.equal(true);
+    expect(el.querySelector('custom-element').firstElementChild.localName.startsWith('dce-')).to.equal(true);
     expect(el.querySelector('custom-element').getAttribute('tag')).to.equal('');
     expect(el.querySelectorAll('svg').length).to.equal(1);
   });
@@ -69,7 +69,7 @@ describe('src attribute', () => {
 
   it('src=html', async () => {
     const el = await renderStory(HtmlTemplate);
-    await sleep(100)
+    await sleep(1000)
     expect(el.innerHTML).to.include('<svg');
     expect(el.innerText).to.include('👋');
     expect(el.innerText).to.include('👌');

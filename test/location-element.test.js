@@ -18,7 +18,7 @@ describe('location-element', () => {
         const el = await renderStory(LocationElementLoad);
 
         const match = prop =>
-            expect(el.innerText).to.include(prop+``+window.location[prop]);
+            expect(el.innerText).to.include(prop+'\t'+window.location[prop]);
         match('protocol')
         match('host')
         match('hostname')
@@ -31,7 +31,7 @@ describe('location-element', () => {
         const mySearchParams = new URLSearchParams(window.location.search);
         for (const [key, value] of mySearchParams)
         {
-            expect(el.innerText).to.include(key+``+value);
+            expect(el.innerText).to.include(key+`\t`+value);
         }
     });
 
@@ -40,7 +40,7 @@ describe('location-element', () => {
         const el = await renderStory(LocationElementLive);
 
         const match = prop =>
-            expect(el.innerText).to.include(prop+``+window.location[prop]);
+            expect(el.innerText).to.include(prop+`\t`+window.location[prop]);
         match('protocol')
         match('host')
         match('hostname')
@@ -53,7 +53,7 @@ describe('location-element', () => {
         const mySearchParams = new URLSearchParams(window.location.search);
         for (const [key, value] of mySearchParams)
         {
-            expect(el.innerText).to.include(key+``+value);
+            expect(el.innerText).to.include(key+`\t`+value);
         }
         window.location.hash = '#dce'
         await aTimeout(10);
