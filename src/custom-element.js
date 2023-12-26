@@ -15,8 +15,9 @@ const attr = (el, attr)=> el.getAttribute?.(attr)
 
     function
 ASSERT(x)
-{   if(!x)
-        debugger
+{
+    // if(!x)
+    //     debugger
 }
     function
 xml2dom( xmlString )
@@ -121,7 +122,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
 {
     if( templateNode.tagName === S || templateNode.documentElement?.tagName === S )
         return tagUid(templateNode)
-    const sanitizeXsl = xml2dom(`<xsl:stylesheet version="1.0" xmlns:xsl="${ XSL_NS_URL }" xmlns:xhtml="${ HTML_NS_URL }" xmlns:exsl="${EXSL_NS_URL}" exclude-result-prefixes="exsl" >   
+    const sanitizeXsl = xml2dom(`<xsl:stylesheet version="1.0" xmlns:xsl="${ XSL_NS_URL }" xmlns:xhtml="${ HTML_NS_URL }" xmlns:exsl="${EXSL_NS_URL}" exclude-result-prefixes="exsl" >
         <xsl:output method="xml" />
         <xsl:template match="/"><dce-root><xsl:apply-templates select="*"/></dce-root></xsl:template>
         <xsl:template match="*[name()='template']"><xsl:apply-templates mode="sanitize" select="*|text()"/></xsl:template>

@@ -57,7 +57,7 @@ describe('location-element', () => {
         }
         window.location.hash = '#dce'
         await aTimeout(10);
-        expect(el.innerText).to.include(`hash`+`#dce`); // actual change
+        expect(el.innerText).to.include(`hash\t#dce`); // actual change
 
         match('protocol')
         match('host')
@@ -74,15 +74,15 @@ describe('location-element', () => {
     {
         const el = await renderStory(LocationElementSrc);
         expect(el.querySelector('location-element').getAttribute('src')).to.equals('https://my.example/?a=1&b=2#3'); // actual change
-        expect(el.innerText).to.include(`href`+`https://my.example/?a=1&b=2#3`);
-        expect(el.innerText).to.include(`protocol`+`https:`);
-        expect(el.innerText).to.include(`host`+`my.example`);
-        expect(el.innerText).to.include(`hostname`+`my.example`);
-        expect(el.innerText).to.include(`pathname`+`/`);
-        expect(el.innerText).to.include(`search`+`?a=1&b=2`);
-        expect(el.innerText).to.include(`hash`+`#3`);
-        expect(el.innerText).to.include(`a`+`1`);
-        expect(el.innerText).to.include(`b`+`2`);
+        expect(el.innerText).to.include(`href\thttps://my.example/?a=1&b=2#3`);
+        expect(el.innerText).to.include(`protocol\thttps:`);
+        expect(el.innerText).to.include(`host\tmy.example`);
+        expect(el.innerText).to.include(`hostname\tmy.example`);
+        expect(el.innerText).to.include(`pathname\t/`);
+        expect(el.innerText).to.include(`search\t?a=1&b=2`);
+        expect(el.innerText).to.include(`hash\t#3`);
+        expect(el.innerText).to.include(`a\t1`);
+        expect(el.innerText).to.include(`b\t2`);
     });
 
 });
