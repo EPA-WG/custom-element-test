@@ -27,13 +27,14 @@ describe('http-request', () =>
         await aTimeout(50);
         expect(el.querySelectorAll('[data-testid="request-section"]').length).to.equal(1);
         const attrs = [...el.querySelectorAll('[data-testid="section-attribute"]')]
-        expect(attrs.length).to.equal(3);
+        expect(attrs.length).to.equal(4);
         expect(attrs[0].innerText).to.equal('@url');
-        expect(attrs[0].nextElementSibling.innerText).to.equal('https://pokeapi.co/api/v2/noreturn');
+        expect(attrs[0].nextElementSibling.nextElementSibling.innerText).to.equal('https://pokeapi.co/api/v2/noreturn');
         expect(attrs[1].innerText).to.equal('@slice');
-        expect(attrs[1].nextElementSibling.innerText).to.equal('request_slice');
+        expect(attrs[1].nextElementSibling.nextElementSibling.innerText).to.equal('request_slice');
         expect(attrs[2].innerText).to.equal('@type');
-        expect(attrs[2].nextElementSibling.innerText).to.equal('text');
+        expect(attrs[2].nextElementSibling.nextElementSibling.innerText).to.equal('text');
+        expect(attrs[3].innerText).to.equal('@data-dce-id');
         expect(el.innerText).to.include('\nrequest');
         expect(el.innerText).not.to.include('\nresponse');
     });
@@ -57,6 +58,7 @@ describe('http-request', () =>
         expect( nextText() ).to.equal('@slice = request_slice');
         expect( nextText() ).to.equal('@type = text');
         expect( nextText() ).to.equal('@mode = cors');
+        expect( nextText() ).to.include('@data-dce-id');
         expect( nextText() ).to.equal('headers\n@x-test = testing');
 
         attr = responseSection.firstElementChild;

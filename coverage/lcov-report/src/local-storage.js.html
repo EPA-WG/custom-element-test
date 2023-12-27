@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.96% </span>
+                <span class="strong">88.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/66</span>
+                <span class='fraction'>52/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">71.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>10/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.96% </span>
+                <span class="strong">88.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/66</span>
+                <span class='fraction'>52/59</span>
             </div>
         
             
@@ -121,29 +121,7 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -171,6 +149,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -193,8 +176,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const     attr = (el, attr)=&gt; el.getAttribute(attr)
-, string2value = (type, v) =&gt;
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const     string2value = (type, v) =&gt;
 {   if( type === 'text')
 <span class="branch-0 cbranch-no" title="branch not covered" >        return v;</span>
     if( type === 'json')
@@ -219,42 +204,36 @@ function ensureTrackLocalStorage()
 &nbsp;
 export class LocalStorageElement extends HTMLElement
 {
-    // @attribute live - monitors localStorage change
-    // @attribute type - `text|json`, defaults to text, other types are compatible with INPUT field
-    constructor()
+    static <span class="fstat-no" title="function not covered" >get observedAttributes() {</span>
+<span class="cstat-no" title="statement not covered" >        return  [   'value' // populated from localStorage, if defined initially, sets the valiue in storage</span>
+<span class="cstat-no" title="statement not covered" >                ,   'slice'</span>
+<span class="cstat-no" title="statement not covered" >                ,   'key'</span>
+<span class="cstat-no" title="statement not covered" >                ,   'type' // `text|json`, defaults to text, other types are compatible with INPUT field</span>
+<span class="cstat-no" title="statement not covered" >                ,   'live' // monitors localStorage change</span>
+<span class="cstat-no" title="statement not covered" >                ];</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+&nbsp;
+    async connectedCallback()
     {
-        super();
-        const      state = {}
-        ,           type = attr(this, 'type') <span class="branch-0 cbranch-no" title="branch not covered" >|| 'text'</span>
-        ,       listener = e=&gt; e.detail.key === attr( this,'key' ) &amp;&amp; propagateSlice()
-        , propagateSlice = ()=&gt;
-        {   for( let parent = this.parentElement; parent; parent = parent.parentElement)
-                if( parent.onSlice )
-                    return parent.onSlice(
-                        {     detail: string2value( type, localStorage.getItem( attr( this, 'key' ) ) )
-                        ,     target: this
-                        } );
-<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >                console.error(`${this.localName} used outside of custom-element`)</span></span>
-<span class="cstat-no" title="statement not covered" >                debugger;</span>
-        };
-        this.sliceInit = s =&gt;
-        {   if( !state.listener &amp;&amp; this.hasAttribute('live') )
-            {   state.listener = 1;
-                window.addEventListener( 'local-storage', listener );
-                ensureTrackLocalStorage();
-            }
-            propagateSlice();
-            return s || {}
+        const    attr = attr =&gt; this.getAttribute(attr)
+            , fromStorage = ()=&gt;
+        {   this.value = string2value( attr('type'), localStorage.getItem( attr( 'key' ) ) );
+            this.dispatchEvent( new Event('change') )
         }
-        this._destroy = ()=&gt;
-        {
-            if( !state.listener )
-                return;
-            state.listener &amp;&amp; window.removeEventListener('local-storage', listener );
-            delete state.listener;
-        };
+        // todo apply type
+        if( this.hasAttribute('value'))
+<span class="branch-0 cbranch-no" title="branch not covered" >            localStorage.setItem( attr( this, 'key' ) )</span>
+        else
+            fromStorage()
+&nbsp;
+        if( this.hasAttribute('live') )
+        {   const listener = (e =&gt; e.detail.key === attr( 'key' ) &amp;&amp; fromStorage());
+            window.addEventListener( 'local-storage', listener );
+            ensureTrackLocalStorage();
+            this._destroy = ()=&gt; window.removeEventListener('local-storage', listener );
+        }
     }
-    disconnectedCallback(){ this._destroy(); }
+    disconnectedCallback(){ this._destroy?.(); }
 }
 &nbsp;
 window.customElements.define( 'local-storage', LocalStorageElement );
@@ -265,7 +244,7 @@ export default LocalStorageElement;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-06-19T06:12:10.825Z
+                at 2023-12-27T07:08:17.504Z
             </div>
         <script src="../prettify.js"></script>
         <script>
