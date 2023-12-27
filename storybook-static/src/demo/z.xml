@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dce-root data-dce-id="1" xmlns:dce="urn:schemas-epa-wg:dce" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <location-element slice="window-url" data-dce-id="2"/>
+    <table data-dce-id="3">
+        <tr data-dce-id="4">
+            <th data-dce-id="5">
+                <u data-dce-id="6">URL properties</u>
+            </th>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">href</th>
+            <td data-dce-id="9">http://localhost:63342/custom-element/demo/a.html?_ijt=qca6trk5kne6eo4s4tomq4egmm&amp;_ij_reload=RELOAD_ON_SAVE</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">origin</th>
+            <td data-dce-id="9">http://localhost:63342</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">protocol</th>
+            <td data-dce-id="9">http:</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">host</th>
+            <td data-dce-id="9">localhost:63342</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">hostname</th>
+            <td data-dce-id="9">localhost</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">port</th>
+            <td data-dce-id="9">63342</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">pathname</th>
+            <td data-dce-id="9">/custom-element/demo/a.html</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">search</th>
+            <td data-dce-id="9">?_ijt=qca6trk5kne6eo4s4tomq4egmm&amp;_ij_reload=RELOAD_ON_SAVE</td>
+        </tr>
+        <tr data-dce-id="7">
+            <th data-dce-id="8">hash</th>
+            <td data-dce-id="9"/>
+        </tr>
+        <tr data-dce-id="10">
+            <th data-dce-id="11">
+                <u data-dce-id="12">URL parameters</u>
+            </th>
+        </tr>
+        <tr data-dce-id="13">
+            <th data-dce-id="14">_ijt</th>
+            <td data-dce-id="15">qca6trk5kne6eo4s4tomq4egmm</td>
+        </tr>
+        <tr data-dce-id="13">
+            <th data-dce-id="14">_ij_reload</th>
+            <td data-dce-id="15">RELOAD_ON_SAVE</td>
+        </tr>
+    </table>
+</dce-root>

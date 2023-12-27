@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.82% </span>
+                <span class="strong">90.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/63</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>56/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>7/7</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.82% </span>
+                <span class="strong">88.88% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>8/9</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">90.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>61/63</span>
+                <span class='fraction'>56/62</span>
             </div>
         
             
@@ -124,42 +124,40 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -191,15 +189,20 @@
 &nbsp;
 export class LocationElement extends HTMLElement
 {
-    // @attribute live - monitors localStorage change
-    // @attribute src - URL to be parsed, defaults to `window.location`
+    static <span class="fstat-no" title="function not covered" >get observedAttributes()</span>
+<span class="cstat-no" title="statement not covered" >    {   return  [   'value' // populated from localStorage, if defined initially, sets the valiue in storage</span>
+<span class="cstat-no" title="statement not covered" >                ,   'slice'</span>
+<span class="cstat-no" title="statement not covered" >                ,   'live' // monitors location change</span>
+<span class="cstat-no" title="statement not covered" >                ,   'src'  // URL to be parsed, defaults to `window.location`</span>
+<span class="cstat-no" title="statement not covered" >                ];</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
     constructor()
     {
         super();
         const      state = {}
         ,       listener = e=&gt; propagateSlice(e)
-        , propagateSlice = (e)=&gt;
+        , propagateSlice = ()=&gt;
         {   const urlStr = attr(this,'src')
             const url = urlStr? new URL(urlStr) : window.location
 &nbsp;
@@ -213,21 +216,14 @@ export class LocationElement extends HTMLElement
             {   if ('string' === typeof url[k])
                     detail[k] = url[k]
             }
-            for( let parent = this.parentElement; parent; parent = parent.parentElement)
-            {   if (parent.onSlice)
-                    return parent.onSlice(
-                        {   detail
-                            , target: this
-                        });
-            }
-<span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >            console.error(`${this.localName} used outside of custom-element`)</span></span>
-<span class="cstat-no" title="statement not covered" >            debugger;</span>
+            this.value = detail;
+            this.dispatchEvent( new Event('change') );
         };
         this.sliceInit = s =&gt;
         {
             if( !state.listener &amp;&amp; this.hasAttribute('live') )
             {   state.listener = 1;
-                window.addEventListener( 'popstate', listener );
+                window.addEventListener( 'popstate'  , listener );
                 window.addEventListener( 'hashchange', listener );
             }
             propagateSlice();
@@ -238,14 +234,15 @@ export class LocationElement extends HTMLElement
             if( !state.listener )
                 return;
             if(state.listener)
-            {   window.removeEventListener('popstate', listener);
+            {   window.removeEventListener('popstate'  , listener);
                 window.removeEventListener('hashchange', listener);
             }
             delete state.listener;
         };
-        this.sliceInit()
+&nbsp;
     }
-    disconnectedCallback(){ this._destroy(); }
+    connectedCallback(){ this.sliceInit() }
+    disconnectedCallback(){ this._destroy() }
 }
 &nbsp;
 window.customElements.define( 'location-element', LocationElement );
@@ -256,7 +253,7 @@ export default LocationElement;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-06-19T06:12:10.825Z
+                at 2023-12-27T07:03:46.531Z
             </div>
         <script src="../prettify.js"></script>
         <script>

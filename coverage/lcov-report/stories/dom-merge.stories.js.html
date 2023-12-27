@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/local-storage.js</title>
+    <title>Code coverage report for stories/dom-merge.stories.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> local-storage.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">stories</a> dom-merge.stories.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.13% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/59</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/10</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.13% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/59</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
@@ -116,12 +116,7 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -147,13 +142,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -179,65 +167,62 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const     string2value = (type, v) =&gt;
-{   if( type === 'text')
-<span class="branch-0 cbranch-no" title="branch not covered" >        return v;</span>
-    if( type === 'json')
-        return JSON.parse( v );
-    const el = document.createElement('input');
-    el.setAttribute('type',type);
-    el.setAttribute('value', v );
-    return type==='number'<span class="branch-0 cbranch-no" title="branch not covered" >? el.valueAsNumber </span>: 'date|time|dateTimeLocal'.includes(type)<span class="branch-0 cbranch-no" title="branch not covered" >? el.valueAsDate:</span> el.value;
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import '../src/custom-element.js';
+&nbsp;
+export default
+{   title: 'dom-merge', component: 'custom-element', argTypes:
+    {        title: { control: 'text', defaultValue: 'simple payload' }
+    ,          tag: { control: 'text', defaultValue: 'my-component' }
+    ,   attributes: { control: 'text', defaultValue: '' }
+    ,         slot: { control: 'text', defaultValue: `Hello World` }
+    ,      payload: { control: 'text', defaultValue: `🍋` }
+    }
 };
 &nbsp;
-let originalSetItem;
-&nbsp;
-function ensureTrackLocalStorage()
-{   if( originalSetItem )
-        return;
-    originalSetItem = localStorage.setItem;
-    localStorage.setItem = function( key, value, ...rest )
-        {   originalSetItem.apply(this, [ key, value, ...rest ]);
-            window.dispatchEvent( new CustomEvent('local-storage',{detail:{key,value}}) );
-        };
-}
-&nbsp;
-export class LocalStorageElement extends HTMLElement
+function Template( { title, tag , attributes, slot, payload } )
 {
-    static <span class="fstat-no" title="function not covered" >get observedAttributes() {</span>
-<span class="cstat-no" title="statement not covered" >        return  [   'value' // populated from localStorage, if defined initially, sets the valiue in storage</span>
-<span class="cstat-no" title="statement not covered" >                ,   'slice'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'key'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'type' // `text|json`, defaults to text, other types are compatible with INPUT field</span>
-<span class="cstat-no" title="statement not covered" >                ,   'live' // monitors localStorage change</span>
-<span class="cstat-no" title="statement not covered" >                ];</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-    async connectedCallback()
-    {
-        const    attr = attr =&gt; this.getAttribute(attr)
-            , fromStorage = ()=&gt;
-        {   this.value = string2value( attr('type'), localStorage.getItem( attr( 'key' ) ) );
-            this.dispatchEvent( new Event('change') )
-        }
-        // todo apply type
-        if( this.hasAttribute('value'))
-<span class="branch-0 cbranch-no" title="branch not covered" >            localStorage.setItem( attr( this, 'key' ) )</span>
-        else
-            fromStorage()
-&nbsp;
-        if( this.hasAttribute('live') )
-        {   const listener = (e =&gt; e.detail.key === attr( 'key' ) &amp;&amp; fromStorage());
-            window.addEventListener( 'local-storage', listener );
-            ensureTrackLocalStorage();
-            this._destroy = ()=&gt; window.removeEventListener('local-storage', listener );
-        }
-    }
-    disconnectedCallback(){ this._destroy?.(); }
+    return `
+        &lt;fieldset&gt;
+            &lt;legend&gt;${ title }&lt;/legend&gt;
+            &lt;custom-element
+                tag="${ tag }"
+                hidden
+                &gt;
+                ${ slot }
+            &lt;/custom-element&gt;
+            &lt;${ tag } ${attributes}&gt;${ payload }&lt;/${ tag }&gt;
+      &lt;/fieldset&gt;
+  `;
 }
 &nbsp;
-window.customElements.define( 'local-storage', LocalStorageElement );
-export default LocalStorageElement;</pre></td></tr></table></pre>
+export const TextareaOnBlur = Template.bind( {} );
+TextareaOnBlur.args =
+{     title: 'Textarea value, type and observe char count update on focus change'
+,       tag: ''
+,      slot: `  &lt;textarea slice="text-container" &gt;Hello world!&lt;/textarea&gt;
+                &lt;p&gt; Char count:
+                        &lt;b&gt;{string-length(//slice/text-container/text())}&lt;/b&gt;
+                &lt;/p&gt;
+                &lt;button&gt; click to focus change &lt;/button&gt;
+             `
+};
+&nbsp;
+export const InputOnChange = Template.bind( {} );
+InputOnChange.args =
+{     title: 'input value, type and observe char count update on keyup'
+,      slot: `  &lt;input type="text"  value="Type time update" slice="txt" slice-update="keyup"/&gt;
+                &lt;span&gt; Character count:
+                    &lt;b&gt; {string-length(//slice/txt)} &lt;/b&gt;
+                &lt;/span&gt;
+                &lt;span&gt; Word count:
+                    &lt;i&gt; {string-length(normalize-space(//slice/txt)) -
+                        string-length(translate(normalize-space(//slice/txt), ' ', '')) + 1} &lt;/i&gt;
+                &lt;/span&gt;
+            `
+};
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
