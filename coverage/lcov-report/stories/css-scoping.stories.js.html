@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/http-request.js</title>
+    <title>Code coverage report for stories/css-scoping.stories.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> http-request.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">stories</a> css-scoping.stories.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.53% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/52</span>
+                <span class='fraction'>58/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.53% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/52</span>
+                <span class='fraction'>58/58</span>
             </div>
         
             
@@ -115,19 +115,14 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -167,58 +162,84 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const     attr = (el, attr)=&gt; el.getAttribute(attr);
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import '../src/custom-element.js';
 &nbsp;
-export class HttpRequestElement extends HTMLElement
+export default
+{   title: 'css-scoping', component: 'custom-element', argTypes:
+    {        title: { control: 'text', defaultValue: 'simple payload' }
+    ,          tag: { control: 'text', defaultValue: 'my-component' }
+    ,         slot: { control: 'text', defaultValue: `&lt;slot&gt;Hello World&lt;/slot&gt;` }
+    ,        style: { control: 'text', defaultValue: `color:green; border:dashed pink;` }
+    ,      payload: { control: 'text', defaultValue: `Hi` }
+    }
+};
+&nbsp;
+function Template( { title, tag , style, slot, payload } )
 {
-    static <span class="fstat-no" title="function not covered" >get observedAttributes() {</span>
-<span class="cstat-no" title="statement not covered" >        return  [   'value' // populated from localStorage, if defined initially, sets the value in storage</span>
-<span class="cstat-no" title="statement not covered" >                ,   'slice'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'url'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'method'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'header-accept'</span>
-<span class="cstat-no" title="statement not covered" >                ]</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-&nbsp;
-    get requestHeaders()
-    {   const ret = {};
-        [...this.attributes].filter(a=&gt;a.name.startsWith('header-')).map( a =&gt; ret[a.name.substring(7)] = a.value );
-        return ret
-    }
-    get requestProps()
-    {   const ret = {};
-        [...this.attributes].filter(a=&gt;!a.name.startsWith('header-')).map( a =&gt; ret[a.name] = a.value );
-        return ret
-    }
-&nbsp;
-    disconnectedCallback(){ this._destroy?.(); }
-&nbsp;
-    connectedCallback()
-    {   const controller = new AbortController();
-        this._destroy = ()=&gt; controller.abort(this.localName+' disconnected');
-&nbsp;
-        const     url = attr(this, 'url') <span class="branch-0 cbranch-no" title="branch not covered" >|| ''</span>
-        ,     request = { ...this.requestProps, headers: this.requestHeaders }
-        ,       slice = { request }
-        ,      update = () =&gt; this.dispatchEvent( new Event('change') );
-        this.value = slice;
-        setTimeout( async ()=&gt;
-        {   update();
-            const response = await fetch(url,{ ...this.requestProps, signal: controller.signal, headers: this.requestHeaders })
-            ,      r = {headers: {}};
-            [...response.headers].map( ([k,v]) =&gt; r.headers[k] = v );
-            'ok,status,statusText,type,url,redirected'.split(',').map( k=&gt; r[k] = response[k] )
-&nbsp;
-            slice.response = r;
-            update();
-            slice.data = await response.json();
-            update();
-        },0 );
-    }
+    return `
+        &lt;fieldset&gt;
+            &lt;legend&gt;${ title }&lt;/legend&gt;
+            &lt;custom-element tag="${ tag }" hidden&gt;
+                &lt;template&gt;
+                    &lt;style&gt;
+                        ${ style }
+                    &lt;/style&gt;
+                    &lt;u&gt;${ slot }&lt;/u&gt;
+                &lt;/template&gt;
+            &lt;/custom-element&gt;
+            ${ payload }
+        &lt;/fieldset&gt;
+  `;
 }
+const GREEN = `&lt;b style="color:green"&gt;green&lt;/b&gt;`
+const RED   = `&lt;i style="color:red"&gt;red&lt;/i&gt;`
+export const StyleDoesNotLeak = Template.bind( {} );
+StyleDoesNotLeak.args =
+{     title: `The default color should stay on label, message in ${GREEN}`
+,       tag: 'dce-1'
+,   payload: `&lt;dce-1&gt;&lt;/dce-1&gt;`
+};
 &nbsp;
-window.customElements.define( 'http-request', HttpRequestElement );
-export default HttpRequestElement;
+export const StyleIn2Instances = Template.bind( {} );
+StyleIn2Instances.args =
+{     title: `The default color should apply ${GREEN} in all instances`
+,       tag: 'dce-2'
+,   payload: `&lt;dce-2 id="dce21"&gt;&lt;/dce-2&gt;&lt;dce-2 id="dce22"&gt;&lt;/dce-2&gt;`
+};
+&nbsp;
+&nbsp;
+export const OverrideInPayload = Template.bind( {} );
+OverrideInPayload.args =
+{     title: `${GREEN} in instance style can be overridden in payload as ${RED}`
+,       tag: 'dce-3'
+,   payload: `  &lt;dce-3 id="dce32"&gt;
+                    &lt;template&gt;
+                        &lt;style&gt; color:red; &lt;/style&gt;
+                        &lt;u&gt;red&lt;/u&gt;
+                    &lt;/template&gt;
+                &lt;/dce-3&gt;
+                &lt;dce-3 id="dce31"&gt;green&lt;/dce-3&gt;   `
+};
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

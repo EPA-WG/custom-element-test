@@ -68,7 +68,7 @@ To run a local development server that serves the basic demo located in `src/dem
 
 [git-url]:        https://github.com/EPA-WG/custom-element
 [github-image]:   https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/svg/mark-github.svg
-[demo-url]:       https://unpkg.com/@epa-wg/custom-element-test@0.0.12/dist/index.html
-[storybook-url]:  https://unpkg.com/@epa-wg/custom-element-test@0.0.12/storybook-static/index.html?path=/story/welcome--introduction
-[coverage-image]: https://unpkg.com/@epa-wg/custom-element-test@0.0.12/coverage/coverage.svg
-[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-test@0.0.12/coverage/lcov-report/index.html
+[demo-url]:       https://unpkg.com/@epa-wg/custom-element-test@0.0.13/dist/index.html
+[storybook-url]:  https://unpkg.com/@epa-wg/custom-element-test@0.0.13/storybook-static/index.html?path=/story/welcome--introduction
+[coverage-image]: https://unpkg.com/@epa-wg/custom-element-test@0.0.13/coverage/coverage.svg
+[coverage-url]:   https://unpkg.com/@epa-wg/custom-element-test@0.0.13/coverage/lcov-report/index.html
