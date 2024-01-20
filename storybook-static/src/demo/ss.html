@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>CSS scoping - Declarative Custom Element implementation demo</title>
+    <link rel="icon" href="./wc-square.svg"/>
+
+    <script type="module" src="../http-request.js"></script>
+    <script type="module" src="../input-text.js"></script>
+    <script type="module" src="../custom-element.js"></script>
+    <style>
+        @import "./demo.css";
+    </style>
+</head>
+<body>
+
+
+        <custom-element src="hex-grid-dce.html#hex-grid-template">
+            <template>
+                <style>nav{--hex-grid-size: 4rem;}</style>
+                <img src="wc-square.svg" alt="DCE" href="https://github.com/EPA-WG/custom-element"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" href="https://react.dev/"/>
+                <img src="https://angularjs.org/favicon.ico" alt="Angular" href="https://angularjs.org/"/>
+                <img src="https://open-wc.org/35ded306.svg" alt="Open WC" href="https://open-wc.org/"/>
+                <img src="https://storage.googleapis.com/cms-storage-bucket/4fd0db61df0567c0f352.png" alt="Flutter" href="https://flutter.dev/"/>
+                <img src="https://lit.dev/images/logo.svg#flame" alt="Lit"/>
+                <img src="https://redux.js.org/img/redux.svg" alt="Redux"/>
+            </template>
+        </custom-element>
+
+</body>
+</html>
