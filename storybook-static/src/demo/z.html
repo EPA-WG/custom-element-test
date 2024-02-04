@@ -1,42 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dce-root data-dce-id="1" xmlns:dce="urn:schemas-epa-wg:dce" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-    <table data-dce-id="2">
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">href</xhtml:th>
-            <xhtml:td data-dce-id="5">http://localhost:63342/custom-element/demo/a.html?_ijt=qca6trk5kne6eo4s4tomq4egmm&amp;_ij_reload=RELOAD_ON_SAVE</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">origin</xhtml:th>
-            <xhtml:td data-dce-id="5">http://localhost:63342</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">protocol</xhtml:th>
-            <xhtml:td data-dce-id="5">http:</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">host</xhtml:th>
-            <xhtml:td data-dce-id="5">localhost:63342</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">hostname</xhtml:th>
-            <xhtml:td data-dce-id="5">localhost</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">port</xhtml:th>
-            <xhtml:td data-dce-id="5">63342</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">pathname</xhtml:th>
-            <xhtml:td data-dce-id="5">/custom-element/demo/a.html</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">search</xhtml:th>
-            <xhtml:td data-dce-id="5">?_ijt=qca6trk5kne6eo4s4tomq4egmm&amp;_ij_reload=RELOAD_ON_SAVE</xhtml:td>
-        </tr>
-        <tr data-dce-id="3">
-            <xhtml:th data-dce-id="4">hash</xhtml:th>
-            <xhtml:td data-dce-id="5"/>
-        </tr>
-    </table>
-    <location-element slice="window-url" data-dce-id="6"/>
-</dce-root>
+<!DOCTYPE html>
+<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>CSS scoping - Declarative Custom Element implementation demo</title>
+    <link rel="icon" href="./wc-square.svg"/>
+
+    <script type="module" src="../http-request.js"></script>
+    <script type="module" src="../input-text.js"></script>
+    <script type="module" src="../custom-element.js"></script>
+    <style>
+        @import "./demo.css";
+
+        button {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            flex: auto;
+            box-shadow: inset silver 0 0 1rem;
+            min-width: 12rem;
+            padding: 1rem;
+            color: coral;
+            text-shadow: 1px 1px silver;
+            font-weight: bolder;
+        }
+
+        caption {
+            padding: 1rem;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
+
+        code {
+            text-align: right;
+            min-width: 3rem;
+        }
+
+    </style>
+</head>
+<body>
+        <custom-element src="hex-grid-dce.html#hex-grid-template">
+            <template>
+                <style>nav{--hex-grid-size: 5rem; margin-left:2rem; }</style>
+                <img src="wc-square.svg" alt="DCE" href="https://github.com/EPA-WG/custom-element"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" href="https://react.dev/"/>
+                <img src="https://angularjs.org/favicon.ico" alt="Angular" href="https://angularjs.org/"/>
+                <img src="https://www.svgrepo.com/show/508923/jquery.svg" alt="jQuery"/>
+                <img src="https://open-wc.org/35ded306.svg" alt="Open WC" href="https://open-wc.org/"/>
+                <img src="https://storage.googleapis.com/cms-storage-bucket/4fd0db61df0567c0f352.png" alt="Flutter" href="https://flutter.dev/"/>
+                <img src="https://lit.dev/images/logo.svg#flame" alt="Lit"/>
+                <img src="https://redux.js.org/img/redux.svg" alt="Redux"/>
+            </template>
+        </custom-element>
+
+
+
+
+
+</body>
+</html>
