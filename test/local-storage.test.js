@@ -3,6 +3,7 @@ import { fixture, expect, aTimeout } from '@open-wc/testing';
 import '../src/custom-element.js';
 import '../src/local-storage.js';
 import defaults, {LocalStorageLive, LocalStorageLoad} from "../stories/local-storage.stories";
+import {localStorageSetItem} from "../src/local-storage";
 
 const defs = {}; Object.keys(defaults.argTypes).map( k=> defs[k]= defaults.argTypes[k].defaultValue);
 const renderStory = async (story) => fixture( story({ ...defs, ...story.args }) );
@@ -28,7 +29,7 @@ describe('local-storage', () => {
     expect(p.innerHTML).to.include('>12</');
     expect(p.innerHTML).to.include('>1</');
     expect(p.innerHTML).to.include('>13</');
-    localStorage.setItem('basket',`{"apples": 3, "oranges": 2 }`);
+    localStorageSetItem('basket',`{"apples": 3, "oranges": 2 }`);
     await aTimeout(10);
     expect(p.innerHTML).to.not.include('lemons');
     expect(p.innerHTML).to.include('apples');

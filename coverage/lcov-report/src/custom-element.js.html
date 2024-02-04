@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.14% </span>
+                <span class="strong">98.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>476/485</span>
+                <span class='fraction'>483/492</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.14% </span>
+                <span class="strong">98.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>476/485</span>
+                <span class='fraction'>483/492</span>
             </div>
         
             
@@ -548,7 +548,14 @@
 <a name='L483'></a><a href='#L483'>483</a>
 <a name='L484'></a><a href='#L484'>484</a>
 <a name='L485'></a><a href='#L485'>485</a>
-<a name='L486'></a><a href='#L486'>486</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a>
+<a name='L488'></a><a href='#L488'>488</a>
+<a name='L489'></a><a href='#L489'>489</a>
+<a name='L490'></a><a href='#L490'>490</a>
+<a name='L491'></a><a href='#L491'>491</a>
+<a name='L492'></a><a href='#L492'>492</a>
+<a name='L493'></a><a href='#L493'>493</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -694,9 +701,16 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -1054,12 +1068,12 @@ ASSERT(x)
     // if(!x)
     //     debugger
 }
-    function
+    export function
 xml2dom( xmlString )
 {
     return new DOMParser().parseFromString( xmlString, "application/xml" )
 }
-<span class="fstat-no" title="function not covered" >    function</span>
+    export <span class="fstat-no" title="function not covered" >function</span>
 <span class="cstat-no" title="statement not covered" >xmlString(doc){ return new XMLSerializer().serializeToString( doc ) }</span>
 &nbsp;
     function
@@ -1130,7 +1144,7 @@ tagUid( node )
             [...m].forEach(t=&gt;
             {   if( t.index &gt; l )
                     tt.push( txt( t.input.substring( l, t.index ) ))
-                const v = e.ownerDocument.createElement('xsl:value-of');
+                const v = node.querySelector('value-of').cloneNode();
                 v.setAttribute('select', t[1] );
                 tt.push(v);
                 l = t.index+t[0].length;
@@ -1159,7 +1173,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         return tagUid(templateNode)
     const sanitizeXsl = xml2dom(`&lt;xsl:stylesheet version="1.0" xmlns:xsl="${ XSL_NS_URL }" xmlns:xhtml="${ HTML_NS_URL }" xmlns:exsl="${EXSL_NS_URL}" exclude-result-prefixes="exsl" &gt;   
         &lt;xsl:output method="xml" /&gt;
-        &lt;xsl:template match="/"&gt;&lt;dce-root&gt;&lt;xsl:apply-templates select="*"/&gt;&lt;/dce-root&gt;&lt;/xsl:template&gt;
+        &lt;xsl:template match="/"&gt;&lt;dce-root xmlns="${ HTML_NS_URL }"&gt;&lt;xsl:apply-templates select="*"/&gt;&lt;/dce-root&gt;&lt;/xsl:template&gt;
         &lt;xsl:template match="*[name()='template']"&gt;&lt;xsl:apply-templates mode="sanitize" select="*|text()"/&gt;&lt;/xsl:template&gt;
         &lt;xsl:template match="*"&gt;&lt;xsl:apply-templates mode="sanitize" select="*|text()"/&gt;&lt;/xsl:template&gt;
         &lt;xsl:template match="*[name()='svg']|*[name()='math']"&gt;&lt;xsl:apply-templates mode="sanitize" select="."/&gt;&lt;/xsl:template&gt;
@@ -1176,7 +1190,12 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         {
             forEach$(n,'script', s=&gt; s.remove() );
             const e = n.firstElementChild?.content || n.content
-            , asXmlNode = r =&gt; xslHtmlNs(xml2dom( '&lt;xhtml/&gt;' ).importNode(r, true));
+            , asXmlNode = r =&gt; {
+                const d = xml2dom( '&lt;xhtml/&gt;' )
+                ,     n = d.importNode(r, true);
+                d.replaceChild(n,d.documentElement);
+                return xslHtmlNs(n);
+            };
             if( e )
             {   const t = create('div');
                 [ ...e.childNodes ].map( c =&gt; t.append(c.cloneNode(true)) )
@@ -1187,10 +1206,12 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     ,   xslDom = xml2dom(
         `&lt;xsl:stylesheet version="1.0"
         xmlns:xsl="${ XSL_NS_URL }"
+        xmlns:xhtml="${ HTML_NS_URL }"
         xmlns:dce="urn:schemas-epa-wg:dce"
         xmlns:exsl="http://exslt.org/common"
         exclude-result-prefixes="exsl"
     &gt;
+    &lt;xsl:template match="ignore"&gt;&lt;xsl:value-of select="."/&gt;&lt;/xsl:template&gt;
     &lt;xsl:template mode="payload"  match="attributes"&gt;&lt;/xsl:template&gt;
     &lt;xsl:template match="/"&gt;
         &lt;xsl:apply-templates mode="payload" select="/datadom/attributes"/&gt;
@@ -1471,7 +1492,7 @@ CustomElement extends HTMLElement
                 const transform = ()=&gt;
                 {
                     const ff = xp.map( (p,i) =&gt;
-                    {   const f = p.transformToFragment(x, document)
+                    {   const f = p.transformToFragment(x.ownerDocument, document)
                         if( !f )
 <span class="branch-0 cbranch-no" title="branch not covered" >                            console.error( "XSLT transformation error. xsl:\n", xmlString(templateDocs[i]), '\nxml:\n', xmlString(x) );</span>
                         return f
@@ -1525,7 +1546,7 @@ export default CustomElement;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-01-20T19:37:42.131Z
+                at 2024-02-04T20:29:21.830Z
             </div>
         <script src="../prettify.js"></script>
         <script>
