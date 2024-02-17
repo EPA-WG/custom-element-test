@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for stories/dom-merge.stories.js</title>
+    <title>Code coverage report for stories/parameters.stories.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">stories</a> dom-merge.stories.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">stories</a> parameters.stories.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>50/50</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/53</span>
+                <span class='fraction'>50/50</span>
             </div>
         
             
@@ -113,13 +113,7 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -172,55 +166,52 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import '../src/custom-element.js';
 &nbsp;
 export default
-{   title: 'dom-merge', component: 'custom-element', argTypes:
+{   title: 'parameters', component: 'custom-element', argTypes:
     {        title: { control: 'text', defaultValue: 'simple payload' }
     ,          tag: { control: 'text', defaultValue: 'my-component' }
-    ,   attributes: { control: 'text', defaultValue: '' }
-    ,         slot: { control: 'text', defaultValue: `Hello World` }
-    ,      payload: { control: 'text', defaultValue: `🍋` }
+    ,      payload: { control: 'text', defaultValue: `Hi` }
     }
 };
 &nbsp;
-function Template( { title, tag , attributes, slot, payload } )
+function Template( { title, tag , payload } )
 {
     return `
         &lt;fieldset&gt;
             &lt;legend&gt;${ title }&lt;/legend&gt;
-            &lt;custom-element
-                tag="${ tag }"
-                hidden
-                &gt;
-                ${ slot }
+            &lt;custom-element tag="${ tag }" hidden&gt;
+                &lt;xsl:param name="p1" select="//p1 ?? 'def_p1' " &gt;&lt;/xsl:param&gt;
+                &lt;xsl:param name="p2" select="'always_p2'"       &gt;&lt;/xsl:param&gt;
+                &lt;xsl:param name="p3" &gt;default_P3                &lt;/xsl:param&gt;
+                p1:{$p1} &lt;br/&gt; p2:{$p2} &lt;br/&gt; p3:{$p3}
             &lt;/custom-element&gt;
-            &lt;${ tag } ${attributes}&gt;${ payload }&lt;/${ tag }&gt;
-      &lt;/fieldset&gt;
+            ${ payload }
+        &lt;/fieldset&gt;
   `;
 }
 &nbsp;
-export const TextareaOnBlur = Template.bind( {} );
-TextareaOnBlur.args =
-{     title: 'Textarea value, type and observe char count update on focus change'
-,       tag: ''
-,      slot: `  &lt;textarea slice="text-container" &gt;Hello world!&lt;/textarea&gt;
-                &lt;p&gt; Char count:
-                        &lt;b&gt;{string-length(//slice/text-container/text())}&lt;/b&gt;
-                &lt;/p&gt;
-                &lt;button&gt; click to focus change &lt;/button&gt;
-             `
+export const AttributeDefaults = Template.bind( {} );
+AttributeDefaults.args =
+{     title: `3 ways to declare DCE attribute default values`
+,       tag: 'dce-1'
+,   payload: `&lt;dce-1 id="dce1"&gt;&lt;/dce-1&gt;`
 };
 &nbsp;
-export const InputOnChange = Template.bind( {} );
-InputOnChange.args =
-{     title: 'input value, type and observe char count update on keyup'
-,      slot: `  &lt;input type="text"  value="Type time update" slice="txt" slice-update="keyup"/&gt;
-                &lt;span&gt; Character count:
-                    &lt;b&gt; {string-length(//slice/txt)} &lt;/b&gt;
-                &lt;/span&gt;
-                &lt;span&gt; Word count:
-                    &lt;i&gt; {string-length(normalize-space(//slice/txt)) -
-                        string-length(translate(normalize-space(//slice/txt), ' ', '')) + 1} &lt;/i&gt;
-                &lt;/span&gt;
-            `
+export const AttributeUse = Template.bind( {} );
+AttributeUse.args =
+{     title: `overriding attribute default values`
+,       tag: 'dce-2'
+,   payload: `&lt;dce-2 id="dce2" p1="123" p2="ignored" p3="P3"&gt;&lt;/dce-2&gt;`
+};
+&nbsp;
+export const AttributeChange = Template.bind( {} );
+AttributeChange.args =
+{     title: `re-render to reflect dynamic attribute change`
+,       tag: 'dce-3'
+,   payload: `&lt;dce-3 id="dce3" p1="123"&gt;&lt;/dce-3&gt;
+    &lt;button onclick="dce3.setAttribute('p1','changed_P1')"&gt;Change p1&lt;/button&gt;
+    &lt;button onclick="dce3.setAttribute('p2','changed_P2')"&gt;Change p2&lt;/button&gt;
+    &lt;button onclick="dce3.setAttribute('p3','changed_P3')"&gt;Change p3&lt;/button&gt;
+`
 };
 &nbsp;</pre></td></tr></table></pre>
 
