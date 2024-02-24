@@ -20,19 +20,8 @@
     </style>
 </head>
 <body>
-
-<custom-element >
-    <local-storage key="basket" slice="basket"></local-storage>
-    <html:table>
-        <xsl:for-each select="//slice/basket/@*">
-            <html:tr>
-                <html:th> {name()} </html:th>
-                <html:td> {.}      </html:td>
-            </html:tr>
-        </xsl:for-each>
-    </html:table>
-    count:<xsl:value-of select="count(//slice/basket/@*)"/>
-</custom-element>
+<custom-element> my tag is {tag} </custom-element>
+<my-element></my-element>
 
 </body>
 </html>

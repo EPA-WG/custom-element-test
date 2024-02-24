@@ -1,6 +1,6 @@
 {
   "name": "@epa-wg/custom-element-test",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "binary distribution, test, and storybook project for custom-element",
   "browser": "dist/custom-element.js",
   "module": "dist/custom-element.js",
@@ -54,7 +54,7 @@
     "url": "https://www.patreon.com/sashafirsov"
   },
   "dependencies": {
-    "@epa-wg/custom-element": "0.0.16"
+    "@epa-wg/custom-element": "0.0.17"
   },
   "devDependencies": {
     "@open-wc/testing": "3.1.7",
@@ -74,7 +74,7 @@
     "msw-storybook-addon": "1.8.0"
   },
   "readme": "README.md",
-  "_id": "@epa-wg/custom-element-test@0.0.16",
+  "_id": "@epa-wg/custom-element-test@0.0.17",
   "msw": {
     "workerDirectory": ""
   }
