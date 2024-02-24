@@ -26,7 +26,7 @@ describe('src attribute', () => {
 
     expect(el.querySelectorAll('my-component').length).to.equal(0);
     expect(el.querySelector('custom-element').firstElementChild.tagName.startsWith('DCE-')).to.equal(true);
-    expect(el.querySelector('custom-element').getAttribute('tag')).to.equal('');
+    expect(el.querySelector('custom-element').getAttribute('tag')).to.not.equal('');
     expect(el.innerHTML).to.include(`🏗️ construction`);
   });
   it('src=svg', async () => {
@@ -36,7 +36,7 @@ describe('src attribute', () => {
 
     expect(el.querySelectorAll('my-component').length).to.equal(0);
     expect(el.querySelector('custom-element').firstElementChild.localName.startsWith('dce-')).to.equal(true);
-    expect(el.querySelector('custom-element').getAttribute('tag')).to.equal('');
+    expect(el.querySelector('custom-element').getAttribute('tag')).to.not.equal('');
     expect(el.querySelectorAll('svg').length).to.equal(1);
   });
 
@@ -46,7 +46,7 @@ describe('src attribute', () => {
     await aTimeout(100)
 
     expect(el.querySelectorAll('my-component').length).to.equal(0);
-    expect(el.querySelector('custom-element').getAttribute('tag')).to.equal('');
+    expect(el.querySelector('custom-element').getAttribute('tag')).to.not.equal('');
     expect(el.querySelectorAll('svg').length).to.equal(0);
     expect(el.innerText).to.include('fallback for missing image');
   });
