@@ -25,17 +25,17 @@ function Template( { title, tag , slice, url } )
         url="${url}"
         slice="${slice}"
         ></http-request>
-    <xsl:if test="not(//slice/${slice}/data/results/*)">
+    <if test="not(//slice/${slice}/data/results/*)">
         <h3>loading...</h3>
-    </xsl:if>
-    <xsl:for-each select="//slice/${slice}/data/results/*">
-        <xsl:variable name="pokeid"
+    </if>
+    <for-each select="//slice/${slice}/data/results/*">
+        <variable name="pokeid"
             select="substring-before( substring-after( @url, 'https://pokeapi.co/api/v2/pokemon/'),'/')"
-            ></xsl:variable>
+            ></variable>
         <button>
-            <xsl:value-of select='@name'/>
+            <value-of select='@name'/>
         </button>
-    </xsl:for-each>
+    </for-each>
 </template>
             </custom-element>
             <${ tag }></${ tag }>
@@ -66,18 +66,18 @@ LifecycleInitialized = ()=>`
         type="text"
         ></http-request>
     Content of <code>//slice/request_slice</code> before <b>response</b> available
-    <xsl:for-each select="//slice/request_slice/*">
+    <for-each select="//slice/request_slice/*">
         <ul>
-            <var data-testid="request-section"><xsl:value-of select='name(.)'/></var>
-            <xsl:for-each select="@*">
+            <var data-testid="request-section"><value-of select='name(.)'/></var>
+            <for-each select="@*">
                 <div>
-                    <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                    <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
                     =
-                    <code><xsl:value-of select='.'/></code>
+                    <code><value-of select='.'/></code>
                 </div>
-            </xsl:for-each>
+            </for-each>
         </ul>
-    </xsl:for-each>
+    </for-each>
 </template>
             </custom-element>
             <no-responce></no-responce>
@@ -107,39 +107,39 @@ from <code>${url}</code>
 <h3>Samples</h3>
 <table>
 <tr><th>//slice/request_slice/request/headers/@mode</th>
-    <td><xsl:value-of select="//slice/request_slice/request/@mode"/></td></tr>
+    <td><value-of select="//slice/request_slice/request/@mode"/></td></tr>
 <tr><th>//slice/request_slice/response/headers/@content-type</th>
-    <td><xsl:value-of select="//slice/request_slice/response/headers/@content-type"/></td></tr>
+    <td><value-of select="//slice/request_slice/response/headers/@content-type"/></td></tr>
 <tr><th>//slice/request_slice/response/@status</th>
-    <td><xsl:value-of select="//slice/request_slice/response/@status"/></td></tr>
+    <td><value-of select="//slice/request_slice/response/@status"/></td></tr>
 </table>
-<xsl:for-each select="//slice/request_slice/*">
+<for-each select="//slice/request_slice/*">
     <ul data-request-section="{name(.)}">
-        <b data-testid="request-section"><xsl:value-of select='name(.)'/></b>
-        <xsl:for-each select="@*">
+        <b data-testid="request-section"><value-of select='name(.)'/></b>
+        <for-each select="@*">
             <div>
-                <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
                 =
-                <code><xsl:value-of select='.'/></code>
+                <code><value-of select='.'/></code>
             </div>
-        </xsl:for-each>
-        <xsl:for-each select="*">
+        </for-each>
+        <for-each select="*">
             <div>
-                <b data-testid="section-deep"><xsl:value-of select='local-name(.)'/></b>
+                <b data-testid="section-deep"><value-of select='local-name(.)'/></b>
                 <ul>
-                    <xsl:for-each select="@*">
+                    <for-each select="@*">
                         <li>
-                            <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                            <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
                             =
-                            <code><xsl:value-of select='.'/></code>
+                            <code><value-of select='.'/></code>
                         </li>
-                    </xsl:for-each>
-                    <code><xsl:value-of select='.'/></code>
+                    </for-each>
+                    <code><value-of select='.'/></code>
                 </ul>
             </div>
-        </xsl:for-each>
+        </for-each>
     </ul>
-</xsl:for-each>
+</for-each>
             </custom-element>
             <headers-demo></headers-demo>
       </fieldset>

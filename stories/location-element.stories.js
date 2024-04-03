@@ -36,22 +36,22 @@ function Template( { title, tag, src, slice, live } )
                 <template>
                     <location-element slice="${ slice }" ${live?'live':''} ${src?'src="https://my.example/?a=1&b=2#3"':''}></location-element>
                     <html:table xmlns:html="http://www.w3.org/1999/xhtml">
-                        <xsl:for-each select="//slice/${slice}/@*">
+                        <for-each select="//slice/${slice}/@*">
                             <html:tr>
-                                <html:th><xsl:value-of select="name()"/></html:th>
-                                <html:td><xsl:value-of select="."/></html:td>
+                                <html:th><value-of select="name()"/></html:th>
+                                <html:td><value-of select="."/></html:td>
                             </html:tr>
-                        </xsl:for-each>
+                        </for-each>
                         <html:tr>
                             <html:th><u>params</u></html:th>
                             <html:th></html:th>
                         </html:tr>
-                        <xsl:for-each select="//slice/${slice}/params/*">
+                        <for-each select="//slice/${slice}/params/*">
                             <html:tr>
-                                <html:th><xsl:value-of select="name()"/></html:th>
-                                <html:td><xsl:value-of select="."/></html:td>
+                                <html:th><value-of select="name()"/></html:th>
+                                <html:td><value-of select="."/></html:td>
                             </html:tr>
-                        </xsl:for-each>
+                        </for-each>
                     </html:table>
                 </template>
             </custom-element>
