@@ -55,3 +55,25 @@ AttributeChange.args =
     <button onclick="dce3.setAttribute('p3','changed_P3')">Change p3</button>
 `
 };
+
+
+function TemplateSlice( { title } )
+{
+    return `
+        <fieldset>
+            <legend>${ title }</legend>
+            <custom-element>
+                <template>
+                    <attribute name="title" select="//title ?? '😃'"></attribute>
+                    <input slice="/datadom/attributes/title" slice-update="keyup">
+                    title attribute: {$title}
+                </template>
+            </custom-element>
+        </fieldset>
+  `;
+}
+
+export const AttributeFromSlice = TemplateSlice.bind( {} );
+AttributeFromSlice.args =
+{     title: `Slice from input propagated to title attribute. Type on input to see attribute change.`
+};

@@ -1,7 +1,13 @@
 import {fixture, expect, aTimeout} from '@open-wc/testing';
 
 import '../src/custom-element.js';
-import defaults, { AttributeChange, AttributeDefaults, AttributeObservable, AttributeUse } from "../stories/parameters.stories";
+import defaults, {
+    AttributeChange,
+    AttributeDefaults,
+    AttributeFromSlice,
+    AttributeObservable,
+    AttributeUse
+} from "../stories/parameters.stories";
 
 const defs = {};
 Object.keys(defaults.argTypes).map(k => defs[k] = defaults.argTypes[k].defaultValue);
@@ -67,6 +73,20 @@ describe('DCE attributes definition', () =>
         dce3.setAttribute('p3','changed_p3');
         expect(dce3.innerText).to.include('p3:changed_p3');
 
+    });
+
+    it('slice to attribute', async () =>
+    {
+        const el = await renderStory(AttributeFromSlice);
+
+        const dce = $('custom-element>*',el);
+        expect(dce.hasAttribute('title')).to.equal(true);
+        expect(dce.getAttribute('title')).to.equal('😃');
+        const input = $('input',dce);
+        input.value = "abc";
+        input.dispatchEvent(new KeyboardEvent('keyup', {'key': 'c'}));
+        await aTimeout(10);
+        expect(dce.getAttribute('title')).to.equal('abc');
     });
 
 });
