@@ -1,19 +1,19 @@
 const XSL_NS_URL  = 'http://www.w3.org/1999/XSL/Transform'
-    ,     HTML_NS_URL = 'http://www.w3.org/1999/xhtml'
-    ,     EXSL_NS_URL = 'http://exslt.org/common'
-    ,     DCE_NS_URL  ="urn:schemas-epa-wg:dce";
+,     HTML_NS_URL = 'http://www.w3.org/1999/xhtml'
+,     EXSL_NS_URL = 'http://exslt.org/common'
+,     DCE_NS_URL  ="urn:schemas-epa-wg:dce";
 
 // const log = x => console.debug( new XMLSerializer().serializeToString( x ) );
 
 const attr = (el, attr)=> el.getAttribute?.(attr)
-    ,   isText = e => e.nodeType === 3
-    ,   create = ( tag, t = '', d=document ) => ( e => ((e.innerText = t||''),e) )((d.ownerDocument || d ).createElement( tag ))
-    ,   createText = ( d, t) => (d.ownerDocument || d ).createTextNode( t )
-    ,   emptyNode = n=> { while(n.firstChild) n.firstChild.remove(); return n; }
-    ,   createNS = ( ns, tag, t = '' ) => ( e => ((e.innerText = t||''),e) )(document.createElementNS( ns, tag ))
-    ,   xslNs = x => ( x?.setAttribute('xmlns:xsl', XSL_NS_URL ), x )
-    ,   xslHtmlNs = x => ( x?.setAttribute('xmlns:xhtml', HTML_NS_URL ), xslNs(x) )
-    ,   cloneAs = (p,tag) =>
+,   isText = e => e.nodeType === 3
+,   create = ( tag, t = '', d=document ) => ( e => ((e.innerText = t||''),e) )((d.ownerDocument || d ).createElement( tag ))
+,   createText = ( d, t) => (d.ownerDocument || d ).createTextNode( t )
+,   emptyNode = n=> { while(n.firstChild) n.firstChild.remove(); return n; }
+,   createNS = ( ns, tag, t = '' ) => ( e => ((e.innerText = t||''),e) )(document.createElementNS( ns, tag ))
+,   xslNs = x => ( x?.setAttribute('xmlns:xsl', XSL_NS_URL ), x )
+,   xslHtmlNs = x => ( x?.setAttribute('xmlns:xhtml', HTML_NS_URL ), xslNs(x) )
+,   cloneAs = (p,tag) =>
 {   const px = p.ownerDocument.createElementNS(p.namespaceURI,tag);
     for( let a of p.attributes)
         px.setAttribute(a.name, a.value);
@@ -22,21 +22,21 @@ const attr = (el, attr)=> el.getAttribute?.(attr)
     return px;
 }
 
-function
+    function
 ASSERT(x)
 {
     // if(!x)
     //     debugger
 }
-export function
+    export function
 xml2dom( xmlString )
 {
     return new DOMParser().parseFromString( xmlString, "application/xml" )
 }
-export function
+    export function
 xmlString(doc){ return new XMLSerializer().serializeToString( doc ) }
 
-function
+    function
 injectData( root, sectionName, arr, cb )
 {   const create = ( tag ) => root.ownerDocument.createElement( tag );
     const inject = ( tag, parent, s ) =>
@@ -48,7 +48,7 @@ injectData( root, sectionName, arr, cb )
     return l;
 }
 
-function
+    function
 assureSlot( e )
 {
     if( !e.slot )
@@ -60,7 +60,7 @@ assureSlot( e )
     return e;
 }
 
-export function
+    export function
 Json2Xml( o, tag )
 {
     if( typeof o === 'string' )
@@ -90,34 +90,34 @@ Json2Xml( o, tag )
         ret.push("/>");
     return ret.join('\n');
 }
-export function
+    export function
 tagUid( node )
 {   // {} to xsl:value-of
     forEach$(node,'*',d => [...d.childNodes].filter( e=>e.nodeType === 3 ).forEach( e=>
-                                                                                    {   if( e.parentNode.localName === 'style' )
-                                                                                        return;
-                                                                                        const m = e.data.matchAll( /{([^}]*)}/g );
-                                                                                        if(m)
-                                                                                        {   let l = 0
-                                                                                            , txt = t => createText(e,t||'')
-                                                                                            ,  tt = [];
-                                                                                            [...m].forEach(t=>
-                                                                                                           {   if( t.index > l )
-                                                                                                               tt.push( txt( t.input.substring( l, t.index ) ))
-                                                                                                               const v = node.querySelector('value-of').cloneNode();
-                                                                                                               v.setAttribute('select', t[1] );
-                                                                                                               tt.push(v);
-                                                                                                               l = t.index+t[0].length;
-                                                                                                           })
-                                                                                            if( l < e.data.length)
-                                                                                                tt.push( txt( e.data.substring(l,e.data.length) ));
-                                                                                            if( tt.length )
-                                                                                            {   for( let t of tt )
-                                                                                                d.insertBefore(t,e);
-                                                                                                d.removeChild(e);
-                                                                                            }
-                                                                                        }
-                                                                                    }));
+    {   if( e.parentNode.localName === 'style' )
+            return;
+        const m = e.data.matchAll( /{([^}]*)}/g );
+        if(m)
+        {   let l = 0
+            , txt = t => createText(e,t||'')
+            ,  tt = [];
+            [...m].forEach(t=>
+            {   if( t.index > l )
+                    tt.push( txt( t.input.substring( l, t.index ) ))
+                const v = node.querySelector('value-of').cloneNode();
+                v.setAttribute('select', t[1] );
+                tt.push(v);
+                l = t.index+t[0].length;
+            })
+            if( l < e.data.length)
+                tt.push( txt( e.data.substring(l,e.data.length) ));
+            if( tt.length )
+            {   for( let t of tt )
+                    d.insertBefore(t,e);
+                d.removeChild(e);
+            }
+        }
+    }));
 
     if( 'all' in node ) {
         let i= 1;
@@ -126,7 +126,7 @@ tagUid( node )
     }
     return node
 }
-export function
+    export function
 createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
 {
     if( templateNode.tagName === S || templateNode.documentElement?.tagName === S )
@@ -146,26 +146,26 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         <xsl:template mode="sanitize" match="xhtml:*"><xsl:element name="{local-name()}"><xsl:apply-templates mode="sanitize" select="*|@*|text()"/></xsl:element></xsl:template>
     </xsl:stylesheet>`)
     const sanitizeProcessor = new XSLTProcessor()
-        ,   tc = (n =>
-    {
-        forEach$(n,'script', s=> s.remove() );
-        const xslRoot = n.content ?? n.firstElementChild?.content ?? n.body ?? n;
-        xslTags.forEach( tag => forEach$( xslRoot, tag, el=>toXsl(el,xslRoot) ) );
-        const e = n.firstElementChild?.content || n.content
+    ,   tc = (n =>
+        {
+            forEach$(n,'script', s=> s.remove() );
+            const xslRoot = n.content ?? n.firstElementChild?.content ?? n.body ?? n;
+            xslTags.forEach( tag => forEach$( xslRoot, tag, el=>toXsl(el,xslRoot) ) );
+            const e = n.firstElementChild?.content || n.content
             , asXmlNode = r => {
-            const d = xml2dom( '<xhtml/>' )
+                const d = xml2dom( '<xhtml/>' )
                 ,     n = d.importNode(r, true);
-            d.replaceChild(n,d.documentElement);
-            return xslHtmlNs(n);
-        };
-        if( e )
-        {   const t = create('div');
-            [ ...e.childNodes ].map( c => t.append(c.cloneNode(true)) )
-            return asXmlNode(t)
-        }
-        return  asXmlNode(n.documentElement || n.body || n)
-    })(templateNode)
-        ,   xslDom = xml2dom(
+                d.replaceChild(n,d.documentElement);
+                return xslHtmlNs(n);
+            };
+            if( e )
+            {   const t = create('div');
+                [ ...e.childNodes ].map( c => t.append(c.cloneNode(true)) )
+                return asXmlNode(t)
+            }
+            return  asXmlNode(n.documentElement || n.body || n)
+        })(templateNode)
+    ,   xslDom = xml2dom(
         `<xsl:stylesheet version="1.0"
         xmlns:xsl="${ XSL_NS_URL }"
         xmlns:xhtml="${ HTML_NS_URL }"
@@ -202,38 +202,41 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
         </xsl:call-template>
     </xsl:variable>
 </xsl:stylesheet>`
-    );
+        );
 
     sanitizeProcessor.importStylesheet( sanitizeXsl );
 
     const fr = sanitizeProcessor.transformToFragment(tc, document)
-        ,   $ = (e,css) => e.querySelector(css)
-        ,   payload = $( xslDom, 'template[mode="payload"]');
+    ,   $ = (e,css) => e.querySelector(css)
+    ,   payload = $( xslDom, 'template[mode="payload"]');
     if( !fr )
         return console.error("transformation error",{ xml:tc.outerHTML, xsl: xmlString( sanitizeXsl ) });
     const params = [];
     [...fr.querySelectorAll('dce-root>attribute')].forEach( a=>
-                                                            {
-                                                                const p = cloneAs(a,'xsl:param');
-                                                                payload.append(p);
-                                                                let select = attr(p,'select')?.split('??')
-                                                                if( !select)
-                                                                {   select = ['//'+attr(p, 'name'), `'${p.textContent}'`];
-                                                                    emptyNode(p);
-                                                                }
-                                                                if( select?.length>1 ){
-                                                                    p.removeAttribute('select');
-                                                                    const c = $( xslDom, 'template[match="ignore"]>choose').cloneNode(true);
-                                                                    c.firstElementChild.setAttribute('test',select[0]);
-                                                                    emptyNode(c.firstElementChild).append( createText(c,'{'+select[0]+'}'));
-                                                                    emptyNode(c.lastElementChild ).append( createText(c,'{'+select[1]+'}'));
-                                                                    p.append(c);
-                                                                    a.append(c.cloneNode(true));
-                                                                }else
-                                                                    a.append(cloneAs(a,'xsl:value-of'));
-                                                                a.removeAttribute('select');
-                                                                params.push(p)
-                                                            });
+    {
+        const p = cloneAs(a,'xsl:param');
+        payload.append(p);
+        let select = attr(p,'select')?.split('??')
+        if( !select)
+        {   select = ['//'+attr(p, 'name'), `'${p.textContent}'`];
+            emptyNode(p);
+        }
+                                                                let val;
+        if( select?.length>1 ){
+            p.removeAttribute('select');
+            const c = $( xslDom, 'template[match="ignore"]>choose').cloneNode(true);
+            c.firstElementChild.setAttribute('test',select[0]);
+            emptyNode(c.firstElementChild).append( createText(c,'{'+select[0]+'}'));
+            emptyNode(c.lastElementChild ).append( createText(c,'{'+select[1]+'}'));
+            p.append(c);
+                                                                    val = c.cloneNode(true);
+        }else
+                                                                    val=cloneAs(a,'xsl:value-of');
+                                                                val.removeAttribute('name');
+                                                                a.append(val);
+        a.removeAttribute('select');
+        params.push(p)
+    });
 
     for( const c of fr.childNodes )
         payload.append(xslDom.importNode(c,true))
@@ -242,7 +245,7 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     embeddedTemplates.forEach(t=>payload.ownerDocument.documentElement.append(t));
 
     const   slotCall = $(xslDom,'call-template[name="slot"]')
-        ,       slot2xsl = s =>
+    ,       slot2xsl = s =>
     {   const v = slotCall.cloneNode(true)
         ,  name = attr(s,'name') || '';
         name && v.firstElementChild.setAttribute('select',`'${ name }'`)
@@ -257,26 +260,26 @@ createXsltFromDom( templateNode, S = 'xsl:stylesheet' )
     ret.params = params;
     return ret;
 }
-export async function
+    export async function
 xhrTemplate(src)
 {
     const dom = await new Promise((resolve,reject)=>
-                                  {   const xhr = new XMLHttpRequest();
-                                      xhr.open("GET", src);
-                                      xhr.responseType = "document";
-                                      // xhr.overrideMimeType("text/xml");
-                                      xhr.onload = () =>
-                                      {   if( xhr.readyState === xhr.DONE && xhr.status === 200 )
-                                          resolve( xhr.responseXML ||  create('div', xhr.responseText ) )
-                                          reject(xhr.statusText)
-                                      };
-                                      xhr.addEventListener("error", ev=>reject(ev) );
+    {   const xhr = new XMLHttpRequest();
+        xhr.open("GET", src);
+        xhr.responseType = "document";
+        // xhr.overrideMimeType("text/xml");
+        xhr.onload = () =>
+        {   if( xhr.readyState === xhr.DONE && xhr.status === 200 )
+                resolve( xhr.responseXML ||  create('div', xhr.responseText ) )
+            reject(xhr.statusText)
+        };
+        xhr.addEventListener("error", ev=>reject(ev) );
 
-                                      xhr.send();
-                                  })
+        xhr.send();
+    })
     return dom
 }
-export function
+    export function
 deepEqual(a, b, O=false)
 {
     if( a === b )
@@ -292,17 +295,17 @@ deepEqual(a, b, O=false)
     return true;
 }
 
-export function
+    export function
 injectSlice( x, s, data )
 {
     const isString = typeof data === 'string' ;
     const createXmlNode = ( tag, t = '' ) => ( e => ((e.append( createText(x, t||''))),e) )(x.ownerDocument.createElement( tag ))
     const el = isString
-               ? createXmlNode(s, data)
-               : document.adoptNode( xml2dom( Json2Xml( data, s ) ).documentElement);
+        ? createXmlNode(s, data)
+        : document.adoptNode( xml2dom( Json2Xml( data, s ) ).documentElement);
     [...x.children].filter( e=>e.localName === s ).map( el=>el.remove() );
     el.data = data
-    x.append(el);
+        x.append(el);
 }
 
 function forEach$( el, css, cb){
@@ -338,10 +341,10 @@ const loadTemplateRoots = async ( src, dce )=>
 }
 export function mergeAttr( from, to )
 {   if( isText(from) )
-{
-    if( !isText(to) ){ debugger }
-    return
-}
+    {
+        if( !isText(to) ){ debugger }
+        return
+    }
     for( let a of from.attributes)
         a.namespaceURI? to.setAttributeNS( a.namespaceURI, a.name, a.value ) : to.setAttribute( a.name, a.value )
 }
@@ -353,11 +356,11 @@ export function assureUnique(n, id=0)
         const a = attr(e,'data-dce-id') || e.dceId || 0;
         if( !m[a] )
         {   if( !a )
-        {   m[a] = e.dceId = ++id;
-            if( e.setAttribute )
-                e.setAttribute('data-dce-id', e.dceId )
-        }else
-            m[a] = 1;
+            {   m[a] = e.dceId = ++id;
+                if( e.setAttribute )
+                    e.setAttribute('data-dce-id', e.dceId )
+            }else
+                m[a] = 1;
         }else
         {   const v = e.dceId = a + '-' + m[a]++;
             if( e.setAttribute )
@@ -382,20 +385,20 @@ export function merge( parent, fromArr )
         const o = id2old[ attr(e, 'data-dce-id') || e.dceId ];
         if( o )
         {   if( isText(e) )
-        {   if( o.nodeValue !== e.nodeValue )
-            o.nodeValue = e.nodeValue;
-        }else
-        {   mergeAttr(o,e)
-            if( o.childNodes.length || e.childNodes.length )
-                merge(o, e.childNodes)
-        }
+            {   if( o.nodeValue !== e.nodeValue )
+                    o.nodeValue = e.nodeValue;
+            }else
+            {   mergeAttr(e,o)
+                if( o.childNodes.length || e.childNodes.length )
+                    merge(o, e.childNodes)
+            }
         }else
             parent.append( e )
     }
 }
 export function assureUID(n,attr)
 {   if( !n.hasAttribute(attr) )
-    n.setAttribute(attr, crypto.randomUUID());
+        n.setAttribute(attr, crypto.randomUUID());
     return n.getAttribute(attr)
 }
 export const xslTags = 'stylesheet,transform,import,include,strip-space,preserve-space,output,key,decimal-format,namespace-alias,template,value-of,copy-of,number,apply-templates,apply-imports,for-each,sort,if,choose,when,otherwise,attribute-set,call-template,with-param,variable,param,text,processing-instruction,element,attribute,comment,copy,message,fallback'.split(',');
@@ -418,15 +421,15 @@ export const toXsl = (el, defParent) => {
     }
 };
 
-export class
+    export class
 CustomElement extends HTMLElement
 {
     static observedAttributes = ['src','tag','hidden'];
     async connectedCallback()
     {
         const templateRoots = await loadTemplateRoots( attr( this, 'src' ), this )
-            ,               tag = attr( this, 'tag' )
-            ,           tagName = tag ? tag : 'dce-'+crypto.randomUUID();
+        ,               tag = attr( this, 'tag' )
+        ,           tagName = tag ? tag : 'dce-'+crypto.randomUUID();
 
         for( const t of templateRoots )
             forEach$(t.templateNode||t.content||t, 'style',s=>{
@@ -436,14 +439,14 @@ CustomElement extends HTMLElement
                 this.append(s);
             })
         const templateDocs = templateRoots.map( n => createXsltFromDom( n ) )
-            , xp = templateDocs.map( (td, p) =>{ p = new XSLTProcessor(); p.importStylesheet( td ); return p })
+        , xp = templateDocs.map( (td, p) =>{ p = new XSLTProcessor(); p.importStylesheet( td ); return p })
 
         Object.defineProperty( this, "xsltString", { get: ()=>templateDocs.map( td => xmlString(td) ).join('\n') });
 
         const dce = this
-            , sliceNodes = [...this.templateNode.querySelectorAll('[slice]')]
-            , sliceNames = sliceNodes.map(e=>attr(e,'slice')).filter(n=>!n.includes('/'))
-            , declaredAttributes = templateDocs.reduce( (ret,t) => { if( t.params ) ret.push( ...t.params ); return ret; }, [] );
+        , sliceNodes = [...this.templateNode.querySelectorAll('[slice]')]
+        , sliceNames = sliceNodes.map(e=>attr(e,'slice')).filter(n=>!n.includes('/'))
+        , declaredAttributes = templateDocs.reduce( (ret,t) => { if( t.params ) ret.push( ...t.params ); return ret; }, [] );
 
         class DceElement extends HTMLElement
         {
@@ -451,25 +454,25 @@ CustomElement extends HTMLElement
 
             connectedCallback()
             {   if( this.firstElementChild?.tagName === 'TEMPLATE' )
-            {   const t = this.firstElementChild;
-                for( const n of [...t.content.childNodes] )
-                    if( n.localName === 'style' ){
-                        const id = assureUID(this,'data-dce-style')
-                        n.innerHTML= `${tagName}[data-dce-style="${id}"]{${n.innerHTML}}`;
-                        t.insertAdjacentElement('beforebegin',n);
-                    }else
-                    if(n.nodeType===1)
-                        t.insertAdjacentElement('beforebegin',n);
-                    else if(n.nodeType===3)
-                        t.insertAdjacentText('beforebegin',n.data);
+                {   const t = this.firstElementChild;
+                    for( const n of [...t.content.childNodes] )
+                        if( n.localName === 'style' ){
+                            const id = assureUID(this,'data-dce-style')
+                            n.innerHTML= `${tagName}[data-dce-style="${id}"]{${n.innerHTML}}`;
+                            t.insertAdjacentElement('beforebegin',n);
+                        }else
+                            if(n.nodeType===1)
+                                t.insertAdjacentElement('beforebegin',n);
+                            else if(n.nodeType===3)
+                                t.insertAdjacentText('beforebegin',n.data);
 
-                t.remove();
+                    t.remove();
 
-            }
+                }
                 const x = xml2dom( '<datadom/>' ).documentElement;
                 const createXmlNode = ( tag, t = '' ) => ( e =>
                 {   if( t )
-                    e.append( createText( x, t ))
+                        e.append( createText( x, t ))
                     return e;
                 })(x.ownerDocument.createElement( tag ))
                 injectData( x, 'payload'    , this.childNodes, assureSlot );
@@ -503,48 +506,46 @@ CustomElement extends HTMLElement
                     sliceEvents.push(ev);
                     if( !timeoutID )
                         timeoutID = setTimeout(()=>
-                                               {   applySlices();
-                                                   timeoutID =0;
-                                               },10);
+                        {   applySlices();
+                            timeoutID =0;
+                        },10);
                 };
                 const transform = this.transform = ()=>
                 {
                     const ff = xp.map( (p,i) =>
-                                       {   const f = p.transformToFragment(x.ownerDocument, document)
-                                           if( !f )
-                                               console.error( "XSLT transformation error. xsl:\n", xmlString(templateDocs[i]), '\nxml:\n', xmlString(x) );
-                                           return f
-                                       });
+                    {   const f = p.transformToFragment(x.ownerDocument, document)
+                        if( !f )
+                            console.error( "XSLT transformation error. xsl:\n", xmlString(templateDocs[i]), '\nxml:\n', xmlString(x) );
+                        return f
+                    });
                     ff.map( f =>
-                            {   if( !f )
-                                return;
-                                assureUnique(f);
-                                merge( this, f.childNodes )
-                            })
+                    {   if( !f )
+                            return;
+                        assureUnique(f);
+                        merge( this, f.childNodes )
+                    })
                     const changeCb = el=>this.onSlice({ detail: el[attr(el,'slice-prop') || 'value'], target: el })
-                        , hasInitValue = el => el.hasAttribute('slice-prop') || el.hasAttribute('value') || el.value;
+                    , hasInitValue = el => el.hasAttribute('slice-prop') || el.hasAttribute('value') || el.value;
 
                     forEach$( this,'[slice]', el =>
                     {   if( !el.dceInitialized )
-                    {   el.dceInitialized = 1;
-                        el.addEventListener( attr(el,'slice-update')|| 'change', ()=>changeCb(el) )
-                        if( hasInitValue(el) )
-                            changeCb(el)
-                    }
+                        {   el.dceInitialized = 1;
+                            el.addEventListener( attr(el,'slice-update')|| 'change', ()=>changeCb(el) )
+                            if( hasInitValue(el) )
+                                changeCb(el)
+                        }
                     });
-                    // merge attributes from dce-root to `this`
-                    // [...this.firstElementChild.attributes].map(a=> {
-                    //     if( a.value !== this.getAttribute(a.name))
-                    //         this.setAttribute(a.name, a.value);
-                    //     // this.firstElementChild.removeAttributeNode(a);
-                    // })
+                    DceElement.observedAttributes.map( a => {
+                        if( attr(this.firstElementChild,a) !== attr(this,a) )
+                            this.setAttribute( a, attr(this.firstElementChild,a) );
+                    })
                 };
                 transform();
                 applySlices();
             }
             attributeChangedCallback(name, oldValue, newValue)
             {   if( !this.xml )
-                return;
+                    return;
                 let a = this.xml.querySelector(`attributes>${name}`);
                 if( a )
                     emptyNode(a).append( createText(a,newValue));

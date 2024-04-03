@@ -1,16 +1,7 @@
 import {fixture, expect, aTimeout} from '@open-wc/testing';
 
 import '../src/custom-element.js';
-import defaults, {
-    EmbeddedDce,
-    HtmlById,
-    HtmlTemplate,
-    NoSvg,
-    NoTag, Svg,
-    TemplateInPage, Xsl, XsltById,
-
-} from '../stories/src-attribute.stories.js';
-import { AttributeChange, AttributeDefaults, AttributeObservable, AttributeUse } from "../stories/parameters.stories";
+import defaults, { AttributeChange, AttributeDefaults, AttributeObservable, AttributeUse } from "../stories/parameters.stories";
 
 const defs = {};
 Object.keys(defaults.argTypes).map(k => defs[k] = defaults.argTypes[k].defaultValue);
