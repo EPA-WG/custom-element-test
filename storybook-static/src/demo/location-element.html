@@ -51,12 +51,17 @@
                 <location-element slice="window-url" live></location-element>
 
                 <xhtml:table>
-                        <tr><th><h3> URL properties </h3></th></tr>
-                        <xsl:apply-templates mode="attrs"  select="//slice/window-url/@*"></xsl:apply-templates>
+                    <xhtml:tbody>
+                        <xhtml:tr>
+                            <xhtml:th><h3> URL properties </h3></xhtml:th>
+                            <xhtml:td>{count(//value/@*)}</xhtml:td>
+                        </xhtml:tr>
+                        <apply-templates mode="attrs"  select="//value/@*"></apply-templates>
+                    </xhtml:tbody>
                 </xhtml:table>
                 <xhtml:table>
                         <tr><th><h3> URL parameters </h3></th></tr>
-                        <xsl:apply-templates mode="attrs"  select="//slice/window-url/params/*"></xsl:apply-templates>
+                        <apply-templates mode="attrs"  select="//params/*/*"></apply-templates>
                 </xhtml:table>
                 <xsl:template mode="attrs" match="*|@*">
                     <xhtml:tr>
@@ -84,21 +89,21 @@
                 <xhtml:table>
                     <xhtml:tbody>
                         <xhtml:tr><xhtml:th><h3>URL properties</h3></xhtml:th></xhtml:tr>
-                        <xsl:for-each select="//slice/window-url/@*">
+                        <for-each select="//slice/window-url/value/@*">
                             <xhtml:tr>
                                 <xhtml:th>{name()}</xhtml:th>
                                 <xhtml:td>{.}</xhtml:td>
                             </xhtml:tr>
-                        </xsl:for-each>
+                        </for-each>
                     </xhtml:tbody>
                     <xhtml:tbody>
                         <xhtml:tr><xhtml:th><h3>URL parameters</h3></xhtml:th></xhtml:tr>
-                        <xsl:for-each select="//slice/window-url/params/*">
+                        <for-each select="//slice/window-url/value/params/*">
                             <xhtml:tr>
                                 <xhtml:th>{name()}</xhtml:th>
                                 <xhtml:td>{.}</xhtml:td>
                             </xhtml:tr>
-                        </xsl:for-each>
+                        </for-each>
                     </xhtml:tbody>
                 </xhtml:table>
             </template>
@@ -121,21 +126,21 @@
                 <xhtml:table>
                     <xhtml:tbody>
                         <xhtml:tr><xhtml:th><h3>URL properties</h3></xhtml:th></xhtml:tr>
-                        <xsl:for-each select="//slice/src-url/@*">
+                        <for-each select="//slice/src-url/value/@*">
                             <xhtml:tr>
                                 <xhtml:th>{name()}</xhtml:th>
                                 <xhtml:td>{.}</xhtml:td>
                             </xhtml:tr>
-                        </xsl:for-each>
+                        </for-each>
                     </xhtml:tbody>
                     <xhtml:tbody>
                         <xhtml:tr><xhtml:th><h3>URL parameters</h3></xhtml:th></xhtml:tr>
-                        <xsl:for-each select="//slice/src-url/params/*">
+                        <for-each select="//slice/src-url/value/params/*">
                             <xhtml:tr>
                                 <xhtml:th>{name()}</xhtml:th>
                                 <xhtml:td>{.}</xhtml:td>
                             </xhtml:tr>
-                        </xsl:for-each>
+                        </for-each>
                     </xhtml:tbody>
                 </xhtml:table>
             </template>

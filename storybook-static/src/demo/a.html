@@ -4,24 +4,57 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>custom-element Declarative Custom Element implementation demo</title>
-    <link rel="icon" href="./wc-square.svg" />
-    <script type="module" src="../location-element.js"></script>
+    <link rel="icon" href="./wc-square.svg"/>
+    <script type="module" src="../http-request.js"></script>
     <script type="module" src="../custom-element.js"></script>
 
     <style>
         @import "./demo.css";
 
-        button{ background: forestgreen; }
-        table{ min-width: 16rem; }
-        td{ border-bottom: 1px solid silver; }
-        tfoot td{ border-bottom: none; }
-        td,th{text-align: right; }
-        caption{ padding: 1rem; font-weight: bolder; font-family: sans-serif; }
+        button {
+            background: forestgreen;
+        }
+
+        table {
+            min-width: 16rem;
+        }
+
+        td {
+            border-bottom: 1px solid silver;
+        }
+
+        tfoot td {
+            border-bottom: none;
+        }
+
+        td, th {
+            text-align: right;
+        }
+
+        caption {
+            padding: 1rem;
+            font-weight: bolder;
+            font-family: sans-serif;
+        }
     </style>
 </head>
 <body>
-<custom-element> my tag is {tag} </custom-element>
-<my-element></my-element>
+
+ <custom-element>
+            <template>
+
+                <button slice="url-string" slice-value="'https://pokeapi.co/api/v2/pokemon?limit=6'" slice-event="click">⬇️https://pokeapi.co/api/v2/pokemon?limit=6</button>
+                <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
+                <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
+                <http-request
+                    url="{//fetch-url}"
+                    slice="request_slice"
+                    type="text"
+                    mode="cors"
+                    ></http-request>
+                <code>//fetch-url</code> from <code>{//fetch-url}</code>
+            </template>
+        </custom-element>
 
 </body>
 </html>

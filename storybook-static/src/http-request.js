@@ -2,14 +2,14 @@ const     attr = (el, attr)=> el.getAttribute(attr);
 
 export class HttpRequestElement extends HTMLElement
 {
-    static get observedAttributes() {
-        return  [   'value' // populated from localStorage, if defined initially, sets the value in storage
-                ,   'slice'
-                ,   'url'
-                ,   'method'
-                ,   'header-accept'
-                ]
-    }
+    static observedAttributes =
+    [   'value' // populated from localStorage, if defined initially, sets the value in storage
+    ,   'slice'
+    ,   'url'
+    ,   'method'
+    ,   'header-accept'
+    ];
+
 
     get requestHeaders()
     {   const ret = {};
@@ -18,7 +18,8 @@ export class HttpRequestElement extends HTMLElement
     }
     get requestProps()
     {   const ret = {};
-        [...this.attributes].filter(a=>!a.name.startsWith('header-')).map( a => ret[a.name] = a.value );
+        [...this.attributes].filter(a=>!a.name.startsWith('header-'))
+                            .filter(a=>!a.name.startsWith('slice')).map( a => ret[a.name] = a.value );
         return ret
     }
 
@@ -33,7 +34,7 @@ export class HttpRequestElement extends HTMLElement
         ,       slice = { request }
         ,      update = () => this.dispatchEvent( new Event('change') );
         this.value = slice;
-        setTimeout( async ()=>
+        url && setTimeout( async ()=>
         {   update();
             const response = await fetch(url,{ ...this.requestProps, signal: controller.signal, headers: this.requestHeaders })
             ,      r = {headers: {}};

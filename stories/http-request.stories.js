@@ -149,3 +149,36 @@ RequestResponceHeaders.args =
 {   url: "https://pokeapi.co/api/v2/reflect"
 
 };
+    // export
+    const
+GetByUrl = ({url})=>`
+        <fieldset>
+            <legend>http-request from any URL</legend>
+            <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b>
+            </p>
+
+            <custom-element
+                tag="headers-demo"
+                hidden
+                >
+
+                <button slice="url-string" slice-value="'${url}'" slice-event="click">⬇️${url}</button>
+                <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
+                <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
+<http-request
+    url="{//fetch-url}"
+    slice="request_slice"
+    type="text"
+    mode="cors"
+    ></http-request>
+<code>//fetch-url</code> from <code>{//fetch-url}</code>
+
+
+            </custom-element>
+            <headers-demo></headers-demo>
+      </fieldset>
+`;
+GetByUrl.args =
+{   url: "https://pokeapi.co/api/v2/pokemon?limit=6"
+
+};

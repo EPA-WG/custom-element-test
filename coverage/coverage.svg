@@ -6,5 +6,5 @@
     <rect width="140" height="32" fill="#473" rx="4"/>
     <rect width="88" height="32" fill="#534" rx="4"/>
     <text x="8" y="21" class="heavy">coverage</text>
-    <text x="94" y="22" class="percent">95%</text>
+    <text x="94" y="22" class="percent">94%</text>
 </svg>
