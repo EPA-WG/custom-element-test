@@ -41,7 +41,7 @@ TextareaOnBlur.args =
 export const InputOnChange = Template.bind( {} );
 InputOnChange.args =
 {     title: 'input value, type and observe char count update on keyup'
-,      slot: `  <input type="text"  value="Type time update" slice="txt" slice-update="keyup"/>
+,      slot: `  <input type="text"  value="Type time update" slice="txt" slice-event="keyup"/>
                 <span> Character count:
                     <b> {string-length(//slice/txt)} </b>
                 </span>

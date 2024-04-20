@@ -25,10 +25,11 @@ function Template( { title, tag , slice, url } )
         url="${url}"
         slice="${slice}"
         ></http-request>
-    <if test="not(//slice/${slice}/data/results/*)">
+    <p>Pokemon Count: {count(/datadom/slice/${slice}//results)}</p>
+    <if test="count(/datadom/slice/${slice}//results) &lt; 0">
         <h3>loading...</h3>
     </if>
-    <for-each select="//slice/${slice}/data/results/*">
+    <for-each select="/datadom/slice/${slice}//results">
         <variable name="pokeid"
             select="substring-before( substring-after( @url, 'https://pokeapi.co/api/v2/pokemon/'),'/')"
             ></variable>
@@ -66,7 +67,7 @@ LifecycleInitialized = ()=>`
         type="text"
         ></http-request>
     Content of <code>//slice/request_slice</code> before <b>response</b> available
-    <for-each select="//slice/request_slice/*">
+    <for-each select="//slice/request_slice/value/*">
         <ul>
             <var data-testid="request-section"><value-of select='name(.)'/></var>
             <for-each select="@*">
@@ -106,14 +107,14 @@ from <code>${url}</code>
 
 <h3>Samples</h3>
 <table>
-<tr><th>//slice/request_slice/request/headers/@mode</th>
-    <td><value-of select="//slice/request_slice/request/@mode"/></td></tr>
-<tr><th>//slice/request_slice/response/headers/@content-type</th>
-    <td><value-of select="//slice/request_slice/response/headers/@content-type"/></td></tr>
-<tr><th>//slice/request_slice/response/@status</th>
-    <td><value-of select="//slice/request_slice/response/@status"/></td></tr>
+<tr><th>//slice/request_slice/value/request/headers/@mode</th>
+    <td><value-of select="//slice/request_slice/value/request/@mode"/></td></tr>
+<tr><th>//slice/request_slice/value/response/headers/@content-type</th>
+    <td><value-of select="//slice/request_slice/value/response/headers/@content-type"/></td></tr>
+<tr><th>//slice/request_slice/value/response/@status</th>
+    <td><value-of select="//slice/request_slice/value/response/@status"/></td></tr>
 </table>
-<for-each select="//slice/request_slice/*">
+<for-each select="//slice/request_slice/value/*">
     <ul data-request-section="{name(.)}">
         <b data-testid="request-section"><value-of select='name(.)'/></b>
         <for-each select="@*">

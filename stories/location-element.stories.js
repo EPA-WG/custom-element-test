@@ -36,7 +36,7 @@ function Template( { title, tag, src, slice, live } )
                 <template>
                     <location-element slice="${ slice }" ${live?'live':''} ${src?'src="https://my.example/?a=1&b=2#3"':''}></location-element>
                     <html:table xmlns:html="http://www.w3.org/1999/xhtml">
-                        <for-each select="//slice/${slice}/@*">
+                        <for-each select="//slice/${slice}/value/@*">
                             <html:tr>
                                 <html:th><value-of select="name()"/></html:th>
                                 <html:td><value-of select="."/></html:td>
@@ -46,7 +46,7 @@ function Template( { title, tag, src, slice, live } )
                             <html:th><u>params</u></html:th>
                             <html:th></html:th>
                         </html:tr>
-                        <for-each select="//slice/${slice}/params/*">
+                        <for-each select="//slice/${slice}//params/*/*">
                             <html:tr>
                                 <html:th><value-of select="name()"/></html:th>
                                 <html:td><value-of select="."/></html:td>

@@ -50,7 +50,7 @@ LocalStorageLive.args =
     value: '{"cherries": 12, "lemons":1 }',
       tag: 'ls-live-component',
      body: `<html:table xmlns:html="http://www.w3.org/1999/xhtml">
-                <for-each select="//slice/basket/@*">
+                <for-each select="//slice/basket/value/@*">
                     <html:tr>
                         <html:th><value-of select="name()"/></html:th>
                         <html:td><value-of select="."/></html:td>
@@ -59,7 +59,7 @@ LocalStorageLive.args =
                 <html:tfoot>
                     <html:tr>
                         <html:td><slot>🤔</slot></html:td>
-                        <html:th><value-of select="sum(//slice/basket/@*)"/></html:th>
+                        <html:th><value-of select="sum(//slice/basket/value/@*)"/></html:th>
                     </html:tr>
                 </html:tfoot>
             </html:table>`

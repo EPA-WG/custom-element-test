@@ -65,7 +65,7 @@ function TemplateSlice( { title } )
             <custom-element>
                 <template>
                     <attribute name="title" select="//title ?? '😃'"></attribute>
-                    <input slice="/datadom/attributes/title" slice-update="keyup">
+                    <input slice="/datadom/attributes/title" slice-event="keyup">
                     title attribute: {$title}
                 </template>
             </custom-element>
