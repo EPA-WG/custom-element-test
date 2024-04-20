@@ -39,10 +39,12 @@ describe('dom-merge', () => {
       const {el, $,$$,txt} = await renderStory(InputOnChange);
       await aTimeout(10); // wait for update from slice
       expect( txt('b[data-dce-id]') ) // from instance instead of in-template
-          .to.equal('0' );
+          .to.equal('16' );
+      expect( txt('i[data-dce-id]') ) // from instance instead of in-template
+          .to.equal('3' );
       const ta = $('input[data-dce-id]');
       ta.value = TXT;
-      ta.dispatchEvent( new Event('keyup') );
+      ta.dispatchEvent( new Event('input') );
       await aTimeout(10); // wait for update from slice
       expect( txt('b[data-dce-id]') ).to.equal(TXT.length+'' );
   });
