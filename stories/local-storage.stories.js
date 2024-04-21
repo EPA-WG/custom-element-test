@@ -64,3 +64,20 @@ LocalStorageLive.args =
                 </html:tfoot>
             </html:table>`
 };
+
+export const TypeText = ()=>{
+    localStorage.setItem('textKey','initial value');
+    return `
+<fieldset>
+    <legend>type="text"</legend>
+    <custom-element>
+        <template>
+            <local-storage key="textKey" slice="text-key" type="text" live="live"></local-storage>
+            <button onclick="localStorage.setItem('textKey','text value')">text value</button>
+            <button onclick="localStorage.setItem('textKey','another value')">another value</button>
+            //text-key: <code>{//text-key}</code>
+        </template>
+    </custom-element>
+</fieldset>
+`;
+}
