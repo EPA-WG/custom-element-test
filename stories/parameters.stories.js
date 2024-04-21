@@ -14,9 +14,9 @@ function Template( { title, tag , payload } )
         <fieldset>
             <legend>${ title }</legend>
             <custom-element tag="${ tag }" hidden>
-                <xsl:param name="p1" select="//p1 ?? 'def_p1' " ></xsl:param>
-                <xsl:param name="p2" select="'always_p2'"       ></xsl:param>
-                <xsl:param name="p3" >default_P3                </xsl:param>
+                <attribute name="p1" select="//p1 ?? 'def_p1' " ></attribute>
+                <attribute name="p2" select="'always_p2'"       ></attribute>
+                <attribute name="p3" >default_P3                </attribute>
                 p1:{$p1} <br/> p2:{$p2} <br/> p3:{$p3}
             </custom-element>
             ${ payload }
@@ -29,6 +29,13 @@ AttributeDefaults.args =
 {     title: `3 ways to declare DCE attribute default values`
 ,       tag: 'dce-1'
 ,   payload: `<dce-1 id="dce1"></dce-1>`
+};
+
+export const AttributeObservable = Template.bind( {} );
+AttributeObservable.args =
+{     title: `overriding attribute default values`
+,       tag: 'dce-observable'
+,   payload: `<dce-observable id="dce2" p1="123" p2="ignored" p3="P3"></dce-observable>`
 };
 
 export const AttributeUse = Template.bind( {} );
@@ -47,4 +54,26 @@ AttributeChange.args =
     <button onclick="dce3.setAttribute('p2','changed_P2')">Change p2</button>
     <button onclick="dce3.setAttribute('p3','changed_P3')">Change p3</button>
 `
+};
+
+
+function TemplateSlice( { title } )
+{
+    return `
+        <fieldset>
+            <legend>${ title }</legend>
+            <custom-element>
+                <template>
+                    <attribute name="title" select="//title ?? '😃'"></attribute>
+                    <input slice="/datadom/attributes/title" slice-event="keyup">
+                    title attribute: {$title}
+                </template>
+            </custom-element>
+        </fieldset>
+  `;
+}
+
+export const AttributeFromSlice = TemplateSlice.bind( {} );
+AttributeFromSlice.args =
+{     title: `Slice from input propagated to title attribute. Type on input to see attribute change.`
 };

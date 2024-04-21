@@ -2,15 +2,12 @@ import {fixture, expect, aTimeout} from '@open-wc/testing';
 
 import '../src/custom-element.js';
 import defaults, {
-    EmbeddedDce,
-    HtmlById,
-    HtmlTemplate,
-    NoSvg,
-    NoTag, Svg,
-    TemplateInPage, Xsl, XsltById,
-
-} from '../stories/src-attribute.stories.js';
-import {AttributeChange, AttributeDefaults, AttributeUse} from "../stories/parameters.stories";
+    AttributeChange,
+    AttributeDefaults,
+    AttributeFromSlice,
+    AttributeObservable,
+    AttributeUse
+} from "../stories/parameters.stories";
 
 const defs = {};
 Object.keys(defaults.argTypes).map(k => defs[k] = defaults.argTypes[k].defaultValue);
@@ -47,6 +44,17 @@ describe('DCE attributes definition', () =>
         expect(dce2.innerText).to.include('p3:P3');
     });
 
+
+    it('observed attributes propagation', async () =>
+    {
+        const el = await renderStory(AttributeObservable);
+        const clazz = window.customElements.get('dce-observable');
+        expect(clazz.observedAttributes.length).to.equal(3);
+        expect(clazz.observedAttributes).to.include('p1');
+        expect(clazz.observedAttributes).to.include('p2');
+        expect(clazz.observedAttributes).to.include('p3');
+    });
+
     it('dynamic attributes change', async () =>
     {
         const el = await renderStory(AttributeChange);
@@ -65,6 +73,20 @@ describe('DCE attributes definition', () =>
         dce3.setAttribute('p3','changed_p3');
         expect(dce3.innerText).to.include('p3:changed_p3');
 
+    });
+
+    it('slice to attribute', async () =>
+    {
+        const el = await renderStory(AttributeFromSlice);
+
+        const dce = $('custom-element>*',el);
+        expect(dce.hasAttribute('title')).to.equal(true);
+        expect(dce.getAttribute('title')).to.equal('😃');
+        const input = $('input',dce);
+        input.value = "abc";
+        input.dispatchEvent(new KeyboardEvent('keyup', {'key': 'c'}));
+        await aTimeout(10);
+        expect(dce.getAttribute('title')).to.equal('abc');
     });
 
 });

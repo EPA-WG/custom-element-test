@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.53% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/52</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/16</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.53% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/52</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
@@ -115,18 +115,20 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -171,14 +173,14 @@
 &nbsp;
 export class HttpRequestElement extends HTMLElement
 {
-    static <span class="fstat-no" title="function not covered" >get observedAttributes() {</span>
-<span class="cstat-no" title="statement not covered" >        return  [   'value' // populated from localStorage, if defined initially, sets the value in storage</span>
-<span class="cstat-no" title="statement not covered" >                ,   'slice'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'url'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'method'</span>
-<span class="cstat-no" title="statement not covered" >                ,   'header-accept'</span>
-<span class="cstat-no" title="statement not covered" >                ]</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    static observedAttributes =
+    [   'value' // populated from localStorage, if defined initially, sets the value in storage
+    ,   'slice'
+    ,   'url'
+    ,   'method'
+    ,   'header-accept'
+    ];
+&nbsp;
 &nbsp;
     get requestHeaders()
     {   const ret = {};
@@ -187,7 +189,8 @@ export class HttpRequestElement extends HTMLElement
     }
     get requestProps()
     {   const ret = {};
-        [...this.attributes].filter(a=&gt;!a.name.startsWith('header-')).map( a =&gt; ret[a.name] = a.value );
+        [...this.attributes].filter(a=&gt;!a.name.startsWith('header-'))
+                            .filter(a=&gt;!a.name.startsWith('slice')).map( a =&gt; ret[a.name] = a.value );
         return ret
     }
 &nbsp;
@@ -202,7 +205,7 @@ export class HttpRequestElement extends HTMLElement
         ,       slice = { request }
         ,      update = () =&gt; this.dispatchEvent( new Event('change') );
         this.value = slice;
-        setTimeout( async ()=&gt;
+        url &amp;&amp; setTimeout( async ()=&gt;
         {   update();
             const response = await fetch(url,{ ...this.requestProps, signal: controller.signal, headers: this.requestHeaders })
             ,      r = {headers: {}};
@@ -226,7 +229,7 @@ export default HttpRequestElement;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-24T01:00:24.039Z
+                at 2024-04-21T03:47:14.743Z
             </div>
         <script src="../prettify.js"></script>
         <script>

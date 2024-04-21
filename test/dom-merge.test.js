@@ -35,14 +35,16 @@ describe('dom-merge', () => {
       expect( txt('b') ).to.equal(TXT.length+'' );
   });
 
-  it('LocalStorageLoad slot change on blur', async () => {
+  it('input value, type and observe char count update on keyup', async () => {
       const {el, $,$$,txt} = await renderStory(InputOnChange);
       await aTimeout(10); // wait for update from slice
       expect( txt('b[data-dce-id]') ) // from instance instead of in-template
-          .to.equal(`Type time update`.length+'' );
+          .to.equal('16' );
+      expect( txt('i[data-dce-id]') ) // from instance instead of in-template
+          .to.equal('3' );
       const ta = $('input[data-dce-id]');
       ta.value = TXT;
-      ta.dispatchEvent( new Event('keyup') );
+      ta.dispatchEvent( new Event('input') );
       await aTimeout(10); // wait for update from slice
       expect( txt('b[data-dce-id]') ).to.equal(TXT.length+'' );
   });

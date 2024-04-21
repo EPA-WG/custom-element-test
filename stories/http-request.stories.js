@@ -25,17 +25,18 @@ function Template( { title, tag , slice, url } )
         url="${url}"
         slice="${slice}"
         ></http-request>
-    <xsl:if test="not(//slice/${slice}/data/results/*)">
+    <p>Pokemon Count: {count(/datadom/slice/${slice}//results)}</p>
+    <if test="count(/datadom/slice/${slice}//results) &lt; 0">
         <h3>loading...</h3>
-    </xsl:if>
-    <xsl:for-each select="//slice/${slice}/data/results/*">
-        <xsl:variable name="pokeid"
+    </if>
+    <for-each select="/datadom/slice/${slice}//results">
+        <variable name="pokeid"
             select="substring-before( substring-after( @url, 'https://pokeapi.co/api/v2/pokemon/'),'/')"
-            ></xsl:variable>
+            ></variable>
         <button>
-            <xsl:value-of select='@name'/>
+            <value-of select='@name'/>
         </button>
-    </xsl:for-each>
+    </for-each>
 </template>
             </custom-element>
             <${ tag }></${ tag }>
@@ -66,18 +67,18 @@ LifecycleInitialized = ()=>`
         type="text"
         ></http-request>
     Content of <code>//slice/request_slice</code> before <b>response</b> available
-    <xsl:for-each select="//slice/request_slice/*">
+    <for-each select="//slice/request_slice/value/*">
         <ul>
-            <var data-testid="request-section"><xsl:value-of select='name(.)'/></var>
-            <xsl:for-each select="@*">
+            <var data-testid="request-section"><value-of select='name(.)'/></var>
+            <for-each select="@*">
                 <div>
-                    <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                    <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
                     =
-                    <code><xsl:value-of select='.'/></code>
+                    <code><value-of select='.'/></code>
                 </div>
-            </xsl:for-each>
+            </for-each>
         </ul>
-    </xsl:for-each>
+    </for-each>
 </template>
             </custom-element>
             <no-responce></no-responce>
@@ -106,45 +107,78 @@ from <code>${url}</code>
 
 <h3>Samples</h3>
 <table>
-<tr><th>//slice/request_slice/request/headers/@mode</th>
-    <td><xsl:value-of select="//slice/request_slice/request/@mode"/></td></tr>
-<tr><th>//slice/request_slice/response/headers/@content-type</th>
-    <td><xsl:value-of select="//slice/request_slice/response/headers/@content-type"/></td></tr>
-<tr><th>//slice/request_slice/response/@status</th>
-    <td><xsl:value-of select="//slice/request_slice/response/@status"/></td></tr>
+<tr><th>//slice/request_slice/value/request/headers/@mode</th>
+    <td><value-of select="//slice/request_slice/value/request/@mode"/></td></tr>
+<tr><th>//slice/request_slice/value/response/headers/@content-type</th>
+    <td><value-of select="//slice/request_slice/value/response/headers/@content-type"/></td></tr>
+<tr><th>//slice/request_slice/value/response/@status</th>
+    <td><value-of select="//slice/request_slice/value/response/@status"/></td></tr>
 </table>
-<xsl:for-each select="//slice/request_slice/*">
+<for-each select="//slice/request_slice/value/*">
     <ul data-request-section="{name(.)}">
-        <b data-testid="request-section"><xsl:value-of select='name(.)'/></b>
-        <xsl:for-each select="@*">
+        <b data-testid="request-section"><value-of select='name(.)'/></b>
+        <for-each select="@*">
             <div>
-                <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
                 =
-                <code><xsl:value-of select='.'/></code>
+                <code><value-of select='.'/></code>
             </div>
-        </xsl:for-each>
-        <xsl:for-each select="*">
+        </for-each>
+        <for-each select="*">
             <div>
-                <b data-testid="section-deep"><xsl:value-of select='local-name(.)'/></b>
+                <b data-testid="section-deep"><value-of select='local-name(.)'/></b>
                 <ul>
-                    <xsl:for-each select="@*">
+                    <for-each select="@*">
                         <li>
-                            <var data-testid="section-attribute">@<xsl:value-of select='local-name(.)'/></var>
+                            <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
                             =
-                            <code><xsl:value-of select='.'/></code>
+                            <code><value-of select='.'/></code>
                         </li>
-                    </xsl:for-each>
-                    <code><xsl:value-of select='.'/></code>
+                    </for-each>
+                    <code><value-of select='.'/></code>
                 </ul>
             </div>
-        </xsl:for-each>
+        </for-each>
     </ul>
-</xsl:for-each>
+</for-each>
             </custom-element>
             <headers-demo></headers-demo>
       </fieldset>
 `;
 RequestResponceHeaders.args =
 {   url: "https://pokeapi.co/api/v2/reflect"
+
+};
+    // export
+    const
+GetByUrl = ({url})=>`
+        <fieldset>
+            <legend>http-request from any URL</legend>
+            <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b>
+            </p>
+
+            <custom-element
+                tag="headers-demo"
+                hidden
+                >
+
+                <button slice="url-string" slice-value="'${url}'" slice-event="click">⬇️${url}</button>
+                <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
+                <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
+<http-request
+    url="{//fetch-url}"
+    slice="request_slice"
+    type="text"
+    mode="cors"
+    ></http-request>
+<code>//fetch-url</code> from <code>{//fetch-url}</code>
+
+
+            </custom-element>
+            <headers-demo></headers-demo>
+      </fieldset>
+`;
+GetByUrl.args =
+{   url: "https://pokeapi.co/api/v2/pokemon?limit=6"
 
 };

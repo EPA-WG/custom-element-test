@@ -49,22 +49,22 @@
                 <location-element slice="window-url" live></location-element>
 
                 <html:table>
-                    <xsl:for-each select="//slice/window-url/@*">
+                    <for-each select="//slice/window-url/@*">
                         <html:tr>
-                            <html:th><xsl:value-of select="name()"/></html:th>
-                            <html:td><xsl:value-of select="."/></html:td>
+                            <html:th><value-of select="name()"/></html:th>
+                            <html:td><value-of select="."/></html:td>
                         </html:tr>
-                    </xsl:for-each>
+                    </for-each>
                     <html:tr>
                         <html:th><u>params</u></html:th>
                         <html:th></html:th>
                     </html:tr>
-                    <xsl:for-each select="//slice/window-url/params/*">
+                    <for-each select="//slice/window-url/params/*">
                         <html:tr>
-                            <html:th><xsl:value-of select="name()"/></html:th>
-                            <html:td><xsl:value-of select="."/></html:td>
+                            <html:th><value-of select="name()"/></html:th>
+                            <html:td><value-of select="."/></html:td>
                         </html:tr>
-                    </xsl:for-each>
+                    </for-each>
                 </html:table>
             </template>
         </custom-element>
@@ -84,22 +84,22 @@
                 <location-element slice="window-url"></location-element>
 
                 <html:table>
-                    <xsl:for-each select="//slice/window-url/@*">
+                    <for-each select="//slice/window-url/@*">
                         <html:tr>
-                            <html:th><xsl:value-of select="name()"/></html:th>
-                            <html:td><xsl:value-of select="."/></html:td>
+                            <html:th><value-of select="name()"/></html:th>
+                            <html:td><value-of select="."/></html:td>
                         </html:tr>
-                    </xsl:for-each>
+                    </for-each>
                     <html:tr>
                         <html:th><u>params</u></html:th>
                         <html:th></html:th>
                     </html:tr>
-                    <xsl:for-each select="//slice/window-url/params/*">
+                    <for-each select="//slice/window-url/params/*">
                         <html:tr>
-                            <html:th><xsl:value-of select="name()"/></html:th>
-                            <html:td><xsl:value-of select="."/></html:td>
+                            <html:th><value-of select="name()"/></html:th>
+                            <html:td><value-of select="."/></html:td>
                         </html:tr>
-                    </xsl:for-each>
+                    </for-each>
                 </html:table>
             </template>
         </custom-element>

@@ -5,7 +5,7 @@ export default
 {   title: 'local-storage', component: 'local-storage', argTypes:
     {        title: { control: 'text', defaultValue: 'read only' }
     ,          tag: { control: 'text', defaultValue: 'ls-test-component' }
-    ,         body: { control: 'text', defaultValue: `<xsl:value-of select="//slice/fruits/text()"></xsl:value-of>` }
+    ,         body: { control: 'text', defaultValue: `<value-of select="//slice/fruits/text()"></value-of>` }
     // local-storage props
     ,          key: { control: 'text', type: { name: 'string', required: true }, defaultValue: `cherries` }
     ,        value: { control: 'text', type: { name: 'string', required: true }, defaultValue: `🍒 from localStorage` }
@@ -37,7 +37,7 @@ function Template( { title, tag , body, key, value, slice, type, live } )
 export const LocalStorageLoad = Template.bind( {} );
 LocalStorageLoad.args =
 {
-    body: `fruits slice: <xsl:value-of select="//slice/fruits/text()"></xsl:value-of>`
+    body: `fruits slice: <value-of select="//slice/fruits/text()"></value-of>`
 };
 
 export const LocalStorageLive = Template.bind( {} );
@@ -50,17 +50,34 @@ LocalStorageLive.args =
     value: '{"cherries": 12, "lemons":1 }',
       tag: 'ls-live-component',
      body: `<html:table xmlns:html="http://www.w3.org/1999/xhtml">
-                <xsl:for-each select="//slice/basket/@*">
+                <for-each select="//slice/basket/value/@*">
                     <html:tr>
-                        <html:th><xsl:value-of select="name()"/></html:th>
-                        <html:td><xsl:value-of select="."/></html:td>
+                        <html:th><value-of select="name()"/></html:th>
+                        <html:td><value-of select="."/></html:td>
                     </html:tr>
-                </xsl:for-each>
+                </for-each>
                 <html:tfoot>
                     <html:tr>
                         <html:td><slot>🤔</slot></html:td>
-                        <html:th><xsl:value-of select="sum(//slice/basket/@*)"/></html:th>
+                        <html:th><value-of select="sum(//slice/basket/value/@*)"/></html:th>
                     </html:tr>
                 </html:tfoot>
             </html:table>`
 };
+
+export const TypeText = ()=>{
+    localStorage.setItem('textKey','initial value');
+    return `
+<fieldset>
+    <legend>type="text"</legend>
+    <custom-element>
+        <template>
+            <local-storage key="textKey" slice="text-key" type="text" live="live"></local-storage>
+            <button onclick="localStorage.setItem('textKey','text value')">text value</button>
+            <button onclick="localStorage.setItem('textKey','another value')">another value</button>
+            //text-key: <code>{//text-key}</code>
+        </template>
+    </custom-element>
+</fieldset>
+`;
+}
