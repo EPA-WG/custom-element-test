@@ -149,33 +149,39 @@ RequestResponceHeaders.args =
 {   url: "https://pokeapi.co/api/v2/reflect"
 
 };
-    // export
-    const
+    export const
 GetByUrl = ({url})=>`
         <fieldset>
             <legend>http-request from any URL</legend>
             <p> <b>request</b> headers are populated into dedicated <b>slice/request/headers</b>
             </p>
 
-            <custom-element
-                tag="headers-demo"
-                hidden
-                >
-
-                <button slice="url-string" slice-value="'${url}'" slice-event="click">⬇️${url}</button>
-                <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
-                <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
-<http-request
-    url="{//fetch-url}"
-    slice="request_slice"
-    type="text"
-    mode="cors"
-    ></http-request>
-<code>//fetch-url</code> from <code>{//fetch-url}</code>
-
-
+            <custom-element>
+                <template>
+                    <button slice="url-string" slice-value="'${url}'" slice-event="click">⬇️${url}</button>
+                    <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
+                    <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
+                    <http-request
+                        url="{//fetch-url}"
+                        slice="request_slice"
+                        type="text"
+                        mode="cors"
+                        ></http-request>
+                    <code>//fetch-url</code> from <code>{//fetch-url}</code>
+                    <for-each select="//slice/request_slice/value/*">
+                        <ul>
+                            <var data-testid="request-section"><value-of select='name(.)'/></var>
+                            <for-each select="@*">
+                                <div>
+                                    <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>
+                                    =
+                                    <code><value-of select='.'/></code>
+                                </div>
+                            </for-each>
+                        </ul>
+                    </for-each>
+                </template>
             </custom-element>
-            <headers-demo></headers-demo>
       </fieldset>
 `;
 GetByUrl.args =
