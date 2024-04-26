@@ -1,32 +1,52 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>CSS scoping - Declarative Custom Element implementation demo</title>
-    <link rel="icon" href="./wc-square.svg"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<dce-root data-dce-id="1" xmlns="http://www.w3.org/1999/xhtml" xmlns:dce="urn:schemas-epa-wg:dce"
+          xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <local-storage key="dateKey" slice="date-key" type="date" live="live" data-dce-id="2" xmlns=""/>
+    <local-storage key="timeKey" slice="time-key" type="time" live="live" data-dce-id="3" xmlns=""/>
+    <local-storage key="localDateTimeKey" slice="local-date-time" type="datetime-local" live="live" data-dce-id="4"
+                   xmlns=""/>
+    <local-storage key="numberKey" slice="number-key" type="number" live="live" data-dce-id="5" xmlns=""/>
+    <local-storage key="jsonKey" slice="json-key" type="json" live="live" data-dce-id="6" xmlns=""/>
+    <input id="typesinput" placeholder="set value" data-dce-id="7" xmlns=""/>
+    <button onclick="&#10;                        'dateKey,timeKey,localDateTimeKey,numberKey,jsonKey'.split(',')&#10;                            .map( k=&gt; localStorage.setItem(k, typesinput.value) )&#10;                    "
+            data-dce-id="8" xmlns=""> set to all
+    </button>
+    <br data-dce-id="9" xmlns=""/>
+    <hr data-dce-id="10" xmlns=""/>
+    <dce-text data-dce-id="11" xmlns="">
+        date-key:
+    </dce-text>
+    <button onclick="localStorage.setItem('dateKey', '2024-04-20T03:58:42.131Z')" data-dce-id="12" xmlns="">
+        2024-04-21T03:58:42.131Z
+    </button>
+    <button onclick="localStorage.setItem('dateKey', new Date(Date.now()).toISOString())" data-dce-id="13" xmlns="">
+        now
+    </button>
+    <button onclick="localStorage.setItem('dateKey', 'ABC'  )" data-dce-id="14" xmlns="">date ABC - invalid</button>
+    <code data-dce-id="15" xmlns="">
 
-    <script type="module" src="../http-request.js"></script>
-    <script type="module" src="../input-text.js"></script>
-    <script type="module" src="../custom-element.js"></script>
-    <style>
-        @import "./demo.css";
-    </style>
-</head>
-<body>
 
-
-        <custom-element src="hex-grid-dce.html#hex-grid-template">
-            <template>
-                <style>nav{--hex-grid-size: 4rem;}</style>
-                <img src="wc-square.svg" alt="DCE" href="https://github.com/EPA-WG/custom-element"/>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" href="https://react.dev/"/>
-                <img src="https://angularjs.org/favicon.ico" alt="Angular" href="https://angularjs.org/"/>
-                <img src="https://open-wc.org/35ded306.svg" alt="Open WC" href="https://open-wc.org/"/>
-                <img src="https://storage.googleapis.com/cms-storage-bucket/4fd0db61df0567c0f352.png" alt="Flutter" href="https://flutter.dev/"/>
-                <img src="https://lit.dev/images/logo.svg#flame" alt="Lit"/>
-                <img src="https://redux.js.org/img/redux.svg" alt="Redux"/>
-            </template>
-        </custom-element>
-
-</body>
-</html>
+    </code><br data-dce-id="16" xmlns=""/>
+    <dce-text data-dce-id="17" xmlns="">
+        time-key:
+    </dce-text>
+    <button onclick="localStorage.setItem('timeKey', '13:30')" data-dce-id="18" xmlns="">13:30</button>
+    <code data-dce-id="19" xmlns=""/><br data-dce-id="20" xmlns=""/>
+    <dce-text data-dce-id="21" xmlns="">
+        local-date-time:
+    </dce-text>
+    <button onclick="localStorage.setItem('localDateTimeKey', '1977-04-01T14:00:30')" data-dce-id="22" xmlns="">
+        21977-04-01T14:00:30 - local
+    </button>
+    <code data-dce-id="23" xmlns=""/><br data-dce-id="24" xmlns=""/>
+    <dce-text data-dce-id="25" xmlns="">
+        number-key:
+    </dce-text>
+    <button onclick="localStorage.setItem('numberKey', '2024')" data-dce-id="26" xmlns="">2024 - number</button>
+    <button onclick="localStorage.setItem('numberKey', '24')" data-dce-id="27" xmlns="">24 - number</button>
+    <code data-dce-id="28" xmlns=""/><br data-dce-id="29" xmlns=""/>
+    <fieldset data-dce-id="30" xmlns="">
+        <legend data-dce-id="31">json-key:</legend>
+        <button onclick="localStorage.setItem('jsonKey', jsonStringSample)" data-dce-id="32"> a:1,b:'B' - json</button>
+    </fieldset>
+</dce-root>

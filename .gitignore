@@ -114,3 +114,5 @@ typings/
 
 /out-tsc/
 /src/demo/
+
+*storybook.log

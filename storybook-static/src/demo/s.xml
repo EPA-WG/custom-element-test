@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<datadom><payload><span xmlns="http://www.w3.org/1999/xhtml" slot="">                </span><button xmlns="http://www.w3.org/1999/xhtml" slice="clickcount" slice-event="click" slice-value="//clickcount + 1" slot="">
-                    +
-                </button><span xmlns="http://www.w3.org/1999/xhtml" slot="">                </span><button xmlns="http://www.w3.org/1999/xhtml" slice="clickcount" slice-event="click" slice-value="//clickcount - 1" slot="">
-                    -
-                </button><span xmlns="http://www.w3.org/1999/xhtml" slot="">                </span><input xmlns="http://www.w3.org/1999/xhtml" slice="clickcount" type="number" value="{//clickcount ?? 0}" slot="" /><span xmlns="http://www.w3.org/1999/xhtml" slot="">                {//clickcount}            </span></payload><attributes><tag>dce-72e0d208-b3b4-4b0a-8798-a094beaf5fe1</tag></attributes><dataset/><slice><clickcount xmlns="" slice="clickcount" type="number" value="" data-dce-id="2" slice-event="click" slice-value="//clickcount + 1"><event isTrusted="true" pointerId="1" width="1" height="1" pressure="0" tiltX="0" tiltY="0" azimuthAngle="0" altitudeAngle="1.5707963267948966" tangentialPressure="0" twist="0" pointerType="mouse" isPrimary="false" screenX="19" screenY="99" clientX="19" clientY="12" ctrlKey="false" shiftKey="false" altKey="false" metaKey="false" button="0" buttons="0" pageX="19" pageY="12" x="19" y="12" offsetX="10" offsetY="0" movementX="0" movementY="0" layerX="19" layerY="12" detail="1" which="1" type="click" eventPhase="0" bubbles="true" cancelable="true" defaultPrevented="false" composed="true" timeStamp="5460750.8000000715" returnValue="true" cancelBubble="false" NONE="0" CAPTURING_PHASE="1" AT_TARGET="2" BUBBLING_PHASE="3"><relatedTarget/><fromElement/><toElement/><sourceCapabilities firesTouchEvents="false"/><currentTarget/></event>46</clickcount></slice></datadom>
+<datadom>
+    <payload>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <button xmlns="http://www.w3.org/1999/xhtml" slice="url-string"
+                slice-value="'https://pokeapi.co/api/v2/pokemon?limit=6'" slice-event="click" slot="">
+            ⬇️https://pokeapi.co/api/v2/pokemon?limit=6
+        </button>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <input xmlns="http://www.w3.org/1999/xhtml" slice="url-string" value="{ //url-string ?? '' }" style="width:100%"
+               slot=""/>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <button xmlns="http://www.w3.org/1999/xhtml" slice="fetch-url" slice-event="click" slice-value="//url-string"
+                slot="">GET
+        </button>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <http-request xmlns="http://www.w3.org/1999/xhtml" url="{//fetch-url}" slice="request_slice" type="text"
+                      mode="cors" slot=""></http-request>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <code xmlns="http://www.w3.org/1999/xhtml" slot="">//fetch-url</code>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot="">from</span>
+        <code xmlns="http://www.w3.org/1999/xhtml" slot="">{//fetch-url}</code>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+        <xsl:for-each xmlns="http://www.w3.org/1999/xhtml" select="//slice/request_slice/value/*" slot="">
+            <ul>
+                <var data-testid="request-section">
+                    <xsl:value-of select="name(.)"></xsl:value-of>
+                </var>
+                <xsl:for-each select="@*">
+                    <div>
+                        <var data-testid="section-attribute">@
+                            <xsl:value-of select="local-name(.)"></xsl:value-of>
+                        </var>
+                        =
+                        <code>
+                            <xsl:value-of select="."></xsl:value-of>
+                        </code>
+                    </div>
+                </xsl:for-each>
+            </ul>
+        </xsl:for-each>
+        <span xmlns="http://www.w3.org/1999/xhtml" slot=""></span>
+    </payload>
+    <attributes>
+        <tag>dce-5dc8d4a0-d545-4498-9de5-eec25c2b232f</tag>
+    </attributes>
+    <dataset/>
+    <slice>
+        <url-string xmlns="" slice="url-string" value="" style="width:100%" data-dce-id="2"
+                    slice-value="'https://pokeapi.co/api/v2/pokemon?limit=6'" slice-event="click">
+            <event isTrusted="true" pointerId="1" width="1" height="1" pressure="0" tiltX="0" tiltY="0" azimuthAngle="0"
+                   altitudeAngle="1.5707963267948966" tangentialPressure="0" twist="0" pointerType="mouse"
+                   isPrimary="false" screenX="94" screenY="186" clientX="94" clientY="99" ctrlKey="false"
+                   shiftKey="false" altKey="false" metaKey="false" button="0" buttons="0" pageX="94" pageY="99" x="94"
+                   y="99" offsetX="60" offsetY="6" movementX="0" movementY="0" layerX="94" layerY="99" detail="1"
+                   which="1" type="click" eventPhase="0" bubbles="true" cancelable="true" defaultPrevented="false"
+                   composed="true" timeStamp="5596.5" returnValue="true" cancelBubble="false" NONE="0"
+                   CAPTURING_PHASE="1" AT_TARGET="2" BUBBLING_PHASE="3">
+                <relatedTarget/>
+                <fromElement/>
+                <toElement/>
+                <sourceCapabilities firesTouchEvents="false"/>
+                <currentTarget/>
+            </event>
+            https://pokeapi.co/api/v2/pokemon?limit=6
+        </url-string>
+        <fetch-url xmlns="" slice="fetch-url" slice-event="click" slice-value="//url-string" data-dce-id="4" value="">
+            <event isTrusted="true" pointerId="1" width="1" height="1" pressure="0" tiltX="0" tiltY="0" azimuthAngle="0"
+                   altitudeAngle="1.5707963267948966" tangentialPressure="0" twist="0" pointerType="mouse"
+                   isPrimary="false" screenX="56" screenY="232" clientX="56" clientY="145" ctrlKey="false"
+                   shiftKey="false" altKey="false" metaKey="false" button="0" buttons="0" pageX="56" pageY="145" x="56"
+                   y="145" offsetX="23" offsetY="8" movementX="0" movementY="0" layerX="56" layerY="145" detail="1"
+                   which="1" type="click" eventPhase="0" bubbles="true" cancelable="true" defaultPrevented="false"
+                   composed="true" timeStamp="6699.100000023842" returnValue="true" cancelBubble="false" NONE="0"
+                   CAPTURING_PHASE="1" AT_TARGET="2" BUBBLING_PHASE="3">
+                <relatedTarget/>
+                <fromElement/>
+                <toElement/>
+                <sourceCapabilities firesTouchEvents="false"/>
+                <currentTarget/>
+            </event>
+            https://pokeapi.co/api/v2/pokemon?limit=6
+        </fetch-url>
+        <request_slice xmlns="" url="" slice="request_slice" type="text" mode="cors" data-dce-id="5">
+            <event type="init"/>
+            <value>
+                <request xmlns="" url="" type="text" mode="cors" data-dce-id="5">
+                    <headers/>
+                </request>
+            </value>
+        </request_slice>
+    </slice>
+</datadom>

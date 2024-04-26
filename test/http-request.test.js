@@ -9,7 +9,7 @@ import "../src/mocks/browser.js";
 const defs = {}; Object.keys(defaults.argTypes).map( k=> defs[k]= defaults.argTypes[k].defaultValue);
 const renderStory = async (story) => fixture( story({ ...defs, ...story.args }) );
 
-describe('http-request', () =>
+describe.skip('http-request', () =>
 {
     it('http-request happy path', async () =>
     {

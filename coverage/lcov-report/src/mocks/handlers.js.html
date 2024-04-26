@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">63.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>14/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/7</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">63.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>14/22</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -93,40 +93,40 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { rest } from 'msw'
 &nbsp;
 import pokemonsMock from "../../stories/pokemons.mock";
 &nbsp;
-const resolveAsPokemons = (res,ctx) =&gt; res(ctx.json(pokemonsMock));
+const resolveAsPokemons = <span class="fstat-no" title="function not covered" >(res,ctx) =&gt; res(ctx.json(pokemonsMock));</span>
 &nbsp;
 export const handlers =
 [   rest.get("*/api/v2/pokemon", (req, res, ctx) =&gt;
-    {
-        return res(ctx.json(pokemonsMock));
+<span class="cstat-no" title="statement not covered" >    {</span>
+<span class="cstat-no" title="statement not covered" >        return res(ctx.json(pokemonsMock));</span>
     }),
     rest.get("*/noreturn", (req, res, ctx) =&gt;
-            {   return new Promise((resolve)=&gt;{ setTimeout(()=&gt; resolve( resolveAsPokemons(res,ctx) ), 10000)});
-                // 10 seconds to be able to catch the initial state before the full data returned;
+<span class="cstat-no" title="statement not covered" >            {   return new Promise((resolve)=&gt;{ setTimeout(()=&gt; resolve( resolveAsPokemons(res,ctx) ), 10000)});</span>
+<span class="cstat-no" title="statement not covered" >                // 10 seconds to be able to catch the initial state before the full data returned;</span>
             }),
     rest.get("*/reflect", (req, res, ctx) =&gt;
-            {   const headersMap = {};
-                [...req.headers.entries()].map( ([key,val]) =&gt; headersMap[key] = val );
-                ctx.set(headersMap);
-                return resolveAsPokemons(res,ctx);
+<span class="cstat-no" title="statement not covered" >            {   const headersMap = {};</span>
+<span class="cstat-no" title="statement not covered" >                [...req.headers.entries()].map( ([key,val]) =&gt; headersMap[key] = val );</span>
+<span class="cstat-no" title="statement not covered" >                ctx.set(headersMap);</span>
+<span class="cstat-no" title="statement not covered" >                return resolveAsPokemons(res,ctx);</span>
             })
 ];
 &nbsp;</pre></td></tr></table></pre>
@@ -136,7 +136,7 @@ export const handlers =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-21T03:47:14.743Z
+                at 2024-04-26T03:04:57.457Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

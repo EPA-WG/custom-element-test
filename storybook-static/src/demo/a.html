@@ -6,6 +6,7 @@
     <title>custom-element Declarative Custom Element implementation demo</title>
     <link rel="icon" href="./wc-square.svg"/>
     <script type="module" src="../http-request.js"></script>
+    <script type="module" src="../local-storage.js"></script>
     <script type="module" src="../custom-element.js"></script>
 
     <style>
@@ -40,21 +41,33 @@
 </head>
 <body>
 
- <custom-element>
-            <template>
-
-                <button slice="url-string" slice-value="'https://pokeapi.co/api/v2/pokemon?limit=6'" slice-event="click">⬇️https://pokeapi.co/api/v2/pokemon?limit=6</button>
-                <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
-                <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
-                <http-request
-                    url="{//fetch-url}"
-                    slice="request_slice"
-                    type="text"
-                    mode="cors"
-                    ></http-request>
-                <code>//fetch-url</code> from <code>{//fetch-url}</code>
-            </template>
-        </custom-element>
+    <custom-element>
+        <template>
+            <button slice="url-string" slice-value="'https://pokeapi.co/api/v2/pokemon?limit=6'" slice-event="click"
+                >⬇️https://pokeapi.co/api/v2/pokemon?limit=6</button>
+            <input slice="url-string" value="{ //url-string ?? '' }" style="width:100%"/>
+            <button slice="fetch-url" slice-event="click" slice-value="//url-string"> GET </button>
+            <http-request
+                url="{//fetch-url}"
+                slice="request_slice"
+                type="text"
+                mode="cors"
+                ></http-request>
+            //fetch-url : <code>{//fetch-url}</code>
+<!--            <for-each select="//slice/request_slice/value/*">-->
+<!--                <ul>-->
+<!--                    <var data-testid="request-section"><value-of select='name(.)'/></var>-->
+<!--                    <for-each select="@*">-->
+<!--                        <div>-->
+<!--                            <var data-testid="section-attribute">@<value-of select='local-name(.)'/></var>-->
+<!--                            =-->
+<!--                            <code><value-of select='.'/></code>-->
+<!--                        </div>-->
+<!--                    </for-each>-->
+<!--                </ul>-->
+<!--            </for-each>-->
+        </template>
+    </custom-element>
 
 </body>
 </html>

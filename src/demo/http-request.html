@@ -47,7 +47,12 @@
                     type="text"
                     mode="cors"
                     ></http-request>
-                <code>//fetch-url</code> from <code>{//fetch-url}</code>
+                <code>//fetch-url</code> from <code>{//fetch-url}</code><br/>
+                <for-each select="//results">
+                    <var>
+                        *{@name}
+                    </var>
+                </for-each>
             </template>
         </custom-element>
     </template>
