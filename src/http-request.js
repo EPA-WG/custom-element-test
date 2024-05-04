@@ -33,7 +33,7 @@ export class HttpRequestElement extends HTMLElement
 
     async fetch()
     {
-        if( !this.closest('custom-element') )
+        if( !this.closest('body') )
             return;
         const url = attr(this, 'url') || '';
         if( !url )
@@ -61,8 +61,11 @@ export class HttpRequestElement extends HTMLElement
 
         slice.response = r;
         update();
-        slice.data = await response.json();
-        update();
+        if( r.headers['content-type']?.includes('json'))
+            try
+            {   slice.data = await response.json();
+                update();
+            }catch(_e){}
     }
 
     attributeChangedCallback(name, oldValue, newValue)
