@@ -21,7 +21,7 @@ function Template( { title, tag , body, key, value, slice, type, live } )
     localStorage.setItem(key,value);
     return `
         <fieldset>
-            <legend>${ title }. <code>localStorage[${key}]="${localStorage[key]}</code>"</legend>
+            <legend><b>${ title }</b>. <code>localStorage[${key}]="${localStorage[key]}</code>"</legend>
             <custom-element
                 tag="${ tag }"
                 hidden

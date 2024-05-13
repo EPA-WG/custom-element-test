@@ -1,3 +1,5 @@
+<h1>Project is deprecated in favor
+<a href="https://github.com/EPA-WG/custom-element-dist">@epa-wg/custom-element-dist</a> </h1>
 # custom-element-test
 test and storybook for [@epa-wg/custom-element](https://github.com/EPA-WG/custom-element) 
 

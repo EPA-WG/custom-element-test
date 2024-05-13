@@ -46,7 +46,7 @@ export class HttpRequestElement extends HTMLElement
 
         this.#inProgressUrl = url;
         const controller = new AbortController();
-        this.#destroy = ()=> controller.abort(this.localName+' disconnected');
+        this.#destroy = ()=> { controller.abort(this.localName+' disconnected'); this.#inProgressUrl = ''; }
 
         const request = { ...this.requestProps, headers: this.requestHeaders }
         ,       slice = { request }
@@ -70,10 +70,15 @@ export class HttpRequestElement extends HTMLElement
 
     attributeChangedCallback(name, oldValue, newValue)
     {   if( name === 'url' )
-        {   if( newValue && oldValue !== newValue)
+        {   if( oldValue !== newValue)
             {
                 oldValue && this.#destroy?.();
-                setTimeout(()=>this.fetch(),0)
+                if( newValue )
+                    setTimeout(()=>this.fetch(),10)
+                else
+                {   this.value = {}
+                    setTimeout(()=>this.dispatchEvent( new Event('change') ),10)
+                }
             }
         }
     }
